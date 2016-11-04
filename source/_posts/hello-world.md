@@ -1,38 +1,43 @@
 ---
-title: Hello World
+title: 用Hexo搭建静态博客
 ---
-Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 
-## Quick Start
+## 环境准备
 
-### Create a new post
++ Git安装及使用：[廖雪峰的网站](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
++ Node.js的安装：[Node.js 安装配置](http://www.runoob.com/nodejs/nodejs-install-setup.html)
++ Hexo的安装及使用：[Hexo文档](https://hexo.io/zh-cn/docs/index.html)
++ yilia主题的安装配置：[yilia简介、安装、配置](https://github.com/litten/hexo-theme-yilia)
 
-``` bash
-$ hexo new "My New Post"
-```
+## hexo环境配置
 
-More info: [Writing](https://hexo.io/docs/writing.html)
+- 创建文件夹 blog 作为项目文件夹
+- 初始化项目文件夹
 
-### Run server
+> 指定文件夹初始化
 
-``` bash
-$ hexo server
-```
+>			hexo init blog
 
-More info: [Server](https://hexo.io/docs/server.html)
+> 或者，进入文件夹再初始化
 
-### Generate static files
+>			cd blog 
+>			hexo init
 
-``` bash
-$ hexo generate
-```
+- 安装插件 deployer 
 
-More info: [Generating](https://hexo.io/docs/generating.html)
+>	 		npm install hexo-deployer-git
 
-### Deploy to remote sites
+- 修改根目录下的 _config.yml 文件
+	
+>		deploy:
+			type: git
+			repo: git@github.com:JackXuyi/JackXuyi.github.io.git
+>			branch: master
 
-``` bash
-$ hexo deploy
-```
+- 配置域名：在 source 目录下添加 CNAME 文件，并在文件里写入你的域名
 
-More info: [Deployment](https://hexo.io/docs/deployment.html)
+> 		xuyi-emb.win
+
+## 使用说明
+
+* 源代码和发布的网站的存储位置不在同一个地方，使用不同分支保存数据，具体解释见 [使用hexo，如果换了电脑怎么更新博客？](http://www.zhihu.com/question/21193762)

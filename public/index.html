@@ -18,8 +18,6 @@
 <meta name="twitter:title" content="奔跑的蜗牛">
 <meta name="twitter:description" content="学生">
   
-    <link rel="alternative" href="/atom.xml" title="奔跑的蜗牛" type="application/atom+xml">
-  
   
     <link rel="icon" href="/assets/img/favicon.ico">
   
@@ -36,7 +34,7 @@
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
 			
-			<img src="/assets/blogImg/litten.png" class="js-avatar">
+			<img src="/assets/blogImg/head.jpg" class="js-avatar">
 			
 		</a>
 
@@ -53,7 +51,7 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/photos">相册</a></li>
+				<li><a href="/archives">归档</a></li>
 	        
 			</ul>
 		</nav>
@@ -71,9 +69,12 @@
     			
             
     			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友情链接</a>
+    			
+    			
             
     			
-    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">关于我</a>
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
     			
     			
             
@@ -81,11 +82,9 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="https://github.com/litten" title="github">github</a>
+					<a class="github" target="_blank" href="https://github.com/JackXuyi" title="github">github</a>
 		        
-					<a class="weibo" target="_blank" href="http://weibo.com/litten225" title="weibo">weibo</a>
-		        
-					<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					<a class="weibo" target="_blank" href="http://xuyi-emb.win" title="weibo">weibo</a>
 		        
 			</div>
 		</nav>
@@ -103,7 +102,7 @@
 		<header id="header" class="inner">
 			<div class="profilepic">
 				
-					<img src="/assets/blogImg/litten.png" class="js-avatar">
+					<img src="/assets/blogImg/head.jpg" class="js-avatar">
 				
 			</div>
 			<hgroup>
@@ -117,18 +116,16 @@
 				
 					<li><a href="/">主页</a></li>
 		        
-					<li><a href="/photos">相册</a></li>
+					<li><a href="/archives">归档</a></li>
 		        
 				</ul>
 			</nav>
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="https://github.com/litten" title="github">github</a>
+						<a class="github" target="_blank" href="https://github.com/JackXuyi" title="github">github</a>
 			        
-						<a class="weibo" target="_blank" href="http://weibo.com/litten225" title="weibo">weibo</a>
-			        
-						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+						<a class="weibo" target="_blank" href="http://xuyi-emb.win" title="weibo">weibo</a>
 			        
 				</div>
 			</nav>
@@ -149,7 +146,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/03/hello-world/">Hello World</a>
+      <a class="article-title" href="/2016/11/04/hello-world/">用Hexo搭建静态博客</a>
     </h1>
   
 
@@ -157,22 +154,54 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ul>
+<li>Git安装及使用：<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="external">廖雪峰的网站</a></li>
+<li>Node.js的安装：<a href="http://www.runoob.com/nodejs/nodejs-install-setup.html" target="_blank" rel="external">Node.js 安装配置</a></li>
+<li>Hexo的安装及使用：<a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="external">Hexo文档</a></li>
+<li>yilia主题的安装配置：<a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="external">yilia简介、安装、配置</a></li>
+</ul>
+<h2 id="hexo环境配置"><a href="#hexo环境配置" class="headerlink" title="hexo环境配置"></a>hexo环境配置</h2><ul>
+<li>创建文件夹 blog 作为项目文件夹</li>
+<li>初始化项目文件夹</li>
+</ul>
+<blockquote>
+<p>指定文件夹初始化</p>
+<pre><code>hexo init blog
+</code></pre><p>或者，进入文件夹再初始化</p>
+<pre><code>cd blog 
+hexo init
+</code></pre></blockquote>
+<ul>
+<li>安装插件 deployer </li>
+</ul>
+<blockquote>
+<pre><code>npm install hexo-deployer-git
+</code></pre></blockquote>
+<ul>
+<li>修改根目录下的 _config.yml 文件</li>
+</ul>
+<blockquote>
+<pre><code>deploy:
+     type: git
+     repo: git@github.com:JackXuyi/JackXuyi.github.io.git
+    branch: master
+</code></pre></blockquote>
+<ul>
+<li>配置域名：在 source 目录下添加 CNAME 文件，并在文件里写入你的域名</li>
+</ul>
+<blockquote>
+<pre><code>xuyi-emb.win
+</code></pre></blockquote>
+<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><ul>
+<li>源代码和发布的网站的存储位置不在同一个地方，使用不同分支保存数据，具体解释见 <a href="http://www.zhihu.com/question/21193762" target="_blank" rel="external">使用hexo，如果换了电脑怎么更新博客？</a></li>
+</ul>
 
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/11/03/hello-world/" class="archive-article-date">
-  	<time datetime="2016-11-03T15:38:47.558Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-03</time>
+      <a href="/2016/11/04/hello-world/" class="archive-article-date">
+  	<time datetime="2016-11-04T11:52:44.393Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-04</time>
 </a>
       
       
@@ -238,6 +267,8 @@
       <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
     
     
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
     
       <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
     
@@ -257,11 +288,21 @@
     
 
     
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.rutk1t0r.cn/">大鹏</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
 
     
     	<section class="tools-section tools-section-me">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">Litten，&lt;br&gt;毕业于华科，就职于鹅厂&lt;br&gt;&lt;br&gt;热爱大海与冷笑话，&lt;br/&gt;目前是一枚前端&lt;br/&gt;&lt;br/&gt;胆小认生，不易相处，&lt;br&gt;年轻无为，卖马为生。</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">许一，&lt;br&gt;长沙理工大学学生&lt;br&gt;&lt;br&gt;胆小认生，不易相处，&lt;br&gt;年轻无为，卖马为生。</div>
   	  	
     	</section>
     
