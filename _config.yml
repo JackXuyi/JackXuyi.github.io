@@ -6,9 +6,10 @@
 title: 奔跑的蜗牛
 subtitle: 奔跑的蜗牛
 description: 学生
-author: 许一
+author: 奔跑的蜗牛
 language: zh_CN
 timezone: UTC
+keywords: "计算机网络,C/C++,python,PHP,mysql数据库,算法,操作系统,资源,读书,其它"
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -46,7 +47,27 @@ highlight:
 # Category & Tag
 default_category: uncategorized
 category_map:
+	计算机网络: network
+	C/C++语言: c_language
+	python: python
+	mysql数据库: mysql
+	PHP: php
+	算法: solution
+	操作系统: OS
+	资源: source
+	读书: read_book
+	其它: other
 tag_map:
+- 计算机网络
+- C/C++语言
+- mysql数据库
+- python
+- PHP
+- 读书
+- 算法
+- 操作系统
+- 资源
+- 其它
 
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date
