@@ -51,8 +51,8 @@ duoshuo: "litten-hexo"
 
 # 如不需要，将该项置为false
 # 比如
-smart_menu:
-  friends: https://github.com/embpgp/
+#smart_menu:
+#  friends: https://github.com/embpgp/
 
 smart_menu:
   innerArchive: '所有文章'
@@ -61,7 +61,7 @@ smart_menu:
   aboutme: '关于我'
 
 friends:
-  友情链接1: http://www.rutk1t0r.cn/
+  大鹏: http://www.rutk1t0r.cn/
   友情链接2: http://localhost:4000/
   友情链接3: http://localhost:4000/
   友情链接4: http://localhost:4000/
