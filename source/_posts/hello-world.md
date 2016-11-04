@@ -25,7 +25,7 @@ title: 用Hexo搭建静态博客
 
 - 安装插件 deployer 
 
->	 		npm install hexo-deployer-git
+>	 		npm install hexo-deployer-git --save
 
 - 修改根目录下的 _config.yml 文件
 	
