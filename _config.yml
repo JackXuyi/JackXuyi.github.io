@@ -4,11 +4,11 @@
 
 # Site
 title: 奔跑的蜗牛
-subtitle:
-description:
+subtitle: 奔跑的蜗牛
+description: 学生
 author: 许一
 language: zh_CN
-timezone:
+timezone: UTC
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
