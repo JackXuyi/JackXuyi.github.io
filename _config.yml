@@ -71,3 +71,8 @@ deploy:
   type: git
   repo: git@github.com:JackXuyi/JackXuyi.github.io.git
   branch: master
+# plugin feed
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
