@@ -1,6 +1,6 @@
 ---
 title: 用Hexo搭建静态博客
-categories: 其它
+tags: 其它
 ---
 
 ## 环境准备
