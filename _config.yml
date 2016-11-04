@@ -3,16 +3,16 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: 奔跑的蜗牛
 subtitle:
 description:
-author: John Doe
-language:
+author: 许一
+language: zh_CN
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://jackxuyi.github.io
+url: http://xuyi-emb.win
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -69,5 +69,5 @@ theme: yilia
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: https://github.com/JackXuyi/jackxuyi.github.io.git
+  repo: git@github.com:JackXuyi/JackXuyi.github.io.git
   branch: master
