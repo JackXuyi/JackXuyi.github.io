@@ -136,6 +136,73 @@
       <div class="body-wrap">
         
   
+    <article id="post-TCP链接的建立与释放" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/28/TCP链接的建立与释放/">TCP链接的建立与释放</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="TCP链接的建立（三次握手）"><a href="#TCP链接的建立（三次握手）" class="headerlink" title="TCP链接的建立（三次握手）"></a>TCP链接的建立（三次握手）</h2><p>假设主机A运行的是TCP客户端程序，而主机B运行的是TCP服务器端程序。最初两端的TCP链接都处于CLOSED状态。</p>
+<p><img src="/images/tcp_open.png" alt="TCP链接建立完整示意图"></p>
+<ul>
+<li>B的TCP服务器进程先创建传输控制快TCB，准备接受客户进程的链接请求。然后处于LISTEN（收听）状态，等待客户的链接请求。如有，作出响应。</li>
+<li>A的TCP客户进程也是首先创建传输控制块TCB，然后向B发出链接请求报文段，这时首部中的同步位SYN=1，同时选择一个初始序列号seq=x。TCP客户端进入SYN-SENT（同步已发送）状态。</li>
+<li>B收到链接请求报文段后，如果同意建立链接，则向A发送确认。在确认报文段中应把SYN位和ACK位都置为1,确认号为ack=x+1，同时选择一个初始序列号seq=y。TCP服务端处于SYN-RCVD（同步收到）状态。</li>
+<li>TCP客户端收到B的确认后，还要向B给出确认。确认报文段的ACK置1,确认号ack=y+1，而自己的序号为seq=x+1。这时，TCP链接已经建立，A进入ESTABLISHED（已建立链接）状态。</li>
+<li>当B收到A的确认后，也进入ESTABLISHED状态。</li>
+</ul>
+<h5 id="注：TCP规定，SYN报文段（即SYN-1的报文段）不能携带数据，但是要消耗掉一个序号；ACK报文段可以携带数据，如果不携带数据则不消耗序号。"><a href="#注：TCP规定，SYN报文段（即SYN-1的报文段）不能携带数据，但是要消耗掉一个序号；ACK报文段可以携带数据，如果不携带数据则不消耗序号。" class="headerlink" title="注：TCP规定，SYN报文段（即SYN=1的报文段）不能携带数据，但是要消耗掉一个序号；ACK报文段可以携带数据，如果不携带数据则不消耗序号。"></a>注：TCP规定，SYN报文段（即SYN=1的报文段）不能携带数据，但是要消耗掉一个序号；ACK报文段可以携带数据，如果不携带数据则不消耗序号。</h5><h2 id="TCP链接的释放（四次挥手）"><a href="#TCP链接的释放（四次挥手）" class="headerlink" title="TCP链接的释放（四次挥手）"></a>TCP链接的释放（四次挥手）</h2><p>数据传输结束后，传输双方都有可能释放链接。现在A和B都处于ESTABLISHED的状态。</p>
+<p><img src="/images/tcp_close.png" alt="TCP链接释放完整示意图"></p>
+<ul>
+<li>A的应用进程先向其TCP链接发出链接释放报文段，并停止再发送数据，主动关闭TCP链接。A把链接释放报文段首部的终止控制位FIN置1,其序号seq=u，它等于前面已传送过的数据的最后一个字节的序号加1。A处于FIN-WAIT-1（终止等待1）状态，等待B的确认。</li>
+<li>B收到链接释放报文段后即发出确认，确认号是ack=u+1，自己序号为v，等于前面已经传送的最后一个字节的序号加1.B进入CLOSE-WAIT（关闭等待）状态。TCP服务器进程这时应该通知高层应用进程，因而从A到B这个方向的链接就释放了，这时的TCP链接处于半关闭状态。</li>
+<li>A收到来自B的确认后，就进入FIN-WAIT-2（终止等待2）状态，等待B发出的链接释放报文段。</li>
+<li>若B已经没有要向A发送的数据，其应用就通知TCP释放链接。这时B发出的链接释放报文段必须使FIN=1。现假定B的序号w（在半关闭状态B可能又发送了一些数据）。B还必须重复上次已发送过的确认号ack=u+1。B进入LAST-ACK（最后确认）状态，等待A的确认。</li>
+<li>A在收到B的链接释放报文后，必须对此发出确认。在确认报文中把ACK置1,确认号ack=w+1，而自己的序号为seq=u+1。然后进入到TIME-WAIT（时间等待）状态，等待2ms后进入到CLOSED状态。</li>
+</ul>
+<h6 id="注：TCP规定，FIN报文段即使不携带数据也要消耗一个序号。"><a href="#注：TCP规定，FIN报文段即使不携带数据也要消耗一个序号。" class="headerlink" title="注：TCP规定，FIN报文段即使不携带数据也要消耗一个序号。"></a>注：TCP规定，FIN报文段即使不携带数据也要消耗一个序号。</h6>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/28/TCP链接的建立与释放/" class="archive-article-date">
+  	<time datetime="2016-11-27T16:07:50.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-27</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">计算机网络</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-source01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -339,7 +406,7 @@ hexo init
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/other/" style="font-size: 10px;">其它</a> <a href="/tags/source/" style="font-size: 10px;">资源</a>
+    				<a href="/tags/other/" style="font-size: 10px;">其它</a> <a href="/tags/network/" style="font-size: 10px;">计算机网络</a> <a href="/tags/source/" style="font-size: 10px;">资源</a>
     			</div>
     	</section>
     
