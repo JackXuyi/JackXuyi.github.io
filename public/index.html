@@ -136,6 +136,77 @@
       <div class="body-wrap">
         
   
+    <article id="post-strcpy的实现" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/29/strcpy的实现/">strcpy的实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="不考虑内存重叠"><a href="#不考虑内存重叠" class="headerlink" title="不考虑内存重叠"></a>不考虑内存重叠</h2><pre><code>char * strcpy(char *dest,const char *src)
+{
+    char *ret;
+    if(dest==NULL || src==NULL)//检查是否为空指针
+        return NULL;
+    while((*dest++=*src++)!=&apos;\0&apos;);//复制字符串中的内容
+    return ret;
+}
+</code></pre><h2 id="考虑内存重叠"><a href="#考虑内存重叠" class="headerlink" title="考虑内存重叠"></a>考虑内存重叠</h2><pre><code>char *strcpy(char *dest,const char *src)
+{
+    char *ret=dest;
+    if(dest==NULL || src==NULL)//检查是否为空指针
+        return NULL;
+    memcpy(dest,src,strlen(src)+1);//调用memcpy函数避免内存重复的情况
+    return ret;
+}
+</code></pre><h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><ul>
+<li>const修饰源字符串避免对源字符串的修改</li>
+<li>检查指针的有效性避免非法操作</li>
+<li>返回目标字符串的首地址确保字符串的线性</li>
+<li>使用<code>(*dest++=*src++)!=&#39;\0&#39;</code>确保字符串的末尾有结束符</li>
+</ul>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/29/strcpy的实现/" class="archive-article-date">
+  	<time datetime="2016-11-28T22:12:57.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-28</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-language/">C/C++语言</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-TCP链接的建立与释放" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -406,7 +477,7 @@ hexo init
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/other/" style="font-size: 10px;">其它</a> <a href="/tags/network/" style="font-size: 10px;">计算机网络</a> <a href="/tags/source/" style="font-size: 10px;">资源</a>
+    				<a href="/tags/c-language/" style="font-size: 10px;">C/C++语言</a> <a href="/tags/other/" style="font-size: 10px;">其它</a> <a href="/tags/network/" style="font-size: 10px;">计算机网络</a> <a href="/tags/source/" style="font-size: 10px;">资源</a>
     			</div>
     	</section>
     
