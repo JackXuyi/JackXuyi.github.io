@@ -136,6 +136,78 @@
       <div class="body-wrap">
         
   
+    <article id="post-memcpy函数的实现" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/29/memcpy函数的实现/">memcpy函数的实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="memcpy的代码实现"><a href="#memcpy的代码实现" class="headerlink" title="memcpy的代码实现"></a>memcpy的代码实现</h2><pre><code>void * memcpy(void *dest, const void *src, size_t count)
+{ 
+        if (dest == NULL || src == NULL)//判断是否为空避免非法操作
+        return NULL; 
+        char *pdest = static_cast &lt;char*&gt;(dest);
+        const char *psrc  = static_cast &lt;const char*&gt;(src); 
+        int n = count; 
+        if (pdest &gt; psrc &amp;&amp; pdest &lt; psrc+count) //目的地址大于源地址且存在内存重叠
+        { 
+            for (size_t i=n-1; i != -1; --i)//从高位开始复制避免出现字符覆盖的情况
+            { 
+                    *(pdest+i) = *(psrc+i); 
+            } 
+        } 
+        else
+        { 
+            for (size_t i= 0; i &lt; n; i++) //从低位开始复制
+            { 
+                   *(pdest+i) = *(psrc+i);
+            } 
+        }
+        return dest; 
+}
+</code></pre><h5 id="注：这里没有考虑内存重叠的所有情况"><a href="#注：这里没有考虑内存重叠的所有情况" class="headerlink" title="注：这里没有考虑内存重叠的所有情况"></a>注：这里没有考虑内存重叠的所有情况</h5>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/29/memcpy函数的实现/" class="archive-article-date">
+  	<time datetime="2016-11-28T22:55:25.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-28</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-language/">C/C++语言</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-strcpy的实现" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -477,7 +549,7 @@ hexo init
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/c-language/" style="font-size: 10px;">C/C++语言</a> <a href="/tags/other/" style="font-size: 10px;">其它</a> <a href="/tags/network/" style="font-size: 10px;">计算机网络</a> <a href="/tags/source/" style="font-size: 10px;">资源</a>
+    				<a href="/tags/c-language/" style="font-size: 20px;">C/C++语言</a> <a href="/tags/other/" style="font-size: 10px;">其它</a> <a href="/tags/network/" style="font-size: 10px;">计算机网络</a> <a href="/tags/source/" style="font-size: 10px;">资源</a>
     			</div>
     	</section>
     
