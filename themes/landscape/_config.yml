@@ -2,14 +2,14 @@
 menu:
   Home: /
   Archives: /archives
-rss: /atom.xml
+# rss: /atom.xml
 
 # Content
 excerpt_link: Read More
 fancybox: true
 
 # Sidebar
-sidebar: right
+sidebar: left
 widgets:
 - category
 - tag
@@ -29,7 +29,7 @@ show_count: false
 
 # Miscellaneous
 google_analytics:
-favicon: /favicon.png
+favicon: 0001.jpg#/favicon.png
 twitter:
 google_plus:
 fb_admins:
