@@ -15,29 +15,29 @@ tags: 其它
 - 创建文件夹 blog 作为项目文件夹
 - 初始化项目文件夹
 
-> 指定文件夹初始化
++ 指定文件夹初始化
 
->			hexo init blog
+		hexo init blog
 
-> 或者，进入文件夹再初始化
++ 或者，进入文件夹再初始化
 
->			cd blog 
->			hexo init
+		cd blog 
+		hexo init
 
 - 安装插件 deployer 
 
->	 		npm install hexo-deployer-git --save
+		npm install hexo-deployer-git --save
 
 - 修改根目录下的 _config.yml 文件
 	
->		deploy:
-			type: git
-			repo: git@github.com:JackXuyi/JackXuyi.github.io.git
->			branch: master
+		deploy:
+		type: git
+		repo: git@github.com:JackXuyi/JackXuyi.github.io.git
+		branch: master
 
 - 配置域名：在 source 目录下添加 CNAME 文件，并在文件里写入你的域名
 
-> 		xuyi-emb.win
+		xuyi-emb.win
 
 ## 使用说明
 
