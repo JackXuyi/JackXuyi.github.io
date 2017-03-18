@@ -86,13 +86,83 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>C++中预定义的运算符的操作对象只能是基本数据类型。但实际上，对于许多用户自定义类型（例如类），也需要类似的运算操作。这时就必须在C++中重新定义这些运算符，赋予已有运算符新的功能，使它能够用于特定类型执行特定的操作。运算符重载的实质是函数重载，它提供了C++的可扩展性，也是C++最吸引人的特性之一。</p>
+<p>运算符重载是通过创建运算符函数实现的，运算符函数定义了重载的运算符将要进行的操作。运算符函数的定义与其他函数的定义类似，惟一的区别是运算符函数的函数名是由关键字operator和其后要重载的运算符符号构成的。运算符函数定义的一般格式如下：</p>
+<pre><code>&lt;返回类型说明符&gt; operator &lt;运算符符号&gt;(&lt;参数表&gt;)
+{
+    &lt;函数体&gt;
+}
+</code></pre><h3 id="运算符重载规则"><a href="#运算符重载规则" class="headerlink" title="运算符重载规则"></a>运算符重载规则</h3><ul>
+<li><p>除了类属关系运算符”.”、成员指针运算符”.*”、作用域运算符”::”、sizeof运算符和三目运算符”?:”以外，C++中的所有运算符都可以重载。</p>
+</li>
+<li><p>重载运算符限制在C++语言中已有的运算符范围内的允许重载的运算符之中，不能创建新的运算符。</p>
+</li>
+<li><p>运算符重载实质上是函数重载，因此编译程序对运算符重载的选择，遵循函数重载的选择原则。</p>
+</li>
+<li><p>重载之后的运算符不能改变运算符的优先级和结合性，也不能改变运算符操作数的个数及语法结构。</p>
+</li>
+<li><p>运算符重载不能改变该运算符用于内部类型对象的含义。它只能和用户自定义类型的对象一起使用，或者用于用户自定义类型的对象和内部类型的对象混合使用时。</p>
+</li>
+<li><p>运算符重载是针对新类型数据的实际需要对原有运算符进行的适当的改造，重载的功能应当与原有功能相类似，避免没有目的地使用重载运算符。</p>
+</li>
+</ul>
+<p>运算符函数重载一般有两种形式：重载为类的成员函数和重载为类的非成员函数。非成员函数通常是友元。可以把一个运算符作为一个非成员、非友元函数重载。但是，这样的运算符函数访问类的私有和保护成员时，必须使用类的公有接口中提供的设置数据和读取数据的函数，调用这些函数时会降低性能。可以内联这些函数以提高性能。</p>
+<h3 id="成员函数运算符"><a href="#成员函数运算符" class="headerlink" title="成员函数运算符"></a>成员函数运算符</h3><p>运算符重载为类的成员函数的一般格式为：</p>
+<pre><code>&lt;函数类型&gt; operator &lt;运算符&gt;(&lt;参数表&gt;)
+{
+    &lt;函数体&gt;
+}
+</code></pre><p>当运算符重载为类的成员函数时，函数的参数个数比原来的操作数要少一个（后置单目运算符除外），这是因为成员函数用this指针隐式地访问了类的一个对象，它充当了运算符函数最左边的操作数。因此：</p>
+<ul>
+<li><p>双目运算符重载为类的成员函数时，函数只显式说明一个参数，该形参是运算符的右操作数。</p>
+</li>
+<li><p>前置单目运算符重载为类的成员函数时，不需要显式说明参数，即函数没有形参。</p>
+</li>
+<li><p>后置单目运算符重载为类的成员函数时，函数要带有一个整型形参。</p>
+</li>
+</ul>
+<p>调用成员函数运算符的格式如下：</p>
+<pre><code>&lt;对象名&gt;.operator &lt;运算符&gt;(&lt;参数&gt;)
+</code></pre><p>它等价于</p>
+<pre><code>&lt;对象名&gt;&lt;运算符&gt;&lt;参数&gt;
+</code></pre><p>例如：a+b等价于a.operator +(b)。一般情况下，我们采用运算符的习惯表达方式。</p>
+<h3 id="友元函数运算符"><a href="#友元函数运算符" class="headerlink" title="友元函数运算符"></a>友元函数运算符</h3><p>运算符重载为类的友元函数的一般格式为：</p>
+<pre><code>friend &lt;函数类型&gt; operator &lt;运算符&gt;(&lt;参数表&gt;)
+{
+    &lt;函数体&gt;
+}
+</code></pre><p>当运算符重载为类的友元函数时，由于没有隐含的this指针，因此操作数的个数没有变化，所有的操作数都必须通过函数的形参进行传递，函数的参数与操作数自左至右一一对应。</p>
+<p>调用友元函数运算符的格式如下：</p>
+<pre><code>operator &lt;运算符&gt;(&lt;参数1&gt;,&lt;参数2&gt;)
+</code></pre><p>它等价于</p>
+<pre><code>&lt;参数1&gt;&lt;运算符&gt;&lt;参数2&gt;
+</code></pre><p>例如：a+b等价于operator +(a,b)。</p>
+<h3 id="两种重载形式的比较"><a href="#两种重载形式的比较" class="headerlink" title="两种重载形式的比较"></a>两种重载形式的比较</h3><p>在多数情况下，将运算符重载为类的成员函数和类的友元函数都是可以的。但成员函数运算符与友元函数运算符也具有各自的一些特点：</p>
+<ul>
+<li><p>一般情况下，单目运算符最好重载为类的成员函数；双目运算符则最好重载为类的友元函数。</p>
+</li>
+<li><p>以下一些双目运算符不能重载为类的友元函数：=、()、[]、-&gt;。</p>
+</li>
+<li><p>类型转换函数只能定义为一个类的成员函数而不能定义为类的友元函数。</p>
+</li>
+<li><p>若一个运算符的操作需要修改对象的状态，选择重载为成员函数较好。</p>
+</li>
+<li><p>若运算符所需的操作数（尤其是第一个操作数）希望有隐式类型转换，则只能选用友元函数。</p>
+</li>
+<li><p>当运算符函数是一个成员函数时，最左边的操作数（或者只有最左边的操作数）必须是运算符类的一　个类对象（或者是对该类对象的引用）。如果左边的操作数必须是一个不同类的对象，或者是一个内部　类型的对象，该运算符函数必须作为一个友元函数来实现。</p>
+</li>
+<li><p>当需要重载运算符具有可交换性时，选择重载为友元函数。</p>
+</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2017/03/19/运算符重载/" data-id="cj0f05cws000865jnwc6o8ak1" class="article-share-link">Share</a>
+      <a data-url="http://xuyi-emb.win/2017/03/19/运算符重载/" data-id="cj0f1nvk50008rujnh1r9iy3a" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-language/">C/C++语言</a></li></ul>
+
     </footer>
   </div>
   
@@ -103,7 +173,7 @@
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/03/18/hello-world/" class="article-date">
-  <time datetime="2017-03-18T08:39:07.360Z" itemprop="datePublished">2017-03-18</time>
+  <time datetime="2017-03-18T08:43:34.864Z" itemprop="datePublished">2017-03-18</time>
 </a>
     
   </div>
@@ -132,28 +202,28 @@
 <li>创建文件夹 blog 作为项目文件夹</li>
 <li>初始化项目文件夹</li>
 </ul>
-<blockquote>
-<p>指定文件夹初始化</p>
-</blockquote>
+<ul>
+<li><p>指定文件夹初始化</p>
 <pre><code>hexo init blog
-</code></pre><blockquote>
-<p>或者，进入文件夹再初始化</p>
-</blockquote>
+</code></pre></li>
+<li><p>或者，进入文件夹再初始化</p>
 <pre><code>cd blog 
 hexo init
-</code></pre><ul>
+</code></pre></li>
+</ul>
+<ul>
 <li><p>安装插件 deployer </p>
-<p>  npm install hexo-deployer-git –save</p>
-</li>
+<pre><code>npm install hexo-deployer-git --save
+</code></pre></li>
 <li><p>修改根目录下的 _config.yml 文件</p>
-<p>  deploy:</p>
-<pre><code>type: git
+<pre><code>deploy:
+type: git
 repo: git@github.com:JackXuyi/JackXuyi.github.io.git
 branch: master
 </code></pre></li>
 <li><p>配置域名：在 source 目录下添加 CNAME 文件，并在文件里写入你的域名</p>
-<p>  xuyi-emb.win</p>
-</li>
+<pre><code>xuyi-emb.win
+</code></pre></li>
 </ul>
 <h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><ul>
 <li>源代码和发布的网站的存储位置不在同一个地方，使用不同分支保存数据，具体解释见 <a href="http://www.zhihu.com/question/21193762" target="_blank" rel="external">使用hexo，如果换了电脑怎么更新博客？</a></li>
@@ -162,7 +232,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2017/03/18/hello-world/" data-id="cj0f05cwi000165jnx9wg5t18" class="article-share-link">Share</a>
+      <a data-url="http://xuyi-emb.win/2017/03/18/hello-world/" data-id="cj0f1nvjv0001rujn4adxzgtp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/other/">其它</a></li></ul>
@@ -223,7 +293,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2016/11/29/memcpy函数的实现/" data-id="cj0f05cwm000365jnkgwcwumm" class="article-share-link">Share</a>
+      <a data-url="http://xuyi-emb.win/2016/11/29/memcpy函数的实现/" data-id="cj0f1nvk10004rujn19ttoipp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-language/">C/C++语言</a></li></ul>
@@ -283,7 +353,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2016/11/29/strcpy的实现/" data-id="cj0f05cwq000565jnv0t0y9pz" class="article-share-link">Share</a>
+      <a data-url="http://xuyi-emb.win/2016/11/29/strcpy的实现/" data-id="cj0f1nvk30005rujn33h60kun" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-language/">C/C++语言</a></li></ul>
@@ -339,7 +409,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2016/11/28/TCP链接的建立与释放/" data-id="cj0f05cwe000065jntx4l1ip2" class="article-share-link">Share</a>
+      <a data-url="http://xuyi-emb.win/2016/11/28/TCP链接的建立与释放/" data-id="cj0f1nvjq0000rujnp2i8k9fr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">计算机网络</a></li></ul>
@@ -380,7 +450,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2016/11/05/source01/" data-id="cj0f05cwn000465jnwzwh6wwu" class="article-share-link">Share</a>
+      <a data-url="http://xuyi-emb.win/2016/11/05/source01/" data-id="cj0f1nvjz0003rujntrg3v2az" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/source/">资源</a></li></ul>
