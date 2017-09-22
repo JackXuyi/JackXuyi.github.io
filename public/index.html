@@ -64,6 +64,60 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-js学习（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/23/js学习（一）/" class="article-date">
+  <time datetime="2017-09-22T21:59:32.000Z" itemprop="datePublished">2017-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/23/js学习（一）/">js学习（一）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="setState参数"><a href="#setState参数" class="headerlink" title="setState参数"></a><code>setState</code>参数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">void setState(</div><div class="line">      function|object nextState,</div><div class="line">      [function callback]</div><div class="line">    )</div></pre></td></tr></table></figure>
+<ol>
+<li>第一个参数可以是一个函数也可以是一个对象，但是返回值都是下一个<code>state</code>的状态。</li>
+<li>第二个参数为<code>setState</code>这个函数异步调用结束以后的回调函数，可以用在组件设置完<code>state</code>以后进行的操作。</li>
+</ol>
+<h2 id="js对网页滚动条的操作"><a href="#js对网页滚动条的操作" class="headerlink" title="js对网页滚动条的操作"></a><code>js</code>对网页滚动条的操作</h2><ul>
+<li><code>js</code>可以通过改变目标元素的<code>scrollTop</code>改变元素滚动条的位置</li>
+<li><code>onWheel</code>事件可以监听滚动条滚动事件，可以通过<code>deltaX</code>和<code>deltaY</code>属性获取滚动条滚动的位置和方向</li>
+<li><code>onScroll</code>事件可以监听滚动条事件，但是无法获取方向和滚动距离及位置</li>
+<li><code>CSS</code>中没有可以操作<code>scrollTop</code>值的属性</li>
+</ul>
+<h2 id="setInterval"><a href="#setInterval" class="headerlink" title="setInterval"></a><code>setInterval</code></h2><p><code>setInterval</code>定时执行函数，当先后创建多个定时器时可能不会按照你预想的顺序来执行，因为<code>js</code>是单线程的，只有当前一个任务执行完毕以后才能够继续执行下一任务，所以调用定时器的时间可能大于你预设的时间，由此造成调用定时器的混乱。</p>
+<h2 id="js实现动画"><a href="#js实现动画" class="headerlink" title="js实现动画"></a>js实现动画</h2><ul>
+<li>通过js中的定时器不断的改变元素的位置和高度模拟动画效果</li>
+<li>通过一个定时器管理函数管理定时器的先后调用顺序或者通过<code>dom2</code>级时间<code>removeEventLisenner</code>函数让元素在js调用定时器期间失去时间响应解决定时器无法顺序调用的各种问题</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://xuyi-emb.win/2017/09/23/js学习（一）/" data-id="cj7vziabm0003lujnp89mx94n" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-运算符重载" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/03/19/运算符重载/" class="article-date">
@@ -158,7 +212,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2017/03/19/运算符重载/" data-id="cj0f1nvk50008rujnh1r9iy3a" class="article-share-link">Share</a>
+      <a data-url="http://xuyi-emb.win/2017/03/19/运算符重载/" data-id="cj7vziabw0009lujnd98h7oox" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-language/">C/C++语言</a></li></ul>
@@ -232,7 +286,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2017/03/18/hello-world/" data-id="cj0f1nvjv0001rujn4adxzgtp" class="article-share-link">Share</a>
+      <a data-url="http://xuyi-emb.win/2017/03/18/hello-world/" data-id="cj7vziabg0001lujnagag0bwl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/other/">其它</a></li></ul>
@@ -293,7 +347,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2016/11/29/memcpy函数的实现/" data-id="cj0f1nvk10004rujn19ttoipp" class="article-share-link">Share</a>
+      <a data-url="http://xuyi-emb.win/2016/11/29/memcpy函数的实现/" data-id="cj7vziabq0004lujnm2ewxr69" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-language/">C/C++语言</a></li></ul>
@@ -353,7 +407,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2016/11/29/strcpy的实现/" data-id="cj0f1nvk30005rujn33h60kun" class="article-share-link">Share</a>
+      <a data-url="http://xuyi-emb.win/2016/11/29/strcpy的实现/" data-id="cj7vziabu0008lujnseb8f1n4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-language/">C/C++语言</a></li></ul>
@@ -409,7 +463,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2016/11/28/TCP链接的建立与释放/" data-id="cj0f1nvjq0000rujnp2i8k9fr" class="article-share-link">Share</a>
+      <a data-url="http://xuyi-emb.win/2016/11/28/TCP链接的建立与释放/" data-id="cj7vziabc0000lujndz6ndf78" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">计算机网络</a></li></ul>
@@ -450,7 +504,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2016/11/05/source01/" data-id="cj0f1nvjz0003rujntrg3v2az" class="article-share-link">Share</a>
+      <a data-url="http://xuyi-emb.win/2016/11/05/source01/" data-id="cj7vziabt0005lujnhsyg1huz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/source/">资源</a></li></ul>
@@ -474,7 +528,7 @@ branch: master
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/">C/C++语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">其它</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">计算机网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/">资源</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/">C/C++语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">其它</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">计算机网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/">资源</a></li></ul>
     </div>
   </div>
 
@@ -484,7 +538,7 @@ branch: master
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/c-language/" style="font-size: 20px;">C/C++语言</a> <a href="/tags/other/" style="font-size: 10px;">其它</a> <a href="/tags/network/" style="font-size: 10px;">计算机网络</a> <a href="/tags/source/" style="font-size: 10px;">资源</a>
+      <a href="/tags/c-language/" style="font-size: 20px;">C/C++语言</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/other/" style="font-size: 10px;">其它</a> <a href="/tags/network/" style="font-size: 10px;">计算机网络</a> <a href="/tags/source/" style="font-size: 10px;">资源</a>
     </div>
   </div>
 
@@ -493,7 +547,7 @@ branch: master
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li></ul>
     </div>
   </div>
 
@@ -504,6 +558,10 @@ branch: master
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/09/23/js学习（一）/">js学习（一）</a>
+          </li>
         
           <li>
             <a href="/2017/03/19/运算符重载/">运算符重载</a>
@@ -519,10 +577,6 @@ branch: master
         
           <li>
             <a href="/2016/11/29/strcpy的实现/">strcpy的实现</a>
-          </li>
-        
-          <li>
-            <a href="/2016/11/28/TCP链接的建立与释放/">TCP链接的建立与释放</a>
           </li>
         
       </ul>
