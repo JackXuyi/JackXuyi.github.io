@@ -1,7 +1,7 @@
 ---
 title: js学习（一）
 date: 2017-09-22 21:59:32
-tags: javascript
+tags: JavaScript
 ---
 
 ## `setState`参数
