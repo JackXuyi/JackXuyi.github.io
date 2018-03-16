@@ -53,7 +53,7 @@
       </nav>
       <nav id="sub-nav">
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://xuyi-emb.win"></form>
@@ -63,6 +63,174 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-npm和webpack搭建react开发环境" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/16/npm和webpack搭建react开发环境/" class="article-date">
+  <time datetime="2018-03-16T09:30:41.000Z" itemprop="datePublished">2018-03-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/16/npm和webpack搭建react开发环境/">npm和webpack搭建react开发环境</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="npm环境搭建"><a href="#npm环境搭建" class="headerlink" title="npm环境搭建"></a>npm环境搭建</h2><ul>
+<li><code>nodejs</code>安装参考<a href="https://nodejs.org/zh-cn/" target="_blank" rel="external"><code>Nnodejs</code>官网</a></li>
+<li>安装完毕后用<code>npm --version</code>查看<code>nodejs</code>是否安装成功</li>
+</ul>
+<hr>
+<h2 id="工程初始化"><a href="#工程初始化" class="headerlink" title="工程初始化"></a>工程初始化</h2><ul>
+<li>用<code>npm init</code>初始化工程，在根目录产生一个<code>package.json</code>文件</li>
+</ul>
+<hr>
+<h2 id="webpack安装"><a href="#webpack安装" class="headerlink" title="webpack安装"></a>webpack安装</h2><ul>
+<li>用<code>npm install webpack webpack-cli webpack-dev-server webpack-merge</code>安装<code>webpack</code>和其相关的包，安装完毕后会在<code>package.json</code>文件的<code>dependencies</code>选项中看到刚刚安装的包</li>
+</ul>
+<hr>
+<h2 id="react安装"><a href="#react安装" class="headerlink" title="react安装"></a>react安装</h2><ul>
+<li>用<code>npm install react react-dom</code>安装<code>react</code>和其相关的包，安装完毕后会在<code>package.json</code>文件的<code>dependencies</code>选项中看到刚刚安装的包</li>
+<li>由于<code>react</code>使用<code>ES6</code>语法大多数无法支持，所以还需用<code>npm install babel babel-core babel-loader babel-preset-env babel-preset-es2015 babel-preset-react</code>安装<code>babel</code>和其相关的包把<code>ES6</code>语法转化为，安装完毕后会在<code>package.json</code>文件的<code>dependencies</code>选项中看到刚刚安装的包</li>
+</ul>
+<hr>
+<h2 id="hello-word的实现"><a href="#hello-word的实现" class="headerlink" title="hello word的实现"></a>hello word的实现</h2><ul>
+<li>用<code>npm install uglifyjs-webpack-plugin html-webpack-plugin clean-webpack-plugin</code>安装其它依赖包</li>
+<li>在根目录下新建<code>webpack.config.js</code>文件作为<code>webpack</code>的基础通用配置，配置文件如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">const path = require(&apos;path&apos;);</div><div class="line">const HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;);</div><div class="line">const CleanWebpackPlugin = require(&apos;clean-webpack-plugin&apos;);</div><div class="line">const webpack = require(&apos;webpack&apos;);</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">  entry: &apos;./src/index.js&apos;,</div><div class="line">  plugins: [</div><div class="line">    new CleanWebpackPlugin([&apos;dist&apos;]), // 清理数据</div><div class="line">    new HtmlWebpackPlugin(&#123; // 自动打包数据</div><div class="line">      title: &apos;测试&apos;,</div><div class="line">      template: &apos;./src/index.html&apos;, // html文件模板</div><div class="line">    &#125;),</div><div class="line">  ],</div><div class="line">  output: &#123;</div><div class="line">    filename: &apos;[name].[hash].bundle.js&apos;, // 输出文件名称</div><div class="line">    path: path.resolve(__dirname, &apos;dist&apos;) // 输出文件路径</div><div class="line">  &#125;,</div><div class="line">  module: &#123;</div><div class="line">    rules: [</div><div class="line">      &#123;</div><div class="line">        test: /\.(js|jsx)$/, //配置要处理的文件格式，一般使用正则表达式匹配</div><div class="line">        use: [&apos;babel-loader&apos;], //使用的加载器名称</div><div class="line">        exclude: /node_modules/</div><div class="line">      &#125;</div><div class="line">    ],</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>在根目录下新建<code>webpack.dev.js</code>文件作为<code>webpack</code>的开发者模式配置，配置文件如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">const merge = require(&apos;webpack-merge&apos;);</div><div class="line">const webpack = require(&apos;webpack&apos;);</div><div class="line">const config = require(&apos;./webpack.config.js&apos;);</div><div class="line"></div><div class="line">module.exports = merge(config, &#123;</div><div class="line">  devtool: &apos;inline-source-map&apos;, // 开发工具</div><div class="line">  plugins: [</div><div class="line">    new webpack.HotModuleReplacementPlugin(), // 热替换</div><div class="line">    new webpack.DefinePlugin(&#123;</div><div class="line">      &apos;process.env.NODE_ENV&apos;: JSON.stringify(&apos;development&apos;) // 定义开发者模式</div><div class="line">    &#125;)</div><div class="line">  ],</div><div class="line">  devServer: &#123; // 开发模式下服务器配置</div><div class="line">    contentBase: &apos;./dist&apos;, // 编译后文件路径</div><div class="line">    hot: true, // 是否开启热替换</div><div class="line">    host: &apos;localhost&apos; // 主机</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<ul>
+<li>在根目录下新建<code>webpack.prod.js</code>文件作为<code>webpack</code>的生产环境配置，配置文件如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">const webpack = require(&apos;webpack&apos;);</div><div class="line">const merge = require(&apos;webpack-merge&apos;);</div><div class="line">const UglifyJSPlugin = require(&apos;uglifyjs-webpack-plugin&apos;);// 精简输出</div><div class="line">const config = require(&apos;./webpack.config.js&apos;);</div><div class="line"></div><div class="line">module.exports = merge(config, &#123;</div><div class="line">  plugins: [</div><div class="line">    new UglifyJSPlugin(&#123;</div><div class="line">      sourceMap: true // 调试</div><div class="line">    &#125;),</div><div class="line">    new webpack.DefinePlugin(&#123;</div><div class="line">      &apos;process.env.NODE_ENV&apos;: JSON.stringify(&apos;production&apos;) // 定义生产模式</div><div class="line">    &#125;)</div><div class="line">  ]</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<ul>
+<li>在根目录下新建<code>.babelrc</code>文件作为<code>react</code>的开发环境下<code>babel</code>的配置，配置文件如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;presets&quot;: [</div><div class="line">    &quot;react&quot;,</div><div class="line">    &quot;es2015&quot;</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>在根目录下的<code>packge.json</code>中加入命令，配置文件如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;name&quot;: &quot;react-exercise&quot;,</div><div class="line">  &quot;version&quot;: &quot;0.0.0&quot;,</div><div class="line">  &quot;description&quot;: &quot;react exercise&quot;,</div><div class="line">  &quot;main&quot;: &quot;index.js&quot;,</div><div class="line">  &quot;scripts&quot;: &#123;</div><div class="line">    &quot;test&quot;: &quot;echo \&quot;Project completed\&quot;&quot;,</div><div class="line">    &quot;build&quot;: &quot;webpack --config webpack.prod.js&quot;,</div><div class="line">    &quot;start&quot;: &quot;webpack-dev-server --open --config webpack.dev.js&quot;</div><div class="line">  &#125;,</div><div class="line">  &quot;keywords&quot;: [</div><div class="line">    &quot;react-exercise&quot;</div><div class="line">  ],</div><div class="line">  &quot;author&quot;: &quot;xxx&quot;,</div><div class="line">  &quot;license&quot;: &quot;ISC&quot;,</div><div class="line">  &quot;dependencies&quot;: &#123;</div><div class="line">    &quot;babel&quot;: &quot;^6.23.0&quot;,</div><div class="line">    &quot;babel-cli&quot;: &quot;^6.26.0&quot;,</div><div class="line">    &quot;babel-core&quot;: &quot;^6.26.0&quot;,</div><div class="line">    &quot;babel-loader&quot;: &quot;^7.1.4&quot;,</div><div class="line">    &quot;babel-preset-env&quot;: &quot;^1.6.1&quot;,</div><div class="line">    &quot;babel-preset-es2015&quot;: &quot;^6.24.1&quot;,</div><div class="line">    &quot;babel-preset-react&quot;: &quot;^6.24.1&quot;,</div><div class="line">    &quot;clean-webpack-plugin&quot;: &quot;^0.1.19&quot;,</div><div class="line">    &quot;html-webpack-plugin&quot;: &quot;^3.0.6&quot;,</div><div class="line">    &quot;react&quot;: &quot;^16.2.0&quot;,</div><div class="line">    &quot;react-dom&quot;: &quot;^16.2.0&quot;,</div><div class="line">    &quot;uglifyjs-webpack-plugin&quot;: &quot;^1.2.3&quot;,</div><div class="line">    &quot;webpack&quot;: &quot;^4.1.1&quot;,</div><div class="line">    &quot;webpack-cli&quot;: &quot;^2.0.12&quot;,</div><div class="line">    &quot;webpack-dev-server&quot;: &quot;^3.1.1&quot;,</div><div class="line">    &quot;webpack-merge&quot;: &quot;^4.1.2&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>在根目录下新建<code>src</code>文件夹，并在文件夹下新建<code>index.js</code>，<code>index.html</code>，<code>componentTest.js</code>文件</p>
+<ul>
+<li><p><code>index.js</code>是<code>webpack</code>的入口文件，文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import React, &#123; Component &#125; from &apos;react&apos;;</div><div class="line">import ReactDOM from &apos;react-dom&apos;;</div><div class="line">import ComponentTest from &apos;./componentTest&apos;;</div><div class="line">ReactDOM.render(</div><div class="line">    &lt;ComponentTest /&gt;,</div><div class="line">    document.getElementById(&apos;root&apos;)</div><div class="line">);</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>index.html</code>是<code>webpack</code>的打包模板文件，文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;!doctype html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;title&gt;Getting Started&lt;/title&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">    &lt;div id=&quot;root&quot;&gt;&lt;/div&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>componentTest.js</code>是<code>react</code>的一个组件，文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">import React from &apos;react&apos;;</div><div class="line">const componentTest = () =&gt; (</div><div class="line">  &lt;h1&gt;hello react&lt;/h1&gt;</div><div class="line">);</div><div class="line">export default componentTest;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>在命令行中输入<code>npm start</code>即可运行项目，在打开的<code>http://localhost:8080/</code>网页中看到输出的<code>hello react</code></p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://xuyi-emb.win/2018/03/16/npm和webpack搭建react开发环境/" data-id="cjet9sqgx000584b1hkredu17" class="article-share-link">Delen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/16/hello-world/" class="article-date">
+  <time datetime="2018-03-16T01:14:58.217Z" itemprop="datePublished">2018-03-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/16/hello-world/">用Hexo搭建静态博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ul>
+<li>Git安装及使用：<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="external">廖雪峰的网站</a></li>
+<li>Node.js的安装：<a href="http://www.runoob.com/nodejs/nodejs-install-setup.html" target="_blank" rel="external">Node.js 安装配置</a></li>
+<li>Hexo的安装及使用：<a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="external">Hexo文档</a></li>
+<li>yilia主题的安装配置：<a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="external">yilia简介、安装、配置</a></li>
+</ul>
+<h2 id="hexo环境配置"><a href="#hexo环境配置" class="headerlink" title="hexo环境配置"></a>hexo环境配置</h2><ul>
+<li>创建文件夹 blog 作为项目文件夹</li>
+<li>初始化项目文件夹</li>
+</ul>
+<ul>
+<li><p>指定文件夹初始化</p>
+<pre><code>hexo init blog
+</code></pre></li>
+<li><p>或者，进入文件夹再初始化</p>
+<pre><code>cd blog 
+hexo init
+</code></pre></li>
+</ul>
+<ul>
+<li><p>安装插件 deployer </p>
+<pre><code>npm install hexo-deployer-git --save
+</code></pre></li>
+<li><p>修改根目录下的 _config.yml 文件</p>
+<pre><code>deploy:
+type: git
+repo: git@github.com:JackXuyi/JackXuyi.github.io.git
+branch: master
+</code></pre></li>
+<li><p>配置域名：在 source 目录下添加 CNAME 文件，并在文件里写入你的域名</p>
+<pre><code>xuyi-emb.win
+</code></pre></li>
+</ul>
+<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><ul>
+<li>源代码和发布的网站的存储位置不在同一个地方，使用不同分支保存数据，具体解释见 <a href="http://www.zhihu.com/question/21193762" target="_blank" rel="external">使用hexo，如果换了电脑怎么更新博客？</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://xuyi-emb.win/2018/03/16/hello-world/" data-id="cjet9sqha000o84b10sazk0qb" class="article-share-link">Delen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/other/">其它</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-JavaScript的使用建议" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -113,7 +281,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2017/09/25/JavaScript的使用建议/" data-id="cj7ykgrr40000ahjntl89gr7r" class="article-share-link">Share</a>
+      <a data-url="http://xuyi-emb.win/2017/09/25/JavaScript的使用建议/" data-id="cjet9sqgr000184b1lgx7xepw" class="article-share-link">Delen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -167,7 +335,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2017/09/23/js学习（一）/" data-id="cj7ykgrrd0004ahjnow9r1qwy" class="article-share-link">Share</a>
+      <a data-url="http://xuyi-emb.win/2017/09/23/js学习（一）/" data-id="cjet9sqgu000384b1hbkbzw8i" class="article-share-link">Delen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -273,84 +441,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2017/03/19/运算符重载/" data-id="cj7ykgrrl000cahjnu8iyi1gu" class="article-share-link">Share</a>
+      <a data-url="http://xuyi-emb.win/2017/03/19/运算符重载/" data-id="cjet9sqh2000b84b1ih90lvjs" class="article-share-link">Delen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-language/">C/C++语言</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/18/hello-world/" class="article-date">
-  <time datetime="2017-03-18T08:43:34.864Z" itemprop="datePublished">2017-03-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/18/hello-world/">用Hexo搭建静态博客</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ul>
-<li>Git安装及使用：<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="external">廖雪峰的网站</a></li>
-<li>Node.js的安装：<a href="http://www.runoob.com/nodejs/nodejs-install-setup.html" target="_blank" rel="external">Node.js 安装配置</a></li>
-<li>Hexo的安装及使用：<a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="external">Hexo文档</a></li>
-<li>yilia主题的安装配置：<a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="external">yilia简介、安装、配置</a></li>
-</ul>
-<h2 id="hexo环境配置"><a href="#hexo环境配置" class="headerlink" title="hexo环境配置"></a>hexo环境配置</h2><ul>
-<li>创建文件夹 blog 作为项目文件夹</li>
-<li>初始化项目文件夹</li>
-</ul>
-<ul>
-<li><p>指定文件夹初始化</p>
-<pre><code>hexo init blog
-</code></pre></li>
-<li><p>或者，进入文件夹再初始化</p>
-<pre><code>cd blog 
-hexo init
-</code></pre></li>
-</ul>
-<ul>
-<li><p>安装插件 deployer </p>
-<pre><code>npm install hexo-deployer-git --save
-</code></pre></li>
-<li><p>修改根目录下的 _config.yml 文件</p>
-<pre><code>deploy:
-type: git
-repo: git@github.com:JackXuyi/JackXuyi.github.io.git
-branch: master
-</code></pre></li>
-<li><p>配置域名：在 source 目录下添加 CNAME 文件，并在文件里写入你的域名</p>
-<pre><code>xuyi-emb.win
-</code></pre></li>
-</ul>
-<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><ul>
-<li>源代码和发布的网站的存储位置不在同一个地方，使用不同分支保存数据，具体解释见 <a href="http://www.zhihu.com/question/21193762" target="_blank" rel="external">使用hexo，如果换了电脑怎么更新博客？</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2017/03/18/hello-world/" data-id="cj7ykgrrc0003ahjnhxp1vrb2" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/other/">其它</a></li></ul>
 
     </footer>
   </div>
@@ -408,7 +502,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2016/11/29/memcpy函数的实现/" data-id="cj7ykgrrf0005ahjnc12hs06k" class="article-share-link">Share</a>
+      <a data-url="http://xuyi-emb.win/2016/11/29/memcpy函数的实现/" data-id="cjet9sqgw000484b1x7rlkoas" class="article-share-link">Delen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-language/">C/C++语言</a></li></ul>
@@ -468,7 +562,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2016/11/29/strcpy的实现/" data-id="cj7ykgrri000aahjnkixw65df" class="article-share-link">Share</a>
+      <a data-url="http://xuyi-emb.win/2016/11/29/strcpy的实现/" data-id="cjet9sqh0000984b1xq0pigmt" class="article-share-link">Delen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-language/">C/C++语言</a></li></ul>
@@ -524,7 +618,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2016/11/28/TCP链接的建立与释放/" data-id="cj7ykgrr80001ahjn36n2z40h" class="article-share-link">Share</a>
+      <a data-url="http://xuyi-emb.win/2016/11/28/TCP链接的建立与释放/" data-id="cjet9sqgo000084b1kcd9xuy5" class="article-share-link">Delen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">计算机网络</a></li></ul>
@@ -565,7 +659,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xuyi-emb.win/2016/11/05/source01/" data-id="cj7ykgrrh0008ahjnuzym8v1c" class="article-share-link">Share</a>
+      <a data-url="http://xuyi-emb.win/2016/11/05/source01/" data-id="cjet9sqgz000884b1kgyg5hp1" class="article-share-link">Delen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/source/">资源</a></li></ul>
@@ -587,7 +681,7 @@ branch: master
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Labels</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/">C/C++语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">其它</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">计算机网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/">资源</a></li></ul>
     </div>
@@ -599,16 +693,16 @@ branch: master
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/c-language/" style="font-size: 20px;">C/C++语言</a> <a href="/tags/JavaScript/" style="font-size: 15px;">JavaScript</a> <a href="/tags/other/" style="font-size: 10px;">其它</a> <a href="/tags/network/" style="font-size: 10px;">计算机网络</a> <a href="/tags/source/" style="font-size: 10px;">资源</a>
+      <a href="/tags/c-language/" style="font-size: 20px;">C/C++语言</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/other/" style="font-size: 10px;">其它</a> <a href="/tags/network/" style="font-size: 10px;">计算机网络</a> <a href="/tags/source/" style="font-size: 10px;">资源</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archieven</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li></ul>
     </div>
   </div>
 
@@ -616,9 +710,17 @@ branch: master
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Recente berichten</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/03/16/npm和webpack搭建react开发环境/">npm和webpack搭建react开发环境</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/16/hello-world/">用Hexo搭建静态博客</a>
+          </li>
         
           <li>
             <a href="/2017/09/25/JavaScript的使用建议/">JavaScript的使用建议</a>
@@ -630,14 +732,6 @@ branch: master
         
           <li>
             <a href="/2017/03/19/运算符重载/">运算符重载</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/18/hello-world/">用Hexo搭建静态博客</a>
-          </li>
-        
-          <li>
-            <a href="/2016/11/29/memcpy函数的实现/">memcpy函数的实现</a>
           </li>
         
       </ul>
@@ -652,7 +746,7 @@ branch: master
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2017 奔跑的蜗牛<br>
+      &copy; 2018 奔跑的蜗牛<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
