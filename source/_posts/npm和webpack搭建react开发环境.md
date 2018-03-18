@@ -194,13 +194,14 @@ module.exports = merge(config, {
 
 + 文件目录结构
 ```
-src
------index.html
------index.js
-.babelrc
-package-lock.json(自动生成的文件)
-package.json
-webpack.config.js
-webpack.dev.js
-webpack.prod.js
+|---src
+|   |---index.html(html模板文件)
+|   |---index.js(webpack入口文件)
+|   |---componentTest.js(React测试组件文件)
+|---.babelrc(babel配置文件)
+|---package-lock.json(自动生成的文件)
+|---package.json(依赖包文件)
+|---webpack.config.js(webpack公共配置文件)
+|---webpack.dev.js(开发环境下的webpack配置文件)
+|---webpack.prod.js(生产环境下的webpack配置文件)
 ```
