@@ -26,7 +26,8 @@ tags: JavaScript
 ## react安装
 
 + 用`npm install react react-dom`安装`react`和其相关的包，安装完毕后会在`package.json`文件的`dependencies`选项中看到刚刚安装的包
-+ 由于`react`使用`ES6`语法大多数无法支持，所以还需用`npm install babel babel-core babel-loader babel-preset-env babel-preset-es2015 babel-preset-react`安装`babel`和其相关的包把`ES6`语法转化为，安装完毕后会在`package.json`文件的`dependencies`选项中看到刚刚安装的包
++ 由于`react`使用`ES6`语法大多数无法支持，所以还需用`npm install babel babel-core babel-loader babel-preset-env babel-preset-es2015 babel-preset-react`安装`babel`和其相关的包把`ES6`语法转化，安装完毕后会在`package.json`文件的`dependencies`选项中看到刚刚安装的包
++ 由于`react`使用`ES6`语法大多数无法在class中支持箭头，所以还需用`npm install babel-preset-stage-0 babel-plugin-transform-class-properties`安装相关的包把语法转化，安装完毕后会在`package.json`文件的`dependencies`选项中看到刚刚安装的包
 
 ***
 
@@ -114,8 +115,10 @@ module.exports = merge(config, {
 {
   "presets": [
     "react",
+    "stage-0",
     "es2015"
-  ]
+  ]，
+  "plugins": ["transform-class-properties"]
 }
 ```
 + 在根目录下的`packge.json`中加入命令，配置文件如下：
@@ -141,9 +144,11 @@ module.exports = merge(config, {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
     "html-webpack-plugin": "^3.0.6",
     "react": "^16.2.0",
