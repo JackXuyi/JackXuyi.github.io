@@ -2,6 +2,20 @@
   "name": "hexo-site",
   "version": "0.0.0",
   "private": true,
+  "scripts": {
+    "start": "./node_modules/hexo/bin/hexo server",
+    "clean": "./node_modules/hexo/bin/hexo clean",
+    "deploy": "./node_modules/hexo/bin/hexo deploy",
+    "generate": "./node_modules/hexo/bin/hexo generate",
+    "help": "./node_modules/hexo/bin/hexo help",
+    "init": "./node_modules/hexo/bin/hexo init",
+    "list": "./node_modules/hexo/bin/hexo list",
+    "migrate": "./node_modules/hexo/bin/hexo migrate",
+    "new": "./node_modules/hexo/bin/hexo new",
+    "publish": "./node_modules/hexo/bin/hexo publish",
+    "render": "./node_modules/hexo/bin/hexo render",
+    "version": "./node_modules/hexo/bin/hexo version"
+  },
   "hexo": {
     "version": "3.6.0"
   },
