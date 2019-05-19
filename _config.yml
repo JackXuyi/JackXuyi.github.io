@@ -52,6 +52,7 @@ category_map:
 	python: python
 	mysql数据库: mysql
 	PHP: php
+	node: node
 	javacript: javascript
 	算法: solution
 	操作系统: OS
@@ -64,6 +65,7 @@ tag_map:
 	python: python
 	mysql数据库: mysql
 	PHP: php
+	node: node
 	javacript: javascript
 	算法: solution
 	操作系统: OS
