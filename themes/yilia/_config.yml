@@ -8,7 +8,7 @@ menu:
 # SubNav
 subnav:
   github: "https://github.com/JackXuyi"
-  weibo: "http://xuyi-emb.win"
+  # weibo: "http://xuyi-emb.win"
   #rss: /atom.xml
   #douban: "#"
   #mail: "xuyi0526@qq.com"
