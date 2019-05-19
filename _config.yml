@@ -5,15 +5,14 @@
 # Site
 title: 奔跑的蜗牛
 subtitle: 奔跑的蜗牛
-description: 学生
+description: 前端开发工程师
 author: 奔跑的蜗牛
 language: zh_CN
 timezone: UTC
-keywords: "计算机网络,C/C++,python,PHP,mysql数据库,算法,操作系统,资源,读书,其它"
+keywords: "React、node、css3、html5"
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-# url: http://xuyi-emb.win
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
