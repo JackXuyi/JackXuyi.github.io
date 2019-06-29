@@ -1,37 +1,37 @@
 {
-  "name": "hexo-site",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "start": "./node_modules/hexo/bin/hexo server",
-    "clean": "./node_modules/hexo/bin/hexo clean",
-    "deploy": "./node_modules/hexo/bin/hexo deploy",
-    "generate": "./node_modules/hexo/bin/hexo generate",
-    "help": "./node_modules/hexo/bin/hexo help",
-    "init": "./node_modules/hexo/bin/hexo init",
-    "list": "./node_modules/hexo/bin/hexo list",
-    "migrate": "./node_modules/hexo/bin/hexo migrate",
-    "new": "./node_modules/hexo/bin/hexo new",
-    "publish": "./node_modules/hexo/bin/hexo publish",
-    "render": "./node_modules/hexo/bin/hexo render",
-    "version": "./node_modules/hexo/bin/hexo version"
-  },
-  "hexo": {
-    "version": "3.8.0"
-  },
-  "dependencies": {
-    "hexo": "^3.7.1",
-    "hexo-cli": "^1.1.0",
-    "hexo-deployer-git": "^0.2.0",
-    "hexo-generator-archive": "^0.1.4",
-    "hexo-generator-category": "^0.1.3",
-    "hexo-generator-feed": "^1.2.0",
-    "hexo-generator-index": "^0.2.0",
-    "hexo-generator-tag": "^0.2.0",
-    "hexo-renderer-ejs": "^0.2.0",
-    "hexo-renderer-marked": "^0.2.10",
-    "hexo-renderer-stylus": "^0.3.1",
-    "hexo-server": "^0.2.2",
-    "hexo-util": "^0.6.3"
-  }
+	"name": "hexo-site",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"start": "hexo server",
+		"clean": "hexo clean",
+		"deploy": "hexo deploy",
+		"generate": "hexo generate",
+		"help": "hexo help",
+		"init": "hexo init",
+		"list": "hexo list",
+		"migrate": "hexo migrate",
+		"new": "hexo new",
+		"publish": "hexo publish",
+		"render": "hexo render",
+		"version": "hexo version"
+	},
+	"hexo": {
+		"version": "3.9.0"
+	},
+	"dependencies": {
+		"hexo": "^3.7.1",
+		"hexo-cli": "^1.1.0",
+		"hexo-deployer-git": "^0.2.0",
+		"hexo-generator-archive": "^0.1.4",
+		"hexo-generator-category": "^0.1.3",
+		"hexo-generator-feed": "^1.2.0",
+		"hexo-generator-index": "^0.2.0",
+		"hexo-generator-tag": "^0.2.0",
+		"hexo-renderer-ejs": "^0.2.0",
+		"hexo-renderer-marked": "^0.2.10",
+		"hexo-renderer-stylus": "^0.3.1",
+		"hexo-server": "^0.2.2",
+		"hexo-util": "^0.6.3"
+	}
 }
