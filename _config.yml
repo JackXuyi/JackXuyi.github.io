@@ -52,7 +52,8 @@ category_map:
 	mysql数据库: mysql
 	PHP: php
 	node: node
-	javacript: javascript
+	javascript: javascript
+	react: react
 	算法: solution
 	操作系统: OS
 	资源: source
@@ -65,7 +66,8 @@ tag_map:
 	mysql数据库: mysql
 	PHP: php
 	node: node
-	javacript: javascript
+	javascript: javascript
+	react: react
 	算法: solution
 	操作系统: OS
 	资源: source
