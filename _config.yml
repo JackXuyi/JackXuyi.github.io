@@ -94,9 +94,12 @@ theme: landscape
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git
-  repo: git@github.com:JackXuyi/JackXuyi.github.io.git
-  branch: master
+  - type: git
+		repo: git@github.com:JackXuyi/JackXuyi.github.io.git
+		branch: master
+	- type: git
+		repo: git@gitee.com:xuyi-emb/xuyi-emb.git
+		branch: master
 # plugin feed
 feed:
   type: atom
