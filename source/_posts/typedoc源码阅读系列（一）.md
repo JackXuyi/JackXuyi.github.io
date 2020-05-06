@@ -301,3 +301,7 @@ export class Application extends ChildableComponent<
 ### 待完成
 
 `serializer`、`converter`、`renderer`、`plugins` 等对象实现细节解析
+
+### 附件
+
+- [typedoc application 对象属性](/images/typedoc/application-props.pdf)
