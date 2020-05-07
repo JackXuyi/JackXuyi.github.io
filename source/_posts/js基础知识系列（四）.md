@@ -39,6 +39,10 @@ typeof t3 // "string"
 - `indexOf(str, n)` 从第 n 位由左向右查找字符串，找到返回 `index`，没有找到返回 `-1`
 - `lastIndexOf(str, n)` 从第 n 位由右向左查找字符串，找到返回 `index`，没有找到返回 `-1`
 - `trim()` 去除字符串两边的空格
+- `toLowerCase()` 和 `toLocaleLowerCase()` 字符串转化为小写，建议使用 `toLocaleLowerCase()` ，在某些语种下表现不一致
+- `toUpperCase()` 和 `toLocaleUpperCase()` 字符串转化为大写，建议使用 `toLocaleUpperCase()` ，在某些语种下表现不一致
+- `str1.localeCompare(str2)`，str1 排在 str2 之前返回负数，相同位置返回 0，之后返回正数，比较是拿 str1 字符串中的字符与 str2 的字符逐位相减
+- `fromCharCode(num1,num2,...numn)` 字符编码转化为字符串
 
 #### `slice`、`substr`、`substring` 异同，以字符串 `"123456"` 为例
 
@@ -78,3 +82,40 @@ typeof t3 // "string"
 "123456".substr(2,-7) // "" （起始位置，长度）
 "123456".substring(2,-7) // "12" （起始位置，结束位置），把参数中较小的值作为起始位置且当起始位置小于0时按照0计算
 ```
+
+#### 字符串的匹配
+
+- `match(regexp)` 方法，类似于正则的 `exec` 方法，返回一个数组
+- `search(regexp)` 返回第一个匹配项的索引，未匹配到返回 `-1`
+- `replace(regexp, replaceStr)` 替换字符串
+- `split(regexp)` 分割字符串，返回数组
+
+##### `replace(regexp, replaceStr)` 正则替换字符串
+
+- `replaceStr` 可以使用的特殊字符串
+
+| 字符序列 | 替换文本                                      |
+| -------- | --------------------------------------------- |
+| `$$`     | \$                                            |
+| `$&`     | 匹配整个模式的字符串                          |
+| `$'`     | 匹配的子字符串之前的字符串                    |
+| \$\`     | 匹配的子字符串之后的字符串                    |
+| `$n`     | 匹配第 n 个捕获组的子字符串， n 范围 0 ~ 9    |
+| `$nn`    | 匹配第 nn 个捕获组的子字符串，nn 范围 01 ~ 99 |
+
+- `replaceStr` 为函数，类似于 `function(match,pos,originalText)`，参数分别表示匹配项、匹配的位置、原始字符串
+
+  ```JS
+  function htmlEscape(text) {
+      return text.replace(/[<>"&]/g, function(match, pos, originalText){
+          switch(match) {
+              case "<": return "&lt;";
+              case ">": return "&gt;";
+              case "&": return "&amp;";
+              case "\"": return "&quot;";
+          }
+      })
+  }
+
+  htmlEscape("<h1 class=\"test\">test</h1>") // &lt;h1 class=&quot;test&quot;&gt;test&lt;/h1&gt;
+  ```
