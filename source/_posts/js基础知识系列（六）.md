@@ -175,38 +175,38 @@ obj1 instanceof Obj; // true
 - `Object.getOwnPropertyNames` 获取所有实例属性，无论是否可以枚举
 - `Object.keys` 获取所有可以枚举实例属性
 
-```JS
+```js
 function Test1() {
-    //
+  //
 }
 
-Test1.prototype.name="hello world"
-Test1.prototype.sayName = function() {
-    console.log(this.name)
-}
+Test1.prototype.name = "hello world";
+Test1.prototype.sayName = function () {
+  console.log(this.name);
+};
 
-const obj1 = new Test1()
+const obj1 = new Test1();
 
-obj1.name = "obj1"
+obj1.name = "obj1";
 // 当前实例属性
-obj1.sayName() // obj1
+obj1.sayName(); // obj1
 
 // 属性是否只存在与实例中
-obj1.hasOwnProperty("name") // true
+obj1.hasOwnProperty("name"); // true
 
-delete obj1.name
+delete obj1.name;
 // 原型链上属性
-obj1.sayName() // hello world
+obj1.sayName(); // hello world
 // 属性是否只存在与实例中
-obj1.hasOwnProperty("name") // false
+obj1.hasOwnProperty("name"); // false
 
-"sayName" in obj1 // true
+"sayName" in obj1; // true
 
 // 检测是否是对象的实例
-Test1.prototype.isPrototypeOf(obj1) // true
+Test1.prototype.isPrototypeOf(obj1); // true
 
 // 获取所有实例属性
-Object.getOwnPropertyNames(Test1.prototype) // ["constructor", "name", "sayName"]
+Object.getOwnPropertyNames(Test1.prototype); // ["constructor", "name", "sayName"]
 ```
 
 ##### 对象方法创建原型
@@ -324,18 +324,17 @@ console.log(arr.toPipeString()); // 1;2;3
 
 用闭包变量代替对象属性
 
-```JS
+```js
 function Obj(name) {
-  const o = {}
-    o.sayName = function () {
-        console.log(name);
-    };
-  return o
+  const o = {};
+  o.sayName = function () {
+    console.log(name);
+  };
+  return o;
 }
 
-
 const obj1 = new Obj("test1");
-obj1.sayName() // test1
+obj1.sayName(); // test1
 ```
 
 ### 继承
@@ -368,13 +367,13 @@ function object(o) {
 
 封装继承过程，并增强对象
 
-```JS
+```js
 function creatObj(obj) {
-    const clone = object(obj)
-    obj.sayHi=function() {
-        console.log("hello world")
-    }
-    return clone
+  const clone = object(obj);
+  obj.sayHi = function () {
+    console.log("hello world");
+  };
+  return clone;
 }
 ```
 
