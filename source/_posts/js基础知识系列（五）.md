@@ -1,7 +1,7 @@
 ---
 title: js基础知识系列（五）
 date: 2020-05-24 15:30:20
-tags: javascript
+tags: JavaScript
 ---
 
 # 单体内置对象

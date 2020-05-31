@@ -1,7 +1,7 @@
 ---
 title: js基础知识系列（四）
 date: 2020-05-06 22:21:54
-tags: javascript
+tags: JavaScript
 ---
 
 ## 字符串

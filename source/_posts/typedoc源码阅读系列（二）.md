@@ -1,7 +1,7 @@
 ---
 title: typedoc源码阅读系列（二）
 date: 2020-04-26 21:15:13
-tags: javascript
+tags: JavaScript
 ---
 
 ## ChildableComponent 对象

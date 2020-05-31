@@ -1,7 +1,7 @@
 ---
 title: typedoc源码阅读系列（一）
 date: 2020-04-19 23:09:21
-tags: javascript
+tags: JavaScript
 ---
 
 ## 了解 typedoc
