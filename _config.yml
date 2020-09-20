@@ -52,6 +52,7 @@ category_map:
 	mysql数据库: mysql
 	PHP: php
 	node: node
+	antd: antd
 	JavaScript: JavaScript
 	react: react
 	算法: solution
@@ -66,6 +67,7 @@ tag_map:
 	mysql数据库: mysql
 	PHP: php
 	node: node
+	antd: antd
 	JavaScript: JavaScript
 	react: react
 	算法: solution

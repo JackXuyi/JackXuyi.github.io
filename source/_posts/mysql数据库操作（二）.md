@@ -1,7 +1,7 @@
 ---
 title: mysql数据库操作（二）
 date: 2020-09-13 22:50:06
-tags: mysql node express TypeORM
+tags: [mysql, node, express, TypeORM]
 ---
 
 ### express 中使用 TypeORM 连接 mysql 数据库
@@ -30,7 +30,7 @@ export default createConnection(config.db)
     const app = express()
     app.listen(port, () => {
       info(
-        `the server is start at port ${port}, listening on http://localhost:${port}`,
+        `the server is start at port ${port}, listening on http://localhost:${port}`
       )
     })
   })
