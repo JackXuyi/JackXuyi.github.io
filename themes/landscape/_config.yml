@@ -1,21 +1,22 @@
 # Header
 menu:
-  Home: /
-  Archives: /archives
+  首页: /
+  # 个人简历: /2020/09/23/三数之和/
+  分类: /archives
 # rss: /atom.xml
 
 # Content
-excerpt_link: Read More
+excerpt_link: 更多
 fancybox: true
 
 # Sidebar
-sidebar: left
+sidebar: right
 widgets:
-- category
-- tag
-- tagcloud
-- archive
-- recent_posts
+  - category
+  - tag
+  - tagcloud
+  - archive
+  - recent_posts
 
 # display widgets at the bottom of index pages (pagination == 2)
 index_widgets:
@@ -25,7 +26,7 @@ index_widgets:
 
 # widget behavior
 archive_type: 'monthly'
-show_count: false
+show_count: true
 
 # Miscellaneous
 google_analytics:
