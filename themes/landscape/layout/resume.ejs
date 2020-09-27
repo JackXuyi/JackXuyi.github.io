@@ -1,0 +1,13 @@
+<style>
+  #sidebar {
+    display: none;
+  }
+
+  #main {
+    display: block;
+    margin: 0 auto;
+    float: none;
+  }
+</style>
+<%- partial('_partial/resume', {post: page, index: false, data:
+JSON.stringify(theme)}) %>

@@ -13,7 +13,7 @@
     "migrate": "hexo migrate",
     "new": "hexo new",
     "render": "hexo render",
-    "version": "hexo version"
+    "v": "hexo version"
   },
   "hexo": {
     "version": "3.9.0"
