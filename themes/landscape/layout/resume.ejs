@@ -11,6 +11,28 @@
     margin: 0 auto;
     float: none;
   }
+
+  @media print {
+    #header,
+    #footer {
+      display: none;
+    }
+
+    #main {
+      margin: 0;
+      width: 100%;
+    }
+
+    .outer {
+      padding: 0;
+      margin: 0;
+      max-width: 100%;
+    }
+
+    .article {
+      margin: 0;
+    }
+  }
 </style>
 <%- partial('_partial/resume', {post: page, index: false, data:
 JSON.stringify(theme)}) %>
