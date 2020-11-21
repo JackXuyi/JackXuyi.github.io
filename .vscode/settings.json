@@ -1,4 +1,8 @@
 {
     "git.ignoreLimitWarning": true,
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "i18n-ally.localesPaths": [
+        "themes/landscape/languages",
+        "themes/yilia/languages"
+    ]
 }
