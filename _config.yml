@@ -54,6 +54,7 @@ category_map:
 	node: node
 	antd: antd
 	JavaScript: JavaScript
+	TypeScript: TypeScript
 	react: react
 	算法: solution
 	操作系统: OS
@@ -69,6 +70,7 @@ tag_map:
 	node: node
 	antd: antd
 	JavaScript: JavaScript
+	TypeScript: TypeScript
 	react: react
 	算法: solution
 	操作系统: OS
