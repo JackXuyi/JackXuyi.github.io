@@ -64,7 +64,22 @@ count = 1000
 - Node.js 要求 ES6 模块采用.mjs 后缀文件名
 - commonjs 模块采用.cjs 后缀文件名
 
-#### 参考
+### 循环引用
+
+"循环加载"（circular dependency）指的是，a 脚本的执行依赖 b 脚本，而 b 脚本的执行又依赖 a 脚本。
+
+#### CommonJS 模块的循环加载
+
+CommonJS 模块的脚本代码在 require 的时候，就会全部执行，一旦出现某个模块被"循环加载"，就只输出已经执行的部分，还未执行的部分不会输出。
+
+#### ES6 模块的循环加载
+
+ES6 模块遇到模块加载命令 import 时，不会去执行模块，而是只生成一个引用。等到真的需要用到时，再到模块里面去取值，不存在缓存值的问题，而且模块里面的变量，绑定其所在的模块。
+
+### 参考
 
 - [ES6 模块与 CommonJS 模块的差异](https://es6.ruanyifeng.com/#docs/module-loader#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8A%A0%E8%BD%BD)
+- [CommonJS 和 ES6 模块循环加载处理的区别](https://juejin.cn/post/6844903747290660878)
+- [JavaScript 模块的循环加载](http://www.ruanyifeng.com/blog/2015/11/circular-dependency.html)
+- [JavaScript 模块加载与循环引用](https://zhuanlan.zhihu.com/p/322529692)
 - [测试代码链接](https://github.com/JackXuyi/web-exercise/tree/master/verification)
