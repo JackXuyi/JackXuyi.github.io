@@ -1,7 +1,7 @@
 # Header
 menu:
   首页: /
-  个人简历: /others/resume.html
+  # 个人简历: /others/resume.html
   分类: /archives
 # rss: /atom.xml
 
