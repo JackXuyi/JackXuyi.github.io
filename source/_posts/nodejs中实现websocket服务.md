@@ -1,7 +1,7 @@
 ---
 title: nodejs中实现websocket服务
 date: 2021-01-05 22:57:14
-tags: node
+tags: [node, 计算机网络, JavaScript]
 ---
 
 ### 建立链接
