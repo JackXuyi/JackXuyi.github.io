@@ -1,7 +1,7 @@
 ---
 title: mysql数据库操作
 date: 2020-09-13 22:21:24
-tags: mysql
+tags: [mysql, JavaScript, node, express]
 ---
 
 ### 创建用户

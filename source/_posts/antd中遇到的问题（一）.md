@@ -1,7 +1,7 @@
 ---
 title: antd中遇到的问题（一）
 date: 2020-09-20 22:42:42
-tags: [react, antd]
+tags: [react]
 ---
 
 ### antd v4 版本中 Form.Item 子组件 value 不生效问题
