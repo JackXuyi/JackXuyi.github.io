@@ -9,7 +9,7 @@ description: 前端开发工程师
 author: 奔跑的蜗牛
 language: zh_CN
 timezone: UTC
-keywords: "React、node、css3、html5"
+keywords: "React、node、webpack"
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -55,6 +55,7 @@ category_map:
 	antd: antd
 	JavaScript: JavaScript
 	TypeScript: TypeScript
+	webpack: webpack
 	react: react
 	算法: solution
 	操作系统: OS
@@ -71,6 +72,7 @@ tag_map:
 	antd: antd
 	JavaScript: JavaScript
 	TypeScript: TypeScript
+	webpack: webpack
 	react: react
 	算法: solution
 	操作系统: OS
