@@ -1,201 +1,227 @@
 <mxfile>
     <diagram id="NtXP6vVdCScrlUBOSJxo" name="第 1 页">
-        <mxGraphModel dx="638" dy="680" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="619" dy="469" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="2" target="3">
+                <mxCell id="4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="2" target="3" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="2" value="获取默认基本参数&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
+                <mxCell id="2" value="获取默认基本参数&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="349" y="70" width="410" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="3" target="5">
+                <mxCell id="6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="3" target="5" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="3" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;构建 &lt;span style=&quot;font-size: 14px;&quot;&gt;`Compiler`&lt;/span&gt; 实例&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
+                <mxCell id="3" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;构建 &lt;span style=&quot;font-size: 14px;&quot;&gt;`Compiler`&lt;/span&gt; 实例&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="349" y="210" width="410" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="5" target="7">
+                <mxCell id="8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="5" target="7" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="5" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;通过插件 &lt;span style=&quot;font-size: 14px;&quot;&gt;`NodeEnvironmentPlugin` 插入基本配置&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
+                <mxCell id="5" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;通过插件 &lt;span style=&quot;font-size: 14px;&quot;&gt;`NodeEnvironmentPlugin` 插入基本配置&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="359" y="350" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="7" target="9">
+                <mxCell id="10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="7" target="9" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="7" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;注入配置中自定义的插件&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
+                <mxCell id="7" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;注入配置中自定义的插件&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="359" y="490" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="9" target="11">
+                <mxCell id="12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="9" target="11" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="9" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; line-height: 21px; font-size: 14px;&quot;&gt;同步执行 &lt;span style=&quot;font-size: 14px;&quot;&gt;`environment`&lt;/span&gt; 钩子函数&lt;/div&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
+                <mxCell id="9" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; line-height: 21px; font-size: 14px;&quot;&gt;同步执行 &lt;span style=&quot;font-size: 14px;&quot;&gt;`environment`&lt;/span&gt; 钩子函数&lt;/div&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="359" y="630" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="11" target="13">
+                <mxCell id="14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="11" target="13" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="11" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; line-height: 21px; font-size: 14px;&quot;&gt;同步执行 &lt;span style=&quot;font-size: 14px;&quot;&gt;`afterEnvironment`&lt;/span&gt; 钩子函数&lt;/div&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
+                <mxCell id="11" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; line-height: 21px; font-size: 14px;&quot;&gt;同步执行 &lt;span style=&quot;font-size: 14px;&quot;&gt;`afterEnvironment`&lt;/span&gt; 钩子函数&lt;/div&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="359" y="770" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="13" target="15">
+                <mxCell id="16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="13" target="15" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="13" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;注入预设的插件系统&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
+                <mxCell id="13" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;注入预设的插件系统&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="359" y="910" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="15" target="17">
+                <mxCell id="18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="15" target="17" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="15" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;同步执行 &lt;span style=&quot;font-size: 14px;&quot;&gt;`initialize`&lt;/span&gt; 钩子函数&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
+                <mxCell id="15" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;同步执行 &lt;span style=&quot;font-size: 14px;&quot;&gt;`initialize`&lt;/span&gt; 钩子函数&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="359" y="1050" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="17" target="19">
+                <mxCell id="20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="17" target="19" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="17" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;执行 &lt;span style=&quot;font-size: 14px;&quot;&gt;`run`&lt;/span&gt; ，开始构建&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
+                <mxCell id="17" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;执行 &lt;span style=&quot;font-size: 14px;&quot;&gt;`run`&lt;/span&gt; ，开始构建&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="359" y="1180" width="390" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="19" target="21">
+                <mxCell id="22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="19" target="21" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="19" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;异步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`beforeRun`&lt;/span&gt; 钩子函数&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
+                <mxCell id="19" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;异步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`beforeRun`&lt;/span&gt; 钩子函数&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="359" y="1305" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="21" target="23">
+                <mxCell id="24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="21" target="23" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="21" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;异步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`run`&lt;/span&gt; 钩子函数&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
+                <mxCell id="21" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;异步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`run`&lt;/span&gt; 钩子函数&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="359" y="1445" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="23" target="25">
+                <mxCell id="26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="23" target="25" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="23" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;异步读取构建记录&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
+                <mxCell id="23" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;异步读取构建记录&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="359" y="1585" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="28" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="25" target="27">
+                <mxCell id="28" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="25" target="27" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="25" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;构建 &lt;span style=&quot;font-size: 14px;&quot;&gt;`Compilation`&lt;/span&gt; 需要的参数&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
+                <mxCell id="25" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;构建 &lt;span style=&quot;font-size: 14px;&quot;&gt;`Compilation`&lt;/span&gt; 需要的参数&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="359" y="1725" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="30" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="27" target="29">
+                <mxCell id="30" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="27" target="29" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="27" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;异步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`beforeCompile`&lt;/span&gt; 钩子函数&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
+                <mxCell id="27" value="&lt;div style=&quot;font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px ; line-height: 21px&quot;&gt;&lt;div style=&quot;font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; line-height: 21px&quot;&gt;&lt;div style=&quot;font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; line-height: 21px&quot;&gt;异步调用&amp;nbsp;`beforeCompile`&amp;nbsp;钩子函数&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="359" y="1865" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="29" target="31">
+                <mxCell id="65" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontColor=#000000;labelBackgroundColor=none;" edge="1" parent="1" source="29" target="64">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="29" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;同步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`compile`&lt;/span&gt; 钩子函数&lt;/div&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
+                <mxCell id="29" value="&lt;div style=&quot;line-height: 21px&quot;&gt;&lt;div style=&quot;font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;div style=&quot;line-height: 21px&quot;&gt;&lt;div style=&quot;font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;div style=&quot;line-height: 21px&quot;&gt;&lt;div style=&quot;font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;div style=&quot;line-height: 21px&quot;&gt;&lt;font face=&quot;menlo, monaco, courier new, monospace&quot;&gt;同步调用 `compile` 钩子函数&lt;/font&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="359" y="2005" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="34" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="31" target="33">
+                <mxCell id="34" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="31" target="33" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="31" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;构建 &lt;span style=&quot;font-size: 14px;&quot;&gt;`Compilation`&lt;/span&gt; 实例，开始编译&lt;/div&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
-                    <mxGeometry x="359" y="2145" width="390" height="60" as="geometry"/>
+                <mxCell id="31" value="&lt;div style=&quot;font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px ; line-height: 21px&quot;&gt;&lt;div style=&quot;font-size: 14px&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px&quot;&gt;&lt;div style=&quot;font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; line-height: 21px&quot;&gt;同步调用&amp;nbsp;`compilation`&amp;nbsp;钩子函数&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="359.97" y="2582" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="36" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="33" target="35">
+                <mxCell id="36" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="33" target="35" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="33" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;异步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`make`&lt;/span&gt; 钩子函数&lt;/div&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
-                    <mxGeometry x="359" y="2285" width="390" height="60" as="geometry"/>
+                <mxCell id="33" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;异步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`make`&lt;/span&gt; 钩子函数&lt;/div&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="359.97" y="2722" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="38" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="35" target="37">
+                <mxCell id="38" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="35" target="37" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="35" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;异步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`finishMake`&lt;/span&gt; 钩子函数&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
-                    <mxGeometry x="359" y="2425" width="390" height="60" as="geometry"/>
+                <mxCell id="35" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;异步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`finishMake`&lt;/span&gt; 钩子函数&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="359.97" y="2862" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="40" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="37" target="39">
+                <mxCell id="40" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="37" target="39" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="37" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;异步执行 &lt;span style=&quot;font-size: 14px;&quot;&gt;`Compilation`&lt;/span&gt; 中的钩子函数完成一次构建&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
-                    <mxGeometry x="359" y="2565" width="390" height="60" as="geometry"/>
+                <mxCell id="37" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;异步执行 &lt;span style=&quot;font-size: 14px;&quot;&gt;`Compilation`&lt;/span&gt; 中的钩子函数完成一次构建&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="359.97" y="3002" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="42" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="39" target="41">
+                <mxCell id="42" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="39" target="41" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="39" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;异步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`afterCompile`&lt;/span&gt; 钩子函数&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
-                    <mxGeometry x="359" y="2705" width="390" height="60" as="geometry"/>
+                <mxCell id="39" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;异步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`afterCompile`&lt;/span&gt; 钩子函数&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="359.97" y="3142" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="44" value="是" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="41" target="43">
+                <mxCell id="44" value="是" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="41" target="43" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="56" value="否" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="41" target="50">
+                <mxCell id="56" value="否" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="41" target="50" edge="1">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="859" y="3430" as="targetPoint"/>
+                        <mxPoint x="863.97" y="3895" as="targetPoint"/>
                         <Array as="points">
-                            <mxPoint x="809" y="2893"/>
-                            <mxPoint x="809" y="3528"/>
+                            <mxPoint x="814" y="3330"/>
+                            <mxPoint x="814" y="3965"/>
+                            <mxPoint x="750" y="3965"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="58" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="41" target="57">
+                <mxCell id="58" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontColor=#000000;" parent="1" source="41" target="57" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="293.97" y="3357.5" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="71" value="否" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=none;" vertex="1" connectable="0" parent="58">
+                    <mxGeometry x="0.169" y="2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="41" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;同步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`shouldEmit`&lt;/span&gt; 钩子判断是否需要输出资源&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="359.97" y="3272" width="390" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="43" target="45" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="41" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;同步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`shouldEmit`&lt;/span&gt; 钩子判断是否需要输出资源&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
-                    <mxGeometry x="359" y="2835" width="390" height="115" as="geometry"/>
+                <mxCell id="43" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; line-height: 21px; font-size: 14px;&quot;&gt;输出资源文件，异步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`emit`&lt;/span&gt; 钩子函数&lt;/div&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="359.97" y="3494.5" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="46" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="43" target="45">
+                <mxCell id="48" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="45" target="47" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="43" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; line-height: 21px; font-size: 14px;&quot;&gt;输出资源文件，异步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`emit`&lt;/span&gt; 钩子函数&lt;/div&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
-                    <mxGeometry x="359" y="3057.5" width="390" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="48" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="45" target="47">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="49" value="否" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" connectable="0" parent="48">
+                <mxCell id="49" value="否" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="48" vertex="1" connectable="0">
                     <mxGeometry x="-0.1444" y="-1" relative="1" as="geometry">
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="45" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;同步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`needAdditionalPass`&lt;/span&gt;&amp;nbsp;&lt;/div&gt;&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;钩子函数判断是否需要添加资源&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
-                    <mxGeometry x="359" y="3187.5" width="390" height="80" as="geometry"/>
+                <mxCell id="45" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;同步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`needAdditionalPass`&lt;/span&gt;&amp;nbsp;&lt;/div&gt;&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;钩子函数判断是否需要添加资源&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="359.97" y="3624.5" width="390" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="51" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="47" target="50">
+                <mxCell id="51" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="47" target="50" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="47" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;把构建记录 &lt;span style=&quot;font-size: 14px;&quot;&gt;`records`&lt;/span&gt; 写入文件&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
-                    <mxGeometry x="359" y="3357.5" width="390" height="60" as="geometry"/>
+                <mxCell id="47" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;把构建记录 &lt;span style=&quot;font-size: 14px;&quot;&gt;`records`&lt;/span&gt; 写入文件&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="359.97" y="3794.5" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="53" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="50" target="52">
+                <mxCell id="53" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="50" target="52" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="50" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;异步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`done`&lt;/span&gt; 钩子函数&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
-                    <mxGeometry x="359" y="3497.5" width="390" height="60" as="geometry"/>
+                <mxCell id="50" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;异步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`done`&lt;/span&gt; 钩子函数&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="359.97" y="3934.5" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="55" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="52" target="54">
+                <mxCell id="55" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="52" target="54" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="52" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;回调 &lt;span style=&quot;font-size: 14px;&quot;&gt;`callback`&lt;/span&gt; 完成构建&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
-                    <mxGeometry x="359" y="3637.5" width="390" height="60" as="geometry"/>
+                <mxCell id="52" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;回调 &lt;span style=&quot;font-size: 14px;&quot;&gt;`callback`&lt;/span&gt; 完成构建&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="359.97" y="4074.5" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="54" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;同步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`afterDone`&lt;/span&gt; 钩子函数&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
-                    <mxGeometry x="359" y="3777.5" width="390" height="60" as="geometry"/>
+                <mxCell id="54" value="&lt;div style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px; line-height: 21px;&quot;&gt;同步调用 &lt;span style=&quot;font-size: 14px;&quot;&gt;`afterDone`&lt;/span&gt; 钩子函数&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="359.97" y="4214.5" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="60" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="57" target="59">
+                <mxCell id="60" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="57" target="59" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="57" value="&lt;span style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px;&quot;&gt;异步调用&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px;&quot;&gt;`done`&lt;/span&gt;&lt;span style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px;&quot;&gt;&amp;nbsp;钩子函数&lt;/span&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
+                <mxCell id="57" value="&lt;span style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px;&quot;&gt;异步调用&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px;&quot;&gt;`done`&lt;/span&gt;&lt;span style=&quot;font-family: menlo, monaco, &amp;quot;courier new&amp;quot;, monospace; font-size: 14px;&quot;&gt;&amp;nbsp;钩子函数&lt;/span&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="19" y="2862.5" width="270" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="62" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" edge="1" parent="1" source="59" target="25">
+                <mxCell id="62" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" source="59" target="25" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="63" value="重新开始构建" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" connectable="0" parent="62">
+                <mxCell id="63" value="重新开始构建" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="62" vertex="1" connectable="0">
                     <mxGeometry x="-0.3168" y="-2" relative="1" as="geometry">
                         <mxPoint y="1" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="59" value="&lt;h4 style=&quot;font-size: 14px&quot;&gt;&lt;span style=&quot;font-weight: normal&quot;&gt;异步调用 `&lt;span style=&quot;font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px&quot;&gt;additionalPass&lt;/span&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;` 钩子函数&lt;/span&gt;&lt;/span&gt;&lt;/h4&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontColor=#000000;fontStyle=0" vertex="1" parent="1">
+                <mxCell id="59" value="&lt;h4 style=&quot;font-size: 14px&quot;&gt;&lt;span style=&quot;font-weight: normal&quot;&gt;异步调用 `&lt;span style=&quot;font-family: &amp;quot;menlo&amp;quot; , &amp;quot;monaco&amp;quot; , &amp;quot;courier new&amp;quot; , monospace ; font-size: 14px&quot;&gt;additionalPass&lt;/span&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;` 钩子函数&lt;/span&gt;&lt;/span&gt;&lt;/h4&gt;" style="whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;fontSize=14;fontStyle=0;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="19" y="2722.5" width="270" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="67" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontColor=#000000;labelBackgroundColor=none;" edge="1" parent="1" source="64" target="66">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="64" value="&lt;div style=&quot;font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; line-height: 21px&quot;&gt;&lt;div style=&quot;font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; line-height: 21px&quot;&gt;构建&amp;nbsp;`Compilation`&amp;nbsp;实例&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;fontSize=14;fontStyle=0;fontColor=#000000;labelBackgroundColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="359" y="2145" width="390" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="69" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontColor=#000000;labelBackgroundColor=none;" edge="1" parent="1" source="66" target="68">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="66" value="&lt;div style=&quot;font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; line-height: 21px&quot;&gt;&lt;div style=&quot;font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; line-height: 21px&quot;&gt;注入&amp;nbsp;`name`&amp;nbsp;和&amp;nbsp;`records`&amp;nbsp;属性&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;fontSize=14;fontStyle=0;fontColor=#000000;labelBackgroundColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="359" y="2285" width="390" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="70" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#000000;labelBackgroundColor=none;" edge="1" parent="1" source="68" target="31">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="68" value="&lt;div style=&quot;font-family: &amp;#34;menlo&amp;#34; , &amp;#34;monaco&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; line-height: 21px&quot;&gt;同步调用&amp;nbsp;`thisCompilation`&amp;nbsp;钩子函数&lt;br&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;fontSize=14;fontStyle=0;fontColor=#000000;labelBackgroundColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="359" y="2425" width="390" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

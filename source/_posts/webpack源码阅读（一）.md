@@ -83,18 +83,21 @@ const createCompiler = (rawOptions) => {
 4. 构建 `Compilation` 需要的实例参数
 5. 异步调用 `beforeCompile` 钩子函数
 6. 同步调用 `compile` 钩子函数
-7. 构建 `Compilation` 实例，开始编译
-8. 异步调用 `make` 钩子函数
-9. 异步调用 `finishMake` 钩子函数
-10. 异步执行 `Compilation` 中的钩子函数完成一次构建
-11. 异步调用 `afterCompile` 钩子函数
-12. 同步调用 `shouldEmit` 钩子判断是否需要输出资源
-13. 输出资源文件，异步调用 `emit` 钩子函数
-14. 同步调用 `needAdditionalPass` 钩子函数
-15. 把构建记录 `records` 写入文件
-16. 异步调用 `done` 钩子函数
-17. 回调 `callback` 完成构建
-18. 同步调用 `afterDone` 钩子函数
+7. 构建 `Compilation` 实例
+8. 注入 `name` 和 `records` 属性
+9. 同步调用 `thisCompilation` 钩子函数
+10. 同步调用 `compilation` 钩子函数
+11. 异步调用 `make` 钩子函数
+12. 异步调用 `finishMake` 钩子函数
+13. 在 `nextTick` 中依次调用 `compilation.finish` 和 `compilation.seal`
+14. 异步调用 `afterCompile` 钩子函数
+15. 同步调用 `shouldEmit` 钩子判断是否需要输出资源
+16. 输出资源文件，异步调用 `emit` 钩子函数
+17. 同步调用 `needAdditionalPass` 钩子函数
+18. 把构建记录 `records` 写入文件
+19. 异步调用 `done` 钩子函数
+20. 回调 `callback` 完成构建
+21. 同步调用 `afterDone` 钩子函数
 
 ```js
 // file: lib/Compiler.js
