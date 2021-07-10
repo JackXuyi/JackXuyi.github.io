@@ -59,7 +59,7 @@ tags: [JavaScript, node]
 3. `Ignition` 解释器将 `AST` 转换为字节码，并解释执行
 4. `TurboFan` 编译器负责将热点函数优化编译为机器指令执行
 
-![执行过程](/images/brower/js_v8.png)
+![执行过程](/images/brower/js_v8.jpg)
 
 ##### 优化及优化导致的问题修复
 
@@ -67,7 +67,7 @@ tags: [JavaScript, node]
 
 如果一个函数被调用的次数超过了内设的阈值，监视器就会将当前函数标记为热点函数（`Hot Function`），并将该函数的字节码以及执行的相关信息发送给 `TurboFan`。`TurboFan` 会根据执行信息做出一些进一步优化此代码的假设，在假设的基础上将字节码编译为优化的机器代码。如果假设成立，那么当下一次调用该函数时，就会执行优化编译后的机器代码，以提高代码的执行性能；如果假设不成立，不知道你们有没有注意到上图中有一条由 `optimized code` 指向 `bytecode` 的红色指向线。此过程叫做 `deoptimize`（优化回退），将优化编译后的机器代码还原为字节码。
 
-![优化过程](/images/brower/js_v8_optimize.png)
+![优化过程](/images/brower/js_v8_optimize.jpg)
 
 ### 参考
 
