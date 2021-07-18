@@ -62,7 +62,7 @@ tags: [react, JavaScript]
 
 宏任务 > 所有微任务 > 宏任务，如下图所示：
 
-![新建工程](/images/js/eventLoop.jpg)
+![事件循环](/images/js/eventLoop.jpg)
 
 1. 将所有任务看成两个队列：执行队列与事件队列。
 2. 执行队列是同步的，事件队列是异步的，宏任务放入事件列表，微任务放入执行队列之后，事件队列之前。
@@ -109,6 +109,15 @@ if (typeof localSetImmediate === 'function') {
 1. 判断是否存在 `setImmediate`，如果存在则使用 `setImmediate`，不存在下一步
 2. 判断是否支持 `MessageChannel`，如果支持则创建一个消息通道，通过消息通道实现宏任务，否则进行下一步
 3. 回落到 `setTimeout` 实现异步
+
+#### 说明
+
+1. 优先选择 `MessageChannel` 而不是 `setTimeout` 的原因是由于 `setTimeout` 有一个最小 `4ms` 的等待时间，在无宏任务执行时，这个时间会浪费掉
+2. 不选择微任务的原因是，使用微任务的方式时，当前任务任然占据了主线程而没有释放出来，达不到把主线程还给渲染线程的目的
+
+##### `edge` 浏览器测试参考
+
+![事件循环](/images/js/macroTask.png)
 
 ### 参考
 
