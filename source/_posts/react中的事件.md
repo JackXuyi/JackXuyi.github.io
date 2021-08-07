@@ -6,6 +6,8 @@ tags: [JavaScript, react]
 
 ### `react` 中的事件
 
+![react 中的事件](/images/react-event.jpg)
+
 #### 初始化
 
 1. 在 `react-dom` 模块的 `src/client/ReactDOM` 中引入 `ReactDOMEventHandle` 文件，把该文件中的 `createEventHandle` 函数导出为 `unstable_createEventHandle` 以供第三方使用
@@ -29,6 +31,7 @@ tags: [JavaScript, react]
 4.  在 `listenToAllSupportedEvents` 中遍历初始化时注册的 `allNativeEvents` 事件列表注册事件，判断根元素是否为 `documet` 节点，不是则获取 `document` 节点，在 `document` 节点节点上注册 `selectionchange` 事件
 
     ```ts
+    // file: packages/react-dom/src/events/DOMPluginEventSystem.js
     const listeningMarker = '_reactListening' +Math.random().toString(36).slice(2);
     export function listenToAllSupportedEvents(rootContainerElement: EventTarget) {
       if (!(rootContainerElement: any)[listeningMarker]) {
