@@ -66,6 +66,155 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ts之type、interface和class区别" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/14/ts之type、interface和class区别/" class="article-date">
+  <time datetime="2020-12-13T22:04:08.000Z" itemprop="datePublished">2020-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/14/ts之type、interface和class区别/">ts之type、interface和class区别</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="type"><a href="#type" class="headerlink" title="type"></a>type</h3><p><a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-aliases" target="_blank" rel="noopener">任意类型的别名</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">We’ve been using object types and union types by writing them directly in type annotations. This is convenient, but it’s common to want to use the same type more than once and refer to it by a single name.</span><br><span class="line">A type alias is exactly that - a name for any type.</span><br></pre></td></tr></table></figure>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> test = <span class="built_in">number</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// error: 标识符“test”重复。</span></span><br><span class="line"><span class="comment">// type test = string</span></span><br></pre></td></tr></table></figure>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ul>
+<li>任意类型的别名（包含基本类型）</li>
+<li>只可以定义一次（多次定义报 ’标识符“test”重复‘ 错误）</li>
+</ul>
+<h3 id="interface"><a href="#interface" class="headerlink" title="interface"></a>interface</h3><p><a href="https://www.typescriptlang.org/docs/handbook/interfaces.html" target="_blank" rel="noopener">接口的作用就是为这些类型命名和为你的代码或第三方代码定义契约。</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">One of TypeScript’s core principles is that type checking focuses on the shape that values have. This is sometimes called “duck typing” or “structural subtyping”. In TypeScript, interfaces fill the role of naming these types, and are a powerful way of defining contracts within your code as well as contracts with code outside of your project.</span><br></pre></td></tr></table></figure>
+<h4 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h4><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Shape &#123;</span><br><span class="line">  color: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Shape &#123;</span><br><span class="line">  size?: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> PenStroke &#123;</span><br><span class="line">  penWidth: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Square <span class="keyword">extends</span> Shape, PenStroke &#123;</span><br><span class="line">  sideLength: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> square = &lt;Square&gt;&#123;&#125;</span><br><span class="line">square.color = <span class="string">'blue'</span></span><br><span class="line">square.sideLength = <span class="number">10</span></span><br><span class="line">square.penWidth = <span class="number">5.0</span></span><br><span class="line">square.size = <span class="number">100</span></span><br></pre></td></tr></table></figure>
+<h3 id="class"><a href="#class" class="headerlink" title="class"></a>class</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes" target="_blank" rel="noopener">类是“特殊的函数”，就像你能够定义的函数表达式和函数声明一样，类语法有两个组成部分：类表达式和类声明。</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TypeScript offers full support for the class keyword introduced in ES2015. As with other JavaScript language features, TypeScript adds type annotations and other syntax to allow you to express relationships between classes and other types.</span><br></pre></td></tr></table></figure>
+<h4 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h4><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> passcode = <span class="string">'secret passcode'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Employee &#123;</span><br><span class="line">  <span class="keyword">private</span> _fullName: <span class="built_in">string</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">get</span> fullName(): <span class="built_in">string</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>._fullName</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">set</span> fullName(newName: <span class="built_in">string</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (passcode &amp;&amp; passcode == <span class="string">'secret passcode'</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>._fullName = newName</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'Error: Unauthorized update of employee!'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> employee = <span class="keyword">new</span> Employee()</span><br><span class="line">employee.fullName = <span class="string">'Bob Smith'</span></span><br><span class="line"><span class="keyword">if</span> (employee.fullName) &#123;</span><br><span class="line">  alert(employee.fullName)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="abstract-class"><a href="#abstract-class" class="headerlink" title="abstract class"></a>abstract class</h3><p><a href="https://www.tslang.cn/docs/handbook/classes.html" target="_blank" rel="noopener">抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。 不同于接口，抽象类可以包含成员的实现细节。 abstract 关键字是用于定义抽象类和在抽象类内部定义抽象方法。</a></p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> Department &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"><span class="keyword">public</span> name: <span class="built_in">string</span></span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  printName(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Department name: '</span> + <span class="keyword">this</span>.name)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">abstract</span> printMeeting(): <span class="built_in">void</span> <span class="comment">// 必须在派生类中实现</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> AccountingDepartment <span class="keyword">extends</span> Department &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">super</span>(<span class="string">'Accounting and Auditing'</span>) <span class="comment">// 在派生类的构造函数中必须调用 super()</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  printMeeting(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'The Accounting Department meets each Monday at 10am.'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  generateReports(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Generating accounting reports...'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> department: Department <span class="comment">// 允许创建一个对抽象类型的引用</span></span><br><span class="line">department = <span class="keyword">new</span> Department() <span class="comment">// 错误: 不能创建一个抽象类的实例</span></span><br><span class="line">department = <span class="keyword">new</span> AccountingDepartment() <span class="comment">// 允许对一个抽象子类进行实例化和赋值</span></span><br><span class="line">department.printName()</span><br><span class="line">department.printMeeting()</span><br><span class="line">department.generateReports() <span class="comment">// 错误: 方法在声明的抽象类中不存在</span></span><br></pre></td></tr></table></figure>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><ul>
+<li>接口创建了一个新的名字，可以在其它任何地方使用。 类型别名并不创建新名字—比如，错误信息就不会使用别名。</li>
+<li>类型别名不能被 extends 和 implements（自己也不能 extends 和 implements 其它类型）。</li>
+<li>接口只能用来声明对象，而不能重新命名基本数据类型。</li>
+<li>接口名称将始终以原始形式出现在错误消息中，当按名称使用时才显示。</li>
+<li>接口可以进行声明合并</li>
+<li>抽象类和接口一样不可以被实例化，但是抽象类可以包含部分属性方法的实现</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/12/14/ts之type、interface和class区别/" data-id="cks38l8qi00336fs62gzvzcib" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TypeScript/">TypeScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-for-in和for-of的区别" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/11/22/for-in和for-of的区别/" class="article-date">
+  <time datetime="2020-11-21T17:09:16.000Z" itemprop="datePublished">2020-11-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/22/for-in和for-of的区别/">for...in和for...of的区别</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Iterator（遍历器）的概念"><a href="#Iterator（遍历器）的概念" class="headerlink" title="Iterator（遍历器）的概念"></a>Iterator（遍历器）的概念</h3><p>遍历器（Iterator）一种接口，为各种不同的数据结构提供统一的访问机制。任何数据结构只要部署 Iterator 接口，就可以完成遍历操作（即依次处理该数据结构的所有成员）。</p>
+<h4 id="Iterator-的作用"><a href="#Iterator-的作用" class="headerlink" title="Iterator 的作用"></a>Iterator 的作用</h4><ul>
+<li>为各种数据结构，提供一个统一的、简便的访问接口。</li>
+<li>使得数据结构的成员能够按某种次序排列。</li>
+<li>ES6 创造了一种新的遍历命令 for…of 循环，Iterator 接口主要供 for…of 消费。</li>
+</ul>
+<h4 id="Iterator-的遍历"><a href="#Iterator-的遍历" class="headerlink" title="Iterator 的遍历"></a>Iterator 的遍历</h4><ol>
+<li>创建一个指针对象，指向当前数据结构的起始位置。也就是说，遍历器对象本质上，就是一个指针对象。</li>
+<li>第一次调用指针对象的 next 方法，可以将指针指向数据结构的第一个成员。</li>
+<li>第二次调用指针对象的 next 方法，指针就指向数据结构的第二个成员。</li>
+<li>不断调用指针对象的 next 方法，直到它指向数据结构的结束位置。</li>
+</ol>
+<h4 id="Iterator-接口"><a href="#Iterator-接口" class="headerlink" title="Iterator 接口"></a>Iterator 接口</h4><p>一种数据结构只要部署了 Iterator 接口，我们就称这种数据结构是“可遍历的”（iterable）。ES6 规定，默认的 Iterator 接口部署在数据结构的 Symbol.iterator 属性，或者说，一个数据结构只要具有 Symbol.iterator 属性，就可以认为是“可遍历的”（iterable）。Symbol.iterator 属性本身是一个函数，就是当前数据结构默认的遍历器生成函数。执行这个函数，就会返回一个遍历器。</p>
+<h5 id="ES6-原生具备-Iterator-接口的数据结构"><a href="#ES6-原生具备-Iterator-接口的数据结构" class="headerlink" title="ES6 原生具备 Iterator 接口的数据结构"></a>ES6 原生具备 Iterator 接口的数据结构</h5><ul>
+<li>Array</li>
+<li>Map</li>
+<li>Set</li>
+<li>String</li>
+<li>TypedArray</li>
+<li>函数的 arguments 对象</li>
+<li>NodeList 对象</li>
+</ul>
+<h4 id="调用-Iterator-接口的场合"><a href="#调用-Iterator-接口的场合" class="headerlink" title="调用 Iterator 接口的场合"></a>调用 Iterator 接口的场合</h4><ul>
+<li>解构赋值</li>
+<li>扩展运算符</li>
+<li>yield*</li>
+<li>for…of</li>
+<li>Array.from()</li>
+<li>Map(), Set(), WeakMap(), WeakSet()</li>
+<li>Promise.all()</li>
+<li>Promise.race()</li>
+</ul>
+<h4 id="遍历器对象的-return-，throw"><a href="#遍历器对象的-return-，throw" class="headerlink" title="遍历器对象的 return()，throw()"></a>遍历器对象的 return()，throw()</h4><p>遍历器对象除了具有 next()方法，还可以具有 return()方法和 throw()方法。</p>
+<ul>
+<li>如果 for…of 循环提前退出（通常是因为出错，或者有 break 语句），就会调用 return()方法。</li>
+<li>throw()方法主要是配合 Generator 函数使用，一般的遍历器对象用不到这个方法。</li>
+</ul>
+<h3 id="for…in-和-for…of-的区别"><a href="#for…in-和-for…of-的区别" class="headerlink" title="for…in 和 for…of 的区别"></a>for…in 和 for…of 的区别</h3><ul>
+<li>对于普通的对象，for…in 循环可以遍历键名，for…of 循环会报错。</li>
+</ul>
+<h4 id="for…in-遍历数组的缺点"><a href="#for…in-遍历数组的缺点" class="headerlink" title="for…in 遍历数组的缺点"></a>for…in 遍历数组的缺点</h4><ul>
+<li>数组的键名是数字，但是 for…in 循环是以字符串作为键名“0”、“1”、“2”等等。</li>
+<li>for…in 循环不仅遍历数字键名，还会遍历手动添加的其他键，甚至包括原型链上的键。</li>
+<li>某些情况下，for…in 循环会以任意顺序遍历键名。</li>
+</ul>
+<h4 id="for…of-遍历数组的优点"><a href="#for…of-遍历数组的优点" class="headerlink" title="for…of 遍历数组的优点"></a>for…of 遍历数组的优点</h4><ul>
+<li>有着同 for…in 一样的简洁语法，但是没有 for…in 那些缺点</li>
+<li>不同于 forEach 方法，它可以与 break、continue 和 return 配合使用。</li>
+<li>提供了遍历所有数据结构的统一操作接口。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/11/22/for-in和for-of的区别/" data-id="cks38l8pa000k6fs6kr6osnxg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-异步任务按顺序分组执行" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/10/19/异步任务按顺序分组执行/" class="article-date">
@@ -105,7 +254,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/10/19/异步任务按顺序分组执行/" data-id="ckrz1ytwp003vets601qo9bio" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/10/19/异步任务按顺序分组执行/" data-id="cks38l8qu003n6fs60bu1bs1t" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solution/">算法</a></li></ul>
@@ -148,7 +297,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/09/23/三数之和/" data-id="ckrz1ytwd003gets69g6x27x1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/09/23/三数之和/" data-id="cks38l8qr003i6fs6muyhyvxn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solution/">算法</a></li></ul>
@@ -195,7 +344,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/09/21/antd中遇到的问题（一）/" data-id="ckrz1ytt7000eets6afnhd9vf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/09/21/antd中遇到的问题（一）/" data-id="cks38l8p300096fs6gv2h1bwt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
@@ -241,7 +390,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/09/14/mysql数据库操作（二）/" data-id="ckrz1ytvi002cets6rhlqm8aj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/09/14/mysql数据库操作（二）/" data-id="cks38l8q500256fs6qvw831pw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TypeORM/">TypeORM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/express/">express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
@@ -296,7 +445,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/09/14/mysql数据库操作（一）/" data-id="ckrz1ytvg0027ets67cxvenxt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/09/14/mysql数据库操作（一）/" data-id="cks38l8q400226fs60ezas2pq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/express/">express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
@@ -379,7 +528,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/31/浏览器缓存/" data-id="ckrz1ytx00045ets65srtrpsp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/31/浏览器缓存/" data-id="cks38l8r200426fs64bp9by3x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -434,7 +583,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/30/babel编译过程/" data-id="ckrz1ytta000hets6h5bxxgnc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/30/babel编译过程/" data-id="cks38l8p4000b6fs6xrxy5w3i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -494,7 +643,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/27/ES6模块与CommonJS模块/" data-id="ckrz1ytsm0002ets6fmvlnc8w" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/27/ES6模块与CommonJS模块/" data-id="cks38l8op00016fs6zz9jx1mh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -539,7 +688,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/17/除自身以外数组的乘积/" data-id="ckrz1ytxn004yets6h41iuzsb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/17/除自身以外数组的乘积/" data-id="cks38l8rh004s6fs6i0js12oe" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solution/">算法</a></li></ul>
@@ -604,7 +753,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/05/检测项目中的包版本变化/" data-id="ckrz1ytwt003yets6isbvohbo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/05/检测项目中的包版本变化/" data-id="cks38l8qz003w6fs6jbb2gir7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
@@ -658,7 +807,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/03/react16中生命周期hooks/" data-id="ckrz1ytvr002mets6j5nq57gk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/03/react16中生命周期hooks/" data-id="cks38l8q8002e6fs6ynyd9z29" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
@@ -702,7 +851,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/27/排列/" data-id="ckrz1ytwi003oets6a2xrdtvf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/27/排列/" data-id="cks38l8qw003r6fs64v4760na" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solution/">算法</a></li></ul>
@@ -767,7 +916,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/25/项目脚手架/" data-id="ckrz1ytxr0052ets61p6f7s20" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/25/项目脚手架/" data-id="cks38l8ri004w6fs6cmmtkto9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
@@ -853,7 +1002,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/25/滚动加载更多/" data-id="ckrz1ytx2004aets65i5hc10y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/25/滚动加载更多/" data-id="cks38l8r300446fs6ds39eho6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -919,7 +1068,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/13/mac下查询端口占用并杀掉node进程/" data-id="ckrz1ytvd0023ets6mqncw0aa" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/13/mac下查询端口占用并杀掉node进程/" data-id="cks38l8q1001y6fs6fgrg3sm9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
@@ -1009,7 +1158,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/05/用ts搭建express项目/" data-id="ckrz1ytx8004gets6n8ht2ylh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/05/用ts搭建express项目/" data-id="cks38l8r400466fs69a69q6d5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
@@ -1227,7 +1376,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/29/js基础知识系列（九）/" data-id="ckrz1ytuc001cets6am6qbdzj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/29/js基础知识系列（九）/" data-id="cks38l8pm00186fs6d1t81y1h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -1360,7 +1509,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/08/js基础知识系列（八）/" data-id="ckrz1ytuq001jets6n1unzi4d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/08/js基础知识系列（八）/" data-id="cks38l8pq001f6fs6jwtbrnof" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -1426,7 +1575,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/01/js基础知识系列（七）/" data-id="ckrz1ytu50017ets6i9qmunxc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/01/js基础知识系列（七）/" data-id="cks38l8pi00116fs66h0it74w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -1534,7 +1683,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/01/js基础知识系列（六）/" data-id="ckrz1ytus001mets6fj2w09gw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/01/js基础知识系列（六）/" data-id="cks38l8ps001i6fs6l0cfvnww" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -1792,7 +1941,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/24/js基础知识系列（五）/" data-id="ckrz1ytu9001aets69mv0qqjx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/05/24/js基础知识系列（五）/" data-id="cks38l8po001d6fs675cvuie6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -1904,7 +2053,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/07/js基础知识系列（四）/" data-id="ckrz1ytux001rets6gyjugmvg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/05/07/js基础知识系列（四）/" data-id="cks38l8pt001k6fs6m67v3z41" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -1960,7 +2109,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/04/27/typedoc源码阅读系列（二）/" data-id="ckrz1ytw30035ets6x7f72ipo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/04/27/typedoc源码阅读系列（二）/" data-id="cks38l8qk00356fs6bcmtiwju" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -2028,7 +2177,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/04/20/typedoc源码阅读系列（一）/" data-id="ckrz1ytx5004cets6g246jlha" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/04/20/typedoc源码阅读系列（一）/" data-id="cks38l8ql00386fs6qo8q23t2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -2088,7 +2237,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/04/15/gulp打包/" data-id="ckrz1yttk000qets6m8dogqql" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/04/15/gulp打包/" data-id="cks38l8p9000i6fs6ztx64edt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
@@ -2188,7 +2337,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/04/10/iOS模拟器/" data-id="ckrz1yttt000xets6hwbgm6g5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/04/10/iOS模拟器/" data-id="cks38l8pd000o6fs6ii2lw2fu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/other/">other</a></li></ul>
@@ -2252,7 +2401,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/04/06/npm包/" data-id="ckrz1ytvh002aets6vyndumz9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/04/06/npm包/" data-id="cks38l8q600296fs6n1eoz5c1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
@@ -2303,112 +2452,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/13/React学习系列（三）/" data-id="ckrz1ytsy0009ets6gvgsnik7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-js基础知识系列（三）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/12/js基础知识系列（三）/" class="article-date">
-  <time datetime="2019-08-11T23:26:15.000Z" itemprop="datePublished">2019-08-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/12/js基础知识系列（三）/">js基础知识系列（三）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="DOM-中监听节点变化的事件（高级程序设计第-13-4-6-节）"><a href="#DOM-中监听节点变化的事件（高级程序设计第-13-4-6-节）" class="headerlink" title="DOM 中监听节点变化的事件（高级程序设计第 13.4.6 节）"></a>DOM 中监听节点变化的事件（高级程序设计第 13.4.6 节）</h1><p>DOM2 级的変动事件是为 XML 或 html 的 DOM 设计的，不特定于某种语言。</p>
-<h2 id="变动事件的分类有-7-种"><a href="#变动事件的分类有-7-种" class="headerlink" title="变动事件的分类有 7 种"></a>变动事件的分类有 7 种</h2><ol>
-<li><code>DOMSubtreeModified</code>：在 DOM 结构中发生任何变化时触发</li>
-<li><code>DOMNodeInserted</code>：在一个节点作为子节点被插入到另一个节点中时触发</li>
-<li><code>DOMNodeRemoved</code>：在节点从其父节点中被移除时触发</li>
-<li><code>DOMNodeInsertedIntoDocument</code>：在一个节点被直接插入文档中或者通过子树间接插入文档后触发。在 DOMNodeInserted 之后触发</li>
-<li><code>DOMNodeRemovedFromDocument</code>：在一个节点被直接从文档中删除或通过子树间接从文档中移除之前触发。在 DOMNodeRemoved 之后触发</li>
-<li><code>DOMAttrModified</code>：在特性被修改之后触发</li>
-<li><code>DOMCharacterDataModified</code>：在文本节点的值发生变化的时候触发</li>
-</ol>
-<h2 id="常用的浏览器支持的有-3-种"><a href="#常用的浏览器支持的有-3-种" class="headerlink" title="常用的浏览器支持的有 3 种"></a>常用的浏览器支持的有 3 种</h2><ol>
-<li><code>DOMSubtreeModified</code>：在 DOM 结构中发生任何变化时触发</li>
-<li><code>DOMNodeInserted</code>：在一个节点作为子节点被插入到另一个节点中时触发</li>
-<li><code>DOMNodeRemoved</code>：在节点从其父节点中被移除时触发</li>
-</ol>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>页面中嵌套有<code>iframe</code>且需要父页面自适应<code>iframe</code>高度时可以通过监听<code>iframe</code>的<code>DOM</code>变化来实现</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/12/js基础知识系列（三）/" data-id="ckrz1ytum001hets602hl75bh" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-React学习系列（二）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/07/React学习系列（二）/" class="article-date">
-  <time datetime="2019-08-06T20:08:21.000Z" itemprop="datePublished">2019-08-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/07/React学习系列（二）/">React学习系列（二）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="高阶组件"><a href="#高阶组件" class="headerlink" title="高阶组件"></a>高阶组件</h1><p>高阶组件其实是一个函数，接收一个组件作为参数，返回一个包装组件作为返回值，类似于高阶函数。</p>
-<h2 id="属性代理"><a href="#属性代理" class="headerlink" title="属性代理"></a>属性代理</h2><h3 id="操作props"><a href="#操作props" class="headerlink" title="操作props"></a>操作props</h3><p>可以对原组件的props进行增删改查，通常是查找和增加，删除和修改的话，需要考虑到不能破坏原组件。</p>
-<h3 id="通过refs访问组件实例"><a href="#通过refs访问组件实例" class="headerlink" title="通过refs访问组件实例"></a>通过refs访问组件实例</h3><p>可以通过ref回调函数的形式来访问传入组件的实例，进而调用组件相关方法或其他操作。</p>
-<h3 id="提取state"><a href="#提取state" class="headerlink" title="提取state"></a>提取state</h3><p>通过传入 props 和回调函数把 state 提取出来</p>
-<h3 id="包裹WrappedComponent"><a href="#包裹WrappedComponent" class="headerlink" title="包裹WrappedComponent"></a>包裹WrappedComponent</h3><p>为了封装样式、布局等目的，可以将WrappedComponent用组件或元素包裹起来。</p>
-<h2 id="反向继承"><a href="#反向继承" class="headerlink" title="反向继承"></a>反向继承</h2><p>高阶组件继承于被包裹的React组件</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MyContainer = <span class="function">(<span class="params">WrappedComponent</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">WrappedComponent</span> </span>&#123;</span><br><span class="line">    render()&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">super</span>.render();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="渲染劫持"><a href="#渲染劫持" class="headerlink" title="渲染劫持"></a>渲染劫持</h3><p>渲染劫持就是指的是高阶组件可以控制 WrappedComponent的渲染过程，并渲染各种各样的结果。我们可以在这个过程中在任何React元素输出的结果中读取、增加、修改、删除props，或读取或修改React元素树，或条件显示。又或者用样式包裹元素树</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hoc</span>(<span class="params">ComponentClass</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="title">HOC</span> <span class="keyword">extends</span> <span class="title">ComponentClass</span> </span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="keyword">const</span> elementTree = <span class="keyword">super</span>.render();</span><br><span class="line">      elementTree.props.children = elementTree.props.children.filter(<span class="function">(<span class="params">z</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> z.type !== <span class="string">"ul"</span> &amp;&amp; z;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">const</span> newTree = React.cloneElement(elementTree);</span><br><span class="line">      <span class="keyword">return</span> newTree;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@hoc</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">ComponentClass</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="keyword">const</span> divStyle = &#123;</span><br><span class="line">        width: <span class="string">'100px'</span>,</span><br><span class="line">        height: <span class="string">'100px'</span>,</span><br><span class="line">        backgroundColor: <span class="string">'red'</span></span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &lt;p style=&#123;&#123;<span class="attr">color</span>: <span class="string">'brown'</span>&#125;&#125;&gt;啦啦啦&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">          &lt;ul&gt;</span></span><br><span class="line"><span class="regexp">            &lt;li&gt;1&lt;/</span>li&gt;</span><br><span class="line">            &lt;li&gt;<span class="number">2</span>&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">          &lt;/u</span>l&gt;</span><br><span class="line">          &lt;h1&gt;哈哈哈&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="操作state"><a href="#操作state" class="headerlink" title="操作state"></a>操作state</h3><p>HOC可以读取，编辑和删除WrappedComponent实例的state，可以添加state。不过这个可能会破坏WrappedComponent的state，所以，要限制HOC读取或添加state，添加的state应该放在单独的命名空间里，而不是和WrappedComponent的state混在一起。</p>
-<h3 id="条件渲染"><a href="#条件渲染" class="headerlink" title="条件渲染"></a>条件渲染</h3><p>当 this.props.loggedIn 为 true 时，这个 HOC 会完全渲染 WrappedComponent 的渲染结果。（假设 HOC 接收到了 loggedIn 这个 prop）</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">iHOC</span>(<span class="params">WrappedComponent</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="title">Enhancer</span> <span class="keyword">extends</span> <span class="title">WrappedComponent</span> </span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.props.loggedIn) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.render()</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="解决WrappedComponent名字丢失问题"><a href="#解决WrappedComponent名字丢失问题" class="headerlink" title="解决WrappedComponent名字丢失问题"></a>解决WrappedComponent名字丢失问题</h3><p>用HOC包裹的组件会丢失原先的名字，影响开发和调试。可以通过在WrappedComponent的名字上加一些前缀来作为HOC的名字，以方便调试。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HOC</span> <span class="keyword">extends</span> ... </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> displayName = <span class="string">`HOC(<span class="subst">$&#123;getDisplayName(WrappedComponent)&#125;</span>)`</span></span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// getDisplayName</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getDisplayName</span>(<span class="params">WrappedComponent</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> WrappedComponent.displayName ||</span><br><span class="line">         WrappedComponent.name ||</span><br><span class="line">         <span class="string">'Component'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/07/React学习系列（二）/" data-id="ckrz1ytsz000aets6djs08krt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/13/React学习系列（三）/" data-id="cks38l8p000066fs6yao4glry" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
@@ -2436,7 +2480,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/">C/C++语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">52</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeORM/">TypeORM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">other</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solution/">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">计算机网络</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/">资源</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/">C/C++语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">54</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeORM/">TypeORM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">other</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solution/">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">计算机网络</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/">资源</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -2455,7 +2499,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -2468,6 +2512,14 @@
       <ul>
         
           <li>
+            <a href="/2021/08/08/服务端渲染/">服务端渲染</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/07/简易的express中间件/">简易的express中间件</a>
+          </li>
+        
+          <li>
             <a href="/2021/08/06/跨域/">跨域</a>
           </li>
         
@@ -2477,14 +2529,6 @@
         
           <li>
             <a href="/2021/07/26/js沙箱/">js沙箱</a>
-          </li>
-        
-          <li>
-            <a href="/2021/07/12/浏览器渲染过程详解/">浏览器渲染过程详解</a>
-          </li>
-        
-          <li>
-            <a href="/2021/07/11/js执行流程/">js执行流程</a>
           </li>
         
       </ul>
