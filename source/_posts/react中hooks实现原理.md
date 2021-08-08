@@ -7,41 +7,245 @@ tags: [JavaScript, react]
 ### 以客户端 `useState` 为例
 
 1. 声明 `useState`，通过 `ReactCurrentDispatcher.current` 来实现
+2. `ReactCurrentDispatcher.current` 的赋值是在 `packages/react-reconciler/src/ReactFiberHooks` 文件中区分挂载、更新和重新渲染分别实现的
 
-```ts
-// packages/react/src/ReactHooks.js
-function resolveDispatcher() {
-  const dispatcher = ReactCurrentDispatcher.current
-  // Will result in a null access error if accessed outside render phase. We
-  // intentionally don't throw our own error because this is in a hot path.
-  // Also helps ensure this is inlined.
-  return dispatcher: Dispatcher
+#### 挂载
+
+```js
+// packages/react-reconciler/src/ReactFiberHooks.new.js
+function mountState(initialState) {
+  const hook = mountWorkInProgressHook()
+  if (typeof initialState === 'function') {
+    initialState = initialState()
+  }
+  hook.memoizedState = hook.baseState = initialState
+  const queue = (hook.queue = {
+    pending: null,
+    interleaved: null,
+    lanes: NoLanes,
+    dispatch: null,
+    lastRenderedReducer: basicStateReducer,
+    lastRenderedState: initialState,
+  })
+  const dispatch = (queue.dispatch = dispatchAction.bind(
+    null,
+    currentlyRenderingFiber,
+    queue
+  ))
+  return [hook.memoizedState, dispatch]
 }
 
-export function useState<S>(
-  initialState: (() => S) | S
-): [S, Dispatch<BasicStateAction<S>>] {
-  const dispatcher = resolveDispatcher()
-  return dispatcher.useState(initialState)
+function mountWorkInProgressHook() {
+  const hook = {
+    memoizedState: null,
+    baseState: null,
+    baseQueue: null,
+    queue: null,
+    next: null,
+  }
+
+  if (workInProgressHook === null) {
+    // This is the first hook in the list
+    currentlyRenderingFiber.memoizedState = workInProgressHook = hook
+  } else {
+    // Append to the end of the list
+    workInProgressHook = workInProgressHook.next = hook
+  }
+  return workInProgressHook
 }
 ```
 
-2. 定义 `ReactCurrentDispatcher`
+#### 更新
 
-```ts
-// packages/react/src/ReactCurrentDispatcher.js
-/**
- * Keeps track of the current dispatcher.
- */
-const ReactCurrentDispatcher = {
-  /**
-   * @internal
-   * @type {ReactComponent}
-   */
-  current: null | Dispatcher,
+```js
+// file: packages/react-reconciler/src/ReactFiberHooks.new.js
+function updateState(initialState) {
+  return updateReducer(basicStateReducer, initialState)
 }
 
-export default ReactCurrentDispatcher
+function updateReducer(reducer, initialArg, init) {
+  const hook = updateWorkInProgressHook()
+  const queue = hook.queue
+
+  queue.lastRenderedReducer = reducer
+
+  const current = currentHook
+
+  // The last rebase update that is NOT part of the base state.
+  let baseQueue = current.baseQueue
+
+  // The last pending update that hasn't been processed yet.
+  const pendingQueue = queue.pending
+  if (pendingQueue !== null) {
+    // We have new updates that haven't been processed yet.
+    // We'll add them to the base queue.
+    if (baseQueue !== null) {
+      // Merge the pending queue and the base queue.
+      const baseFirst = baseQueue.next
+      const pendingFirst = pendingQueue.next
+      baseQueue.next = pendingFirst
+      pendingQueue.next = baseFirst
+    }
+    current.baseQueue = baseQueue = pendingQueue
+    queue.pending = null
+  }
+
+  if (baseQueue !== null) {
+    // We have a queue to process.
+    const first = baseQueue.next
+    let newState = current.baseState
+
+    let newBaseState = null
+    let newBaseQueueFirst = null
+    let newBaseQueueLast = null
+    let update = first
+    do {
+      const updateLane = update.lane
+      if (!isSubsetOfLanes(renderLanes, updateLane)) {
+        // Priority is insufficient. Skip this update. If this is the first
+        // skipped update, the previous update/state is the new base
+        // update/state.
+        const clone = {
+          lane: updateLane,
+          action: update.action,
+          eagerReducer: update.eagerReducer,
+          eagerState: update.eagerState,
+          next: null,
+        }
+        if (newBaseQueueLast === null) {
+          newBaseQueueFirst = newBaseQueueLast = clone
+          newBaseState = newState
+        } else {
+          newBaseQueueLast = newBaseQueueLast.next = clone
+        }
+        // Update the remaining priority in the queue.
+        // TODO: Don't need to accumulate this. Instead, we can remove
+        // renderLanes from the original lanes.
+        currentlyRenderingFiber.lanes = mergeLanes(
+          currentlyRenderingFiber.lanes,
+          updateLane
+        )
+        markSkippedUpdateLanes(updateLane)
+      } else {
+        // This update does have sufficient priority.
+
+        if (newBaseQueueLast !== null) {
+          const clone = {
+            // This update is going to be committed so we never want uncommit
+            // it. Using NoLane works because 0 is a subset of all bitmasks, so
+            // this will never be skipped by the check above.
+            lane: NoLane,
+            action: update.action,
+            eagerReducer: update.eagerReducer,
+            eagerState: update.eagerState,
+            next: null,
+          }
+          newBaseQueueLast = newBaseQueueLast.next = clone
+        }
+
+        // Process this update.
+        if (update.eagerReducer === reducer) {
+          // If this update was processed eagerly, and its reducer matches the
+          // current reducer, we can use the eagerly computed state.
+          newState = update.eagerState
+        } else {
+          const action = update.action
+          newState = reducer(newState, action)
+        }
+      }
+      update = update.next
+    } while (update !== null && update !== first)
+
+    if (newBaseQueueLast === null) {
+      newBaseState = newState
+    } else {
+      newBaseQueueLast.next = newBaseQueueFirst
+    }
+
+    // Mark that the fiber performed work, but only if the new state is
+    // different from the current state.
+    if (!is(newState, hook.memoizedState)) {
+      markWorkInProgressReceivedUpdate()
+    }
+
+    hook.memoizedState = newState
+    hook.baseState = newBaseState
+    hook.baseQueue = newBaseQueueLast
+
+    queue.lastRenderedState = newState
+  }
+
+  // Interleaved updates are stored on a separate queue. We aren't going to
+  // process them during this render, but we do need to track which lanes
+  // are remaining.
+  const lastInterleaved = queue.interleaved
+  if (lastInterleaved !== null) {
+    let interleaved = lastInterleaved
+    do {
+      const interleavedLane = interleaved.lane
+      currentlyRenderingFiber.lanes = mergeLanes(
+        currentlyRenderingFiber.lanes,
+        interleavedLane
+      )
+      markSkippedUpdateLanes(interleavedLane)
+      interleaved = interleaved.next
+    } while (interleaved !== lastInterleaved)
+  } else if (baseQueue === null) {
+    // `queue.lanes` is used for entangling transitions. We can set it back to
+    // zero once the queue is empty.
+    queue.lanes = NoLanes
+  }
+
+  const dispatch = (queue.dispatch: any)
+  return [hook.memoizedState, dispatch]
+}
+```
+
+#### 重渲染
+
+#### `dispatchAction`
+
+```js
+function dispatchAction(fiber, queue, action) {
+  const eventTime = requestEventTime()
+  const lane = requestUpdateLane(fiber)
+
+  const update = {
+    lane,
+    action,
+    eagerReducer: null,
+    eagerState: null,
+    next: null,
+  }
+
+  const alternate = fiber.alternate
+  if (
+    fiber === currentlyRenderingFiber ||
+    (alternate !== null && alternate === currentlyRenderingFiber)
+  ) {
+    didScheduleRenderPhaseUpdateDuringThisPass =
+      didScheduleRenderPhaseUpdate = true
+    const pending = queue.pending
+    if (pending === null) {
+      // This is the first update. Create a circular list.
+      update.next = update
+    } else {
+      update.next = pending.next
+      pending.next = update
+    }
+    queue.pending = update
+  } else {
+    // 其它情况更新
+  }
+}
+```
+
+#### `basicStateReducer`
+
+```js
+function basicStateReducer(state, action) {
+  return typeof action === 'function' ? action(state) : action
+}
 ```
 
 所有的 `hooks` 都是挂载在 `ReactCurrentDispatcher` 对象上的
@@ -74,124 +278,6 @@ _reactDom2.default.render(
 ```
 
 编译后实际是把函数组件当作参数传递下去了
-
-### 挂载到上下文中
-
-#### 从函数式组件到 `createElement` 实现
-
-### 其它 `hooks` 参考
-
-```js
-export function getCacheForType<T>(resourceType: () => T): T {
-  const dispatcher = resolveDispatcher()
-  // $FlowFixMe This is unstable, thus optional
-  return dispatcher.getCacheForType(resourceType)
-}
-
-export function useContext<T>(Context: ReactContext<T>): T {
-  const dispatcher = resolveDispatcher()
-  return dispatcher.useContext(Context)
-}
-
-export function useState<S>(
-  initialState: (() => S) | S
-): [S, Dispatch<BasicStateAction<S>>] {
-  const dispatcher = resolveDispatcher()
-  return dispatcher.useState(initialState)
-}
-
-export function useReducer<S, I, A>(
-  reducer: (S, A) => S,
-  initialArg: I,
-  init?: (I) => S
-): [S, Dispatch<A>] {
-  const dispatcher = resolveDispatcher()
-  return dispatcher.useReducer(reducer, initialArg, init)
-}
-
-export function useRef<T>(initialValue: T): {| current: T |} {
-  const dispatcher = resolveDispatcher()
-  return dispatcher.useRef(initialValue)
-}
-
-export function useEffect(
-  create: () => (() => void) | void,
-  deps: Array<mixed> | void | null
-): void {
-  const dispatcher = resolveDispatcher()
-  return dispatcher.useEffect(create, deps)
-}
-
-export function useLayoutEffect(
-  create: () => (() => void) | void,
-  deps: Array<mixed> | void | null
-): void {
-  const dispatcher = resolveDispatcher()
-  return dispatcher.useLayoutEffect(create, deps)
-}
-
-export function useCallback<T>(
-  callback: T,
-  deps: Array<mixed> | void | null
-): T {
-  const dispatcher = resolveDispatcher()
-  return dispatcher.useCallback(callback, deps)
-}
-
-export function useMemo<T>(
-  create: () => T,
-  deps: Array<mixed> | void | null
-): T {
-  const dispatcher = resolveDispatcher()
-  return dispatcher.useMemo(create, deps)
-}
-
-export function useImperativeHandle<T>(
-  ref: {| current: T | null |} | ((inst: T | null) => mixed) | null | void,
-  create: () => T,
-  deps: Array<mixed> | void | null
-): void {
-  const dispatcher = resolveDispatcher()
-  return dispatcher.useImperativeHandle(ref, create, deps)
-}
-
-export function useDebugValue<T>(
-  value: T,
-  formatterFn: ?(value: T) => mixed
-): void {}
-
-export const emptyObject = {}
-
-export function useTransition(): [boolean, (() => void) => void] {
-  const dispatcher = resolveDispatcher()
-  return dispatcher.useTransition()
-}
-
-export function useDeferredValue<T>(value: T): T {
-  const dispatcher = resolveDispatcher()
-  return dispatcher.useDeferredValue(value)
-}
-
-export function useOpaqueIdentifier(): OpaqueIDType | void {
-  const dispatcher = resolveDispatcher()
-  return dispatcher.useOpaqueIdentifier()
-}
-
-export function useMutableSource<Source, Snapshot>(
-  source: MutableSource<Source>,
-  getSnapshot: MutableSourceGetSnapshotFn<Source, Snapshot>,
-  subscribe: MutableSourceSubscribeFn<Source, Snapshot>
-): Snapshot {
-  const dispatcher = resolveDispatcher()
-  return dispatcher.useMutableSource(source, getSnapshot, subscribe)
-}
-
-export function useCacheRefresh(): <T>(?() => T, ?T) => void {
-  const dispatcher = resolveDispatcher()
-  // $FlowFixMe This is unstable, thus optional
-  return dispatcher.useCacheRefresh()
-}
-```
 
 ### 参考
 
