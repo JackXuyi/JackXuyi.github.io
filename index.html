@@ -66,6 +66,73 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-计算机网络-DNS" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/08/16/计算机网络-DNS/" class="article-date">
+  <time datetime="2021-08-15T23:05:40.000Z" itemprop="datePublished">2021-08-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/16/计算机网络-DNS/">计算机网络-DNS</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>通常通过 <code>baidu.com</code> 访问百度的服务，这个 <code>baidu.com</code> 就是百度持有的域名（Domain Name），然而在网络中能够识别的只有 <code>IP</code> ，那就需要把域名转化为对应的 <code>IP</code> 地址。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><code>DNS</code> 全名叫做 <code>Domain Name System</code>, 中文叫做 <code>域名服务系统</code>，主要作用是把域名转化为网络中对应的 <code>IP</code> 地址。</p>
+<h2 id="工作原理（以浏览器为例）"><a href="#工作原理（以浏览器为例）" class="headerlink" title="工作原理（以浏览器为例）"></a>工作原理（以浏览器为例）</h2><p><img src="/images/network/dns.svg" alt="浏览器解析域名流程"></p>
+<ol>
+<li>浏览器解析出地址栏中的域名</li>
+<li>在浏览器缓存中查找是否有缓存此域名的地址</li>
+<li>在系统中是否有缓存此域名的地址</li>
+<li>通过 <code>UDP</code> 的方式向系统中配置的 <code>DNS</code> 服务器查找域名对应的 <code>IP</code> 地址</li>
+<li><code>DNS</code> 服务器通过 <code>UDP</code> 向根域名服务器查找域名地址，根域名服务器返回下一个查找的顶级域名服务器的 <code>IP</code> 地址</li>
+<li><code>DNS</code> 服务器通过 <code>UDP</code> 向顶级域名服务器查找域名地址，顶级域名服务器返回下一个查找域名服务器的 <code>IP</code> 地址，不断查找，直到找到域名对应的 <code>IP</code> 地址为止</li>
+<li><code>DNS</code> 服务器返回域名服务器的地址</li>
+</ol>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>域名分别在浏览器、操作系统、域名服务器三个层级做了缓存以提高访问速度</li>
+<li>获取域名时浏览器调用了操作系统的能力委托操作系统到操作系统配置的域名服务器上进行域名查找</li>
+<li>浏览器通过递归的方式分别去浏览器、操作系统和域名服务器上查找，而域名服务器是通过迭代的方式去各级域名服务器上进行查找的</li>
+</ul>
+<h3 id="各层级域名节点"><a href="#各层级域名节点" class="headerlink" title="各层级域名节点"></a>各层级域名节点</h3><ul>
+<li>域名服务器具有层级关系</li>
+<li>每个层级的域名服务器都存储了根域名服务器的地址信息，这样方便快速查找域名服务的信息</li>
+<li>每个层级的域名服务器都需要注册到其对应的上一级域名服务器中</li>
+</ul>
+<p><img src="/images/network/dns-node.svg" alt="域名服务器节点关系图"></p>
+<h2 id="域名服务数据更新"><a href="#域名服务数据更新" class="headerlink" title="域名服务数据更新"></a>域名服务数据更新</h2><p>当域名服务系统数据有变化时就需要去更新对应的数据</p>
+<ul>
+<li>当根域名服务器地址有变化时，各级域名服务需要通过 <code>TCP</code> 的方式更新对应的数据</li>
+<li>当有新的子域名服务器注册或者域名信息注销时需要子域名通过 <code>TCP</code> 的方式把更新信息同步到当前域名服务</li>
+</ul>
+<p><img src="/images/network/dns-update.svg" alt="域名服务器更新数据图"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/08/16/计算机网络-DNS/" data-id="ckslv7grz0000pbs6xcql64hj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">计算机网络</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-服务端渲染" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/08/08/服务端渲染/" class="article-date">
@@ -122,7 +189,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/08/服务端渲染/" data-id="cks38l8qy003u6fs6lfc5muyl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/08/服务端渲染/" data-id="ckslr1har0040kps677hw121i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
@@ -172,7 +239,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/07/简易的express中间件/" data-id="cks38l8r7004c6fs6f8a5lrfi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/07/简易的express中间件/" data-id="ckslr1hb5004kkps6x8kp7nwa" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
@@ -276,7 +343,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/06/跨域/" data-id="cks38l8rg004q6fs6hvttr15i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/06/跨域/" data-id="ckslr1hbd004wkps65j4m4fn2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -310,12 +377,28 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ul>
+        <h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><ul>
 <li>进程：资源分配的最小单位</li>
 <li>线程：CPU 调度的最小单位</li>
 <li>协程：协程运行在线程之上，当一个协程执行完成后，可以选择主动让出，让另一个协程运行在当前线程之上。协程并没有增加线程数量，只是在线程的基础之上通过分时复用的方式运行多个协程，而且协程的切换在用户态完成，切换的代价比线程从用户态到内核态的代价小很多。</li>
 </ul>
-<ul>
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><ul>
+<li>URL: Uniform Resource Locator, 统一资源定位符</li>
+<li>URI: Uniform Resource Identifier, 统一资源标识符</li>
+<li>FTP: File Transfer Protocol, 文件传输协议</li>
+<li>CGI: Common Gateway Interface, 通用网关接口</li>
+<li>DNS: Domain Name System, 域名服务系统</li>
+<li>协议栈: 操作系统内部的网络控制软件</li>
+<li>MX: Mail eXchange, 邮件交换</li>
+<li>UDP: User Datagram Protocol, 用户数据报协议</li>
+<li>TCP: Transmission Control Protocol, 传输控制协议</li>
+<li>ARP: Address Resolution Protocol, 地址解析协议</li>
+<li>MTU: Maximum Transmission Unit, 最大传输单元</li>
+<li>MSS: Maximum Segment Size, 最大分段大小</li>
+<li>FCS: Frame Check Sequence, 帧校验序列</li>
+<li>SFD: Start Frame Delimiter, 起始帧分界</li>
+</ul>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><ul>
 <li>PaaS: Platform as a service, 平台即服务。PaaS 给用户提供的能力是使用由云服务提供商支持的编程语言、库、服务以及开发工具来创建、开发应用程序并部署在相关的基础设施上。用户无需管理底层的基础设施，包括网络、服务器，操作系统或者存储。他们只能控制部署在基础设施中操作系统上的应用程序，配置应用程序所托管的环境的可配置参数。常见的 PaaS 服务有数据库服务、web 应用以及容器服务。成熟的 PaaS 服务会简化开发人员，提供完备的 PC 端和移动端软件开发套件（SDK），拥有丰富的开发环境（Inteli、Eclipse、VS 等），完全可托管的数据库服务，可配置式的应用程序构建，支持多语言的开发，面向应用市场。</li>
 <li>SaaS: Software as a Service, 软件即服务。SaaS 给用户提供的能力是使用在云基础架构上运行的云服务提供商的应用程序。可以通过轻量的客户端接口（诸如 web 浏览器（例如，基于 web 的电子邮件））或程序接口从各种客户端设备访问应用程序。 用户无需管理或控制底层云基础架构，包括网络，服务器，操作系统，存储甚至单独的应用程序功能，可能的例外是有限的用户特定应用程序配置设置。类似的服务有：各类的网盘(Dropbox、百度网盘等)，JIRA，GitLab 等服务。而这些应用的提供者不仅仅是云服务提供商，还有众多的第三方提供商（ISV: independent software provider）。</li>
 <li>IaaS: Infrastructure as a service, 基础设施即服务。用户可以在云服务提供商提供的基础设施上部署和运行任何软件，包括操作系统和应用软件。用户没有权限管理和访问底层的基础设施，如服务器、交换机、硬盘等，但是有权管理操作系统、存储内容，可以安装管理应用程序，甚至是有权管理网络组件。简单的说用户使用 IaaS，有权管理操作系统之上的一切功能。我们常见的 IaaS 服务有虚拟机、虚拟网络、以及存储。</li>
@@ -329,7 +412,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/26/术语/" data-id="cks38l8r0003y6fs65bbe918n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/26/术语/" data-id="ckslr1hat0042kps6g4krtiwa" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/other/">other</a></li></ul>
@@ -398,7 +481,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/26/js沙箱/" data-id="cks38l8py001s6fs6prj5nnw9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/26/js沙箱/" data-id="ckslr1h9k0021kps6fq4ea0sc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -463,7 +546,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/12/浏览器渲染过程详解/" data-id="cks38l8rj004y6fs62cw08ckz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/12/浏览器渲染过程详解/" data-id="ckslr1hay0048kps6mazk0dmz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -561,7 +644,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/11/js执行流程/" data-id="cks38l8q0001w6fs6leta23op" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/11/js执行流程/" data-id="ckslr1h9j001zkps6u8pjrpxa" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
@@ -597,16 +680,15 @@
       
         <h3 id="以客户端-useState-为例"><a href="#以客户端-useState-为例" class="headerlink" title="以客户端 useState 为例"></a>以客户端 <code>useState</code> 为例</h3><ol>
 <li>声明 <code>useState</code>，通过 <code>ReactCurrentDispatcher.current</code> 来实现</li>
+<li><code>ReactCurrentDispatcher.current</code> 的赋值是在 <code>packages/react-reconciler/src/ReactFiberHooks</code> 文件中区分挂载、更新和重新渲染分别实现的</li>
 </ol>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// packages/react/src/ReactHooks.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">resolveDispatcher</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = ReactCurrentDispatcher.current</span><br><span class="line">  <span class="comment">// Will result in a null access error if accessed outside render phase. We</span></span><br><span class="line">  <span class="comment">// intentionally don't throw our own error because this is in a hot path.</span></span><br><span class="line">  <span class="comment">// Also helps ensure this is inlined.</span></span><br><span class="line">  <span class="keyword">return</span> dispatcher: Dispatcher</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useState</span>&lt;<span class="title">S</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  initialState: (() =&gt; S) | S</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): [<span class="title">S</span>, <span class="title">Dispatch</span>&lt;<span class="title">BasicStateAction</span>&lt;<span class="title">S</span>&gt;&gt;] </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = resolveDispatcher()</span><br><span class="line">  <span class="keyword">return</span> dispatcher.useState(initialState)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>定义 <code>ReactCurrentDispatcher</code></li>
-</ol>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// packages/react/src/ReactCurrentDispatcher.js</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Keeps track of the current dispatcher.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> ReactCurrentDispatcher = &#123;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * @internal</span></span><br><span class="line"><span class="comment">   * @type &#123;ReactComponent&#125;</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  current: <span class="literal">null</span> | Dispatcher,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> ReactCurrentDispatcher</span><br></pre></td></tr></table></figure>
+<h4 id="挂载"><a href="#挂载" class="headerlink" title="挂载"></a>挂载</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// packages/react-reconciler/src/ReactFiberHooks.new.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mountState</span>(<span class="params">initialState</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> hook = mountWorkInProgressHook()</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> initialState === <span class="string">'function'</span>) &#123;</span><br><span class="line">    initialState = initialState()</span><br><span class="line">  &#125;</span><br><span class="line">  hook.memoizedState = hook.baseState = initialState</span><br><span class="line">  <span class="keyword">const</span> queue = (hook.queue = &#123;</span><br><span class="line">    pending: <span class="literal">null</span>,</span><br><span class="line">    interleaved: <span class="literal">null</span>,</span><br><span class="line">    lanes: NoLanes,</span><br><span class="line">    dispatch: <span class="literal">null</span>,</span><br><span class="line">    lastRenderedReducer: basicStateReducer,</span><br><span class="line">    lastRenderedState: initialState,</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">const</span> dispatch = (queue.dispatch = dispatchAction.bind(</span><br><span class="line">    <span class="literal">null</span>,</span><br><span class="line">    currentlyRenderingFiber,</span><br><span class="line">    queue</span><br><span class="line">  ))</span><br><span class="line">  <span class="keyword">return</span> [hook.memoizedState, dispatch]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mountWorkInProgressHook</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> hook = &#123;</span><br><span class="line">    memoizedState: <span class="literal">null</span>,</span><br><span class="line">    baseState: <span class="literal">null</span>,</span><br><span class="line">    baseQueue: <span class="literal">null</span>,</span><br><span class="line">    queue: <span class="literal">null</span>,</span><br><span class="line">    next: <span class="literal">null</span>,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (workInProgressHook === <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="comment">// This is the first hook in the list</span></span><br><span class="line">    currentlyRenderingFiber.memoizedState = workInProgressHook = hook</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// Append to the end of the list</span></span><br><span class="line">    workInProgressHook = workInProgressHook.next = hook</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> workInProgressHook</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// file: packages/react-reconciler/src/ReactFiberHooks.new.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateState</span>(<span class="params">initialState</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> updateReducer(basicStateReducer, initialState)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateReducer</span>(<span class="params">reducer, initialArg, init</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> hook = updateWorkInProgressHook()</span><br><span class="line">  <span class="keyword">const</span> queue = hook.queue</span><br><span class="line"></span><br><span class="line">  queue.lastRenderedReducer = reducer</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> current = currentHook</span><br><span class="line"></span><br><span class="line">  <span class="comment">// The last rebase update that is NOT part of the base state.</span></span><br><span class="line">  <span class="keyword">let</span> baseQueue = current.baseQueue</span><br><span class="line"></span><br><span class="line">  <span class="comment">// The last pending update that hasn't been processed yet.</span></span><br><span class="line">  <span class="keyword">const</span> pendingQueue = queue.pending</span><br><span class="line">  <span class="keyword">if</span> (pendingQueue !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="comment">// We have new updates that haven't been processed yet.</span></span><br><span class="line">    <span class="comment">// We'll add them to the base queue.</span></span><br><span class="line">    <span class="keyword">if</span> (baseQueue !== <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="comment">// Merge the pending queue and the base queue.</span></span><br><span class="line">      <span class="keyword">const</span> baseFirst = baseQueue.next</span><br><span class="line">      <span class="keyword">const</span> pendingFirst = pendingQueue.next</span><br><span class="line">      baseQueue.next = pendingFirst</span><br><span class="line">      pendingQueue.next = baseFirst</span><br><span class="line">    &#125;</span><br><span class="line">    current.baseQueue = baseQueue = pendingQueue</span><br><span class="line">    queue.pending = <span class="literal">null</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (baseQueue !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="comment">// We have a queue to process.</span></span><br><span class="line">    <span class="keyword">const</span> first = baseQueue.next</span><br><span class="line">    <span class="keyword">let</span> newState = current.baseState</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> newBaseState = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">let</span> newBaseQueueFirst = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">let</span> newBaseQueueLast = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">let</span> update = first</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> updateLane = update.lane</span><br><span class="line">      <span class="keyword">if</span> (!isSubsetOfLanes(renderLanes, updateLane)) &#123;</span><br><span class="line">        <span class="comment">// Priority is insufficient. Skip this update. If this is the first</span></span><br><span class="line">        <span class="comment">// skipped update, the previous update/state is the new base</span></span><br><span class="line">        <span class="comment">// update/state.</span></span><br><span class="line">        <span class="keyword">const</span> clone = &#123;</span><br><span class="line">          lane: updateLane,</span><br><span class="line">          action: update.action,</span><br><span class="line">          eagerReducer: update.eagerReducer,</span><br><span class="line">          eagerState: update.eagerState,</span><br><span class="line">          next: <span class="literal">null</span>,</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (newBaseQueueLast === <span class="literal">null</span>) &#123;</span><br><span class="line">          newBaseQueueFirst = newBaseQueueLast = clone</span><br><span class="line">          newBaseState = newState</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          newBaseQueueLast = newBaseQueueLast.next = clone</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// Update the remaining priority in the queue.</span></span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> Don't need to accumulate this. Instead, we can remove</span></span><br><span class="line">        <span class="comment">// renderLanes from the original lanes.</span></span><br><span class="line">        currentlyRenderingFiber.lanes = mergeLanes(</span><br><span class="line">          currentlyRenderingFiber.lanes,</span><br><span class="line">          updateLane</span><br><span class="line">        )</span><br><span class="line">        markSkippedUpdateLanes(updateLane)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// This update does have sufficient priority.</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (newBaseQueueLast !== <span class="literal">null</span>) &#123;</span><br><span class="line">          <span class="keyword">const</span> clone = &#123;</span><br><span class="line">            <span class="comment">// This update is going to be committed so we never want uncommit</span></span><br><span class="line">            <span class="comment">// it. Using NoLane works because 0 is a subset of all bitmasks, so</span></span><br><span class="line">            <span class="comment">// this will never be skipped by the check above.</span></span><br><span class="line">            lane: NoLane,</span><br><span class="line">            action: update.action,</span><br><span class="line">            eagerReducer: update.eagerReducer,</span><br><span class="line">            eagerState: update.eagerState,</span><br><span class="line">            next: <span class="literal">null</span>,</span><br><span class="line">          &#125;</span><br><span class="line">          newBaseQueueLast = newBaseQueueLast.next = clone</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Process this update.</span></span><br><span class="line">        <span class="keyword">if</span> (update.eagerReducer === reducer) &#123;</span><br><span class="line">          <span class="comment">// If this update was processed eagerly, and its reducer matches the</span></span><br><span class="line">          <span class="comment">// current reducer, we can use the eagerly computed state.</span></span><br><span class="line">          newState = update.eagerState</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">const</span> action = update.action</span><br><span class="line">          newState = reducer(newState, action)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      update = update.next</span><br><span class="line">    &#125; <span class="keyword">while</span> (update !== <span class="literal">null</span> &amp;&amp; update !== first)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (newBaseQueueLast === <span class="literal">null</span>) &#123;</span><br><span class="line">      newBaseState = newState</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      newBaseQueueLast.next = newBaseQueueFirst</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Mark that the fiber performed work, but only if the new state is</span></span><br><span class="line">    <span class="comment">// different from the current state.</span></span><br><span class="line">    <span class="keyword">if</span> (!is(newState, hook.memoizedState)) &#123;</span><br><span class="line">      markWorkInProgressReceivedUpdate()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    hook.memoizedState = newState</span><br><span class="line">    hook.baseState = newBaseState</span><br><span class="line">    hook.baseQueue = newBaseQueueLast</span><br><span class="line"></span><br><span class="line">    queue.lastRenderedState = newState</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Interleaved updates are stored on a separate queue. We aren't going to</span></span><br><span class="line">  <span class="comment">// process them during this render, but we do need to track which lanes</span></span><br><span class="line">  <span class="comment">// are remaining.</span></span><br><span class="line">  <span class="keyword">const</span> lastInterleaved = queue.interleaved</span><br><span class="line">  <span class="keyword">if</span> (lastInterleaved !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> interleaved = lastInterleaved</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> interleavedLane = interleaved.lane</span><br><span class="line">      currentlyRenderingFiber.lanes = mergeLanes(</span><br><span class="line">        currentlyRenderingFiber.lanes,</span><br><span class="line">        interleavedLane</span><br><span class="line">      )</span><br><span class="line">      markSkippedUpdateLanes(interleavedLane)</span><br><span class="line">      interleaved = interleaved.next</span><br><span class="line">    &#125; <span class="keyword">while</span> (interleaved !== lastInterleaved)</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (baseQueue === <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="comment">// `queue.lanes` is used for entangling transitions. We can set it back to</span></span><br><span class="line">    <span class="comment">// zero once the queue is empty.</span></span><br><span class="line">    queue.lanes = NoLanes</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> dispatch = (queue.dispatch: any)</span><br><span class="line">  <span class="keyword">return</span> [hook.memoizedState, dispatch]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="重渲染"><a href="#重渲染" class="headerlink" title="重渲染"></a>重渲染</h4><h4 id="dispatchAction"><a href="#dispatchAction" class="headerlink" title="dispatchAction"></a><code>dispatchAction</code></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dispatchAction</span>(<span class="params">fiber, queue, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> eventTime = requestEventTime()</span><br><span class="line">  <span class="keyword">const</span> lane = requestUpdateLane(fiber)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> update = &#123;</span><br><span class="line">    lane,</span><br><span class="line">    action,</span><br><span class="line">    eagerReducer: <span class="literal">null</span>,</span><br><span class="line">    eagerState: <span class="literal">null</span>,</span><br><span class="line">    next: <span class="literal">null</span>,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> alternate = fiber.alternate</span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    fiber === currentlyRenderingFiber ||</span><br><span class="line">    (alternate !== <span class="literal">null</span> &amp;&amp; alternate === currentlyRenderingFiber)</span><br><span class="line">  ) &#123;</span><br><span class="line">    didScheduleRenderPhaseUpdateDuringThisPass =</span><br><span class="line">      didScheduleRenderPhaseUpdate = <span class="literal">true</span></span><br><span class="line">    <span class="keyword">const</span> pending = queue.pending</span><br><span class="line">    <span class="keyword">if</span> (pending === <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="comment">// This is the first update. Create a circular list.</span></span><br><span class="line">      update.next = update</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      update.next = pending.next</span><br><span class="line">      pending.next = update</span><br><span class="line">    &#125;</span><br><span class="line">    queue.pending = update</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 其它情况更新</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="basicStateReducer"><a href="#basicStateReducer" class="headerlink" title="basicStateReducer"></a><code>basicStateReducer</code></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">basicStateReducer</span>(<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">typeof</span> action === <span class="string">'function'</span> ? action(state) : action</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>所有的 <code>hooks</code> 都是挂载在 <code>ReactCurrentDispatcher</code> 对象上的</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [a, setA] = useState()</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;a&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;Test /&gt;,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>) || <span class="built_in">document</span>.getElementsByTagName(<span class="string">'body'</span>)[<span class="number">0</span>]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 编译之后</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> _useState = (<span class="number">0</span>, _react.useState)(<span class="number">0</span>), <span class="comment">// 等价于 _useState = _react.useState(0)</span></span><br><span class="line">    _useState2 = _slicedToArray(_useState, <span class="number">2</span>),</span><br><span class="line">    a = _useState2[<span class="number">0</span>],</span><br><span class="line">    setA = _useState2[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> _react2.default.createElement(<span class="string">'div'</span>, <span class="literal">null</span>, a)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">_reactDom2.default.render(</span><br><span class="line">  _react2.default.createElement(Test, <span class="literal">null</span>),</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>) || <span class="built_in">document</span>.getElementsByTagName(<span class="string">'body'</span>)[<span class="number">0</span>]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <p>编译后实际是把函数组件当作参数传递下去了</p>
-<h3 id="挂载到上下文中"><a href="#挂载到上下文中" class="headerlink" title="挂载到上下文中"></a>挂载到上下文中</h3><h4 id="从函数式组件到-createElement-实现"><a href="#从函数式组件到-createElement-实现" class="headerlink" title="从函数式组件到 createElement 实现"></a>从函数式组件到 <code>createElement</code> 实现</h4><h3 id="其它-hooks-参考"><a href="#其它-hooks-参考" class="headerlink" title="其它 hooks 参考"></a>其它 <code>hooks</code> 参考</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">getCacheForType</span>&lt;<span class="title">T</span>&gt;(<span class="params">resourceType: (</span>) =&gt; <span class="title">T</span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = resolveDispatcher()</span><br><span class="line">  <span class="comment">// $FlowFixMe This is unstable, thus optional</span></span><br><span class="line">  <span class="keyword">return</span> dispatcher.getCacheForType(resourceType)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useContext</span>&lt;<span class="title">T</span>&gt;(<span class="params">Context: ReactContext&lt;T&gt;</span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = resolveDispatcher()</span><br><span class="line">  <span class="keyword">return</span> dispatcher.useContext(Context)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useState</span>&lt;<span class="title">S</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  initialState: ((</span>) =&gt; <span class="title">S</span>) | <span class="title">S</span></span></span><br><span class="line">): [S, Dispatch&lt;BasicStateAction&lt;S&gt;&gt;] &#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = resolveDispatcher()</span><br><span class="line">  <span class="keyword">return</span> dispatcher.useState(initialState)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useReducer</span>&lt;<span class="title">S</span>, <span class="title">I</span>, <span class="title">A</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  reducer: (S, A</span>) =&gt; <span class="title">S</span>,</span></span><br><span class="line"><span class="function">  <span class="title">initialArg</span>: <span class="title">I</span>,</span></span><br><span class="line"><span class="function">  <span class="title">init</span>?: (<span class="params">I</span>) =&gt; <span class="title">S</span></span></span><br><span class="line">): [S, Dispatch&lt;A&gt;] &#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = resolveDispatcher()</span><br><span class="line">  <span class="keyword">return</span> dispatcher.useReducer(reducer, initialArg, init)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useRef</span>&lt;<span class="title">T</span>&gt;(<span class="params">initialValue: T</span>): </span>&#123;| current: T |&#125; &#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = resolveDispatcher()</span><br><span class="line">  <span class="keyword">return</span> dispatcher.useRef(initialValue)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useEffect</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  create: (</span>) =&gt; (<span class="params">(</span>) =&gt; <span class="title">void</span>) | <span class="title">void</span>,</span></span><br><span class="line"><span class="function">  <span class="title">deps</span>: <span class="title">Array</span>&lt;<span class="title">mixed</span>&gt; | <span class="title">void</span> | <span class="title">null</span></span></span><br><span class="line"><span class="function">): <span class="title">void</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = resolveDispatcher()</span><br><span class="line">  <span class="keyword">return</span> dispatcher.useEffect(create, deps)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useLayoutEffect</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  create: (</span>) =&gt; (<span class="params">(</span>) =&gt; <span class="title">void</span>) | <span class="title">void</span>,</span></span><br><span class="line"><span class="function">  <span class="title">deps</span>: <span class="title">Array</span>&lt;<span class="title">mixed</span>&gt; | <span class="title">void</span> | <span class="title">null</span></span></span><br><span class="line"><span class="function">): <span class="title">void</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = resolveDispatcher()</span><br><span class="line">  <span class="keyword">return</span> dispatcher.useLayoutEffect(create, deps)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useCallback</span>&lt;<span class="title">T</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  callback: T,</span></span></span><br><span class="line"><span class="function"><span class="params">  deps: Array&lt;mixed&gt; | void | null</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = resolveDispatcher()</span><br><span class="line">  <span class="keyword">return</span> dispatcher.useCallback(callback, deps)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useMemo</span>&lt;<span class="title">T</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  create: (</span>) =&gt; <span class="title">T</span>,</span></span><br><span class="line"><span class="function">  <span class="title">deps</span>: <span class="title">Array</span>&lt;<span class="title">mixed</span>&gt; | <span class="title">void</span> | <span class="title">null</span></span></span><br><span class="line"><span class="function">): <span class="title">T</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = resolveDispatcher()</span><br><span class="line">  <span class="keyword">return</span> dispatcher.useMemo(create, deps)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useImperativeHandle</span>&lt;<span class="title">T</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  ref: &#123;| current: T | null |&#125; | ((inst: T | null</span>) =&gt; <span class="title">mixed</span>) | <span class="title">null</span> | <span class="title">void</span>,</span></span><br><span class="line"><span class="function">  <span class="title">create</span>: (<span class="params"></span>) =&gt; <span class="title">T</span>,</span></span><br><span class="line"><span class="function">  <span class="title">deps</span>: <span class="title">Array</span>&lt;<span class="title">mixed</span>&gt; | <span class="title">void</span> | <span class="title">null</span></span></span><br><span class="line"><span class="function">): <span class="title">void</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = resolveDispatcher()</span><br><span class="line">  <span class="keyword">return</span> dispatcher.useImperativeHandle(ref, create, deps)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useDebugValue</span>&lt;<span class="title">T</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  value: T,</span></span></span><br><span class="line"><span class="function"><span class="params">  formatterFn: ?(value: T</span>) =&gt; <span class="title">mixed</span></span></span><br><span class="line"><span class="function">): <span class="title">void</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> emptyObject = &#123;&#125;</span><br><span class="line"></span><br><span class="line">export function useTransition(): [boolean, (() =&gt; void) =&gt; void] &#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = resolveDispatcher()</span><br><span class="line">  <span class="keyword">return</span> dispatcher.useTransition()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useDeferredValue</span>&lt;<span class="title">T</span>&gt;(<span class="params">value: T</span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = resolveDispatcher()</span><br><span class="line">  <span class="keyword">return</span> dispatcher.useDeferredValue(value)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useOpaqueIdentifier</span>(<span class="params"></span>): <span class="title">OpaqueIDType</span> | <span class="title">void</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = resolveDispatcher()</span><br><span class="line">  <span class="keyword">return</span> dispatcher.useOpaqueIdentifier()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useMutableSource</span>&lt;<span class="title">Source</span>, <span class="title">Snapshot</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  source: MutableSource&lt;Source&gt;,</span></span></span><br><span class="line"><span class="function"><span class="params">  getSnapshot: MutableSourceGetSnapshotFn&lt;Source, Snapshot&gt;,</span></span></span><br><span class="line"><span class="function"><span class="params">  subscribe: MutableSourceSubscribeFn&lt;Source, Snapshot&gt;</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">Snapshot</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = resolveDispatcher()</span><br><span class="line">  <span class="keyword">return</span> dispatcher.useMutableSource(source, getSnapshot, subscribe)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useCacheRefresh</span>(<span class="params"></span>): &lt;<span class="title">T</span>&gt;(<span class="params">?(</span>) =&gt; <span class="title">T</span>, ?<span class="title">T</span>) =&gt; <span class="title">void</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dispatcher = resolveDispatcher()</span><br><span class="line">  <span class="comment">// $FlowFixMe This is unstable, thus optional</span></span><br><span class="line">  <span class="keyword">return</span> dispatcher.useCacheRefresh()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
 <li><a href="https://www.jianshu.com/p/b9ac8fa849f1" target="_blank" rel="noopener">React Hooks 原理</a></li>
 <li><a href="https://www.cnblogs.com/cczlovexw/p/13565085.html" target="_blank" rel="noopener">React Hook 的底层实现原理</a></li>
@@ -617,7 +699,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/06/28/react中hooks实现原理/" data-id="cks38l8qc002o6fs6bqpba877" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/06/28/react中hooks实现原理/" data-id="ckslr1h9z002tkps6hnr09gdn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
@@ -698,7 +780,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/06/20/react从dom-render到初次组件渲染完成/" data-id="cks38l8qh00316fs6vipdj9k3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/06/20/react从dom-render到初次组件渲染完成/" data-id="ckslr1ha60035kps6hl1cuyae" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
@@ -816,7 +898,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/06/17/webpack源码阅读（二）/" data-id="cks38l8qm003a6fs6ozeqg1d9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/06/17/webpack源码阅读（二）/" data-id="ckslr1hac003hkps6pm5naifc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
@@ -894,7 +976,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/06/15/webpack源码阅读（一）/" data-id="cks38l8qn003c6fs6ndfr129k" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/06/15/webpack源码阅读（一）/" data-id="ckslr1hae003jkps6rf23ohdy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
@@ -955,7 +1037,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/06/15/Performance/" data-id="cks38l8os00026fs60ssca2m1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/06/15/Performance/" data-id="ckslr1h850006kps6jq4e2twk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -1028,7 +1110,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/06/14/react的同步更新/" data-id="cks38l8rw00666fs6slhk358t" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/06/14/react的同步更新/" data-id="ckslr1hbu0066kps6crap4vbc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
@@ -1119,7 +1201,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/06/12/react中的事件/" data-id="cks38l8qe002t6fs6kh1i6sek" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/06/12/react中的事件/" data-id="ckslr1ha2002ykps6j9szx4wz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
@@ -1202,7 +1284,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/06/06/react中的jsx语法/" data-id="cks38l8qb002m6fs6vq7nc869" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/06/06/react中的jsx语法/" data-id="ckslr1ha1002vkps63ge58jfo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
@@ -1303,7 +1385,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/05/30/react中的异步实现/" data-id="cks38l8qd002r6fs6movwpxuw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/05/30/react中的异步实现/" data-id="ckslr1ha30030kps65v9jei0p" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
@@ -1390,7 +1472,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/04/18/前端框架/" data-id="cks38l8qo003e6fs6dcezjt5l" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/04/18/前端框架/" data-id="ckslr1haj003qkps69bvza65o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/other/">other</a></li></ul>
@@ -1464,7 +1546,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/04/04/用Hexo搭建静态博客/" data-id="cks38l8r500486fs6b3spytlr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/04/04/用Hexo搭建静态博客/" data-id="ckslr1hb1004ekps6i1wu21dh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/other/">other</a></li></ul>
@@ -1531,7 +1613,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/04/04/与native交互/" data-id="cks38l8qq003g6fs61ws32grg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/04/04/与native交互/" data-id="ckslr1hag003nkps6ugrz46gh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/other/">other</a></li></ul>
@@ -1586,7 +1668,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/04/02/实时协议/" data-id="cks38l8qt003k6fs627kw0z0c" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/04/02/实时协议/" data-id="ckslr1hal003skps6mauwhjz9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">计算机网络</a></li></ul>
@@ -1639,7 +1721,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/03/28/HTTPS/" data-id="cks38l8rr00616fs63s6h8url" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/03/28/HTTPS/" data-id="ckslr1h7z0002kps6dq9y30di" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">计算机网络</a></li></ul>
@@ -1701,7 +1783,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/03/28/网络安全/" data-id="cks38l8r9004g6fs6lpt9lppr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/03/28/网络安全/" data-id="ckslr1hba004okps65jwykv8p" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">计算机网络</a></li></ul>
@@ -1773,7 +1855,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/03/22/http协议/" data-id="cks38l8pe000r6fs6dod2f2db" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/03/22/http协议/" data-id="ckslr1h8s000zkps6zslnq8fq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">计算机网络</a></li></ul>
@@ -1859,7 +1941,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/03/03/commonjs/" data-id="cks38l8pc000m6fs6przc3di1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/03/03/commonjs/" data-id="ckslr1h8j000kkps6ylcgn31a" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
@@ -1924,7 +2006,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/03/02/浏览器基础/" data-id="cks38l8r100406fs6pj60lajy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/03/02/浏览器基础/" data-id="ckslr1haw0046kps66hct36k2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -2015,7 +2097,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/02/28/简单代码热更新/" data-id="cks38l8r6004a6fs6k2dbaglt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/02/28/简单代码热更新/" data-id="ckslr1hb4004ikps6zt6jpaz8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
@@ -2079,7 +2161,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/01/24/粘贴图片/" data-id="cks38l8r8004e6fs66iaqui6w" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/01/24/粘贴图片/" data-id="ckslr1hb9004mkps69f4gq6p9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -2156,7 +2238,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/01/17/跨页面通信/" data-id="cks38l8rg004o6fs6tbnhrkak" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/01/17/跨页面通信/" data-id="ckslr1hbe004ykps60vjzwsgq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -2226,98 +2308,10 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/01/06/nodejs中实现websocket服务/" data-id="cks38l8q7002c6fs6h9osee7x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/01/06/nodejs中实现websocket服务/" data-id="ckslr1h9q002ekps6g0fmwnev" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">计算机网络</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-记一次项目打包优化" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/23/记一次项目打包优化/" class="article-date">
-  <time datetime="2020-12-22T19:19:21.000Z" itemprop="datePublished">2020-12-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/23/记一次项目打包优化/">记一次项目打包优化</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>由于项目功能越来复杂，打包发布的速度越来越慢，严重影响了开发速度，所以决定优化下打包发布速度</p>
-<h2 id="分析打包流程及耗时"><a href="#分析打包流程及耗时" class="headerlink" title="分析打包流程及耗时"></a>分析打包流程及耗时</h2><h3 id="打包流程"><a href="#打包流程" class="headerlink" title="打包流程"></a>打包流程</h3><ul>
-<li>代码 clone 到打包服务器上</li>
-<li>编译代码，项目采用 nextjs 进行服务端渲染，所以编译编译时分为两个部分，分别为构建服务端 js 和客户端 js，每次编译都要先安装项目依赖，再执行打包构建命令</li>
-<li>构建 docker 容器，项目运行在 docker 容器中，每次打包发布都是构建一个新的容器去替换对应环境的容器</li>
-<li>部署静态资源，把客户端对应的 js 推送到 CDN 上</li>
-<li>替换容器，用之前构建的容器去替换当前环境的容器</li>
-</ul>
-<h3 id="耗时分析"><a href="#耗时分析" class="headerlink" title="耗时分析"></a>耗时分析</h3><ul>
-<li>clone 代码速度由网络和项目大小决定（网络无法控制，源代码不大，优化效果不明显）—— 通常在 10 秒左右</li>
-<li>采用 webpack 进行编译，可以通过插件进行构建优化 —— 通常在 2.5 分钟左右</li>
-<li>构建 docker 容器时会把 node_modules 下的依赖按照生产模式的方式放入容器中 —— 通常在 4.5 分钟左右</li>
-<li>静态资源的上传由上传资源大小及网络决定，上传由基础组控制 —— 2 分钟左右</li>
-<li>替换容器由集群控制，业务方无法控制 —— 通常在 1 分左右</li>
-</ul>
-<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>通过上面的分析发现，制作 docker 容器和 打包过程最耗费时间，且这两块也在业务方控制之中，所以优化从这两方面着手</p>
-<h3 id="docker-容器优化"><a href="#docker-容器优化" class="headerlink" title="docker 容器优化"></a>docker 容器优化</h3><p>通过查看打包日志发现制作 docker 容器时发现制作容器时发送的上下文达 1G 多，对比其它项目明显偏大</p>
-<h4 id="优化方向分析"><a href="#优化方向分析" class="headerlink" title="优化方向分析"></a>优化方向分析</h4><ul>
-<li>发送的上下文是在生产模式下安装的依赖，即只会安装 <code>dependencies</code> 下的依赖 —— 考虑把所有非服务端必须的依赖安装到 <code>devDependencies</code> 中以减小上下文大小</li>
-<li>由于需要 SEO 优化，优化不能减少服务端渲染时的页面内容 —— 只能优化对页面内容没有影响但是需要客户端交互及样式操作相关的库</li>
-</ul>
-<h4 id="优化操作"><a href="#优化操作" class="headerlink" title="优化操作"></a>优化操作</h4><ul>
-<li>通过 webpack 插件提取项目中使用的依赖，结合 package.json 的配置，筛选出项目中无用的依赖</li>
-<li>筛选出 <code>dependencies</code> 中的依赖是否可以只在客户端渲染时引入，例如 <code>react-copy-to-clipboard</code> 只会在客户端执行复制操作就可以放入 <code>devDependencies</code> 中以便只在客户端引入</li>
-</ul>
-<h4 id="优化效果"><a href="#优化效果" class="headerlink" title="优化效果"></a>优化效果</h4><p>构建 docker 容器的时间从优化前的 4.5 分钟左右下降到 2.5 分钟左右，优化了 50%</p>
-<h3 id="webpack-打包优化"><a href="#webpack-打包优化" class="headerlink" title="webpack 打包优化"></a>webpack 打包优化</h3><p>此项目是基于 webpack 4.x 进行打包的，可以通过插件和 webpack 配置及 loader 的形式进行打包优化</p>
-<h4 id="webpack-4-使用-v8-引擎带来的优化"><a href="#webpack-4-使用-v8-引擎带来的优化" class="headerlink" title="webpack 4 使用 v8 引擎带来的优化"></a>webpack 4 使用 v8 引擎带来的优化</h4><ul>
-<li>for of 替代 forEach</li>
-<li>Map 和 Set 替代 Object</li>
-<li>includes 替代 indexOf()</li>
-<li>默认使用更快的 md4 hash 算法 替代 md5 算法，md4 较 md5 速度更快</li>
-<li>webpack AST 可以直接从 loader 传递给 AST，从而减少解析时间</li>
-<li>使用字符串方法替代正则表达式</li>
-</ul>
-<h4 id="优化方向分析-1"><a href="#优化方向分析-1" class="headerlink" title="优化方向分析"></a>优化方向分析</h4><p>通过 <a href="https://www.npmjs.com/package/speed-measure-webpack-plugin" target="_blank" rel="noopener">speed-measure-webpack-plugin</a> 插件进行打包耗时分析</p>
-<ul>
-<li>通过配置 <code>exclude / include</code> 和忽略第三方包指定目录及通过 externals 缩小打包文件范围</li>
-<li>多进程并行打包和代码压缩</li>
-<li>缓存编译结果</li>
-<li>babel 配置的优化</li>
-</ul>
-<h4 id="优化操作-1"><a href="#优化操作-1" class="headerlink" title="优化操作"></a>优化操作</h4><p>通过研究框架 webpack 配置发现项目已经引入 <code>cache-loader</code>、<code>thread-loader</code> 等 <code>loader</code> 和插件及配置优化代码打包速度，所以未做 <code>webpack</code> 打包优化</p>
-<ul>
-<li>引入 <code>speed-measure-webpack-plugin</code> 查看打包耗时</li>
-</ul>
-<h3 id="相关知识点"><a href="#相关知识点" class="headerlink" title="相关知识点"></a>相关知识点</h3><ul>
-<li><a href="https://www.webpackjs.com/concepts/" target="_blank" rel="noopener">webpack</a></li>
-<li><a href="https://yeasy.gitbook.io/docker_practice/" target="_blank" rel="noopener">docker</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/12/23/记一次项目打包优化/" data-id="cks38l8ra004i6fs6gekjstc9" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/other/">other</a></li></ul>
 
     </footer>
   </div>
@@ -2342,7 +2336,7 @@ branch: master
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/">C/C++语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">54</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeORM/">TypeORM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">other</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solution/">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">计算机网络</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/">资源</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/">C/C++语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">54</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeORM/">TypeORM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">other</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solution/">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">计算机网络</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/">资源</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -2352,7 +2346,7 @@ branch: master
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/c-language/" style="font-size: 12.5px;">C/C++语言</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/TypeORM/" style="font-size: 10px;">TypeORM</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/express/" style="font-size: 11.25px;">express</a> <a href="/tags/mysql/" style="font-size: 11.25px;">mysql</a> <a href="/tags/node/" style="font-size: 18.75px;">node</a> <a href="/tags/other/" style="font-size: 16.25px;">other</a> <a href="/tags/react/" style="font-size: 17.5px;">react</a> <a href="/tags/webpack/" style="font-size: 12.5px;">webpack</a> <a href="/tags/solution/" style="font-size: 13.75px;">算法</a> <a href="/tags/network/" style="font-size: 15px;">计算机网络</a> <a href="/tags/source/" style="font-size: 11.25px;">资源</a>
+      <a href="/tags/c-language/" style="font-size: 12.86px;">C/C++语言</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/TypeORM/" style="font-size: 10px;">TypeORM</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/express/" style="font-size: 11.43px;">express</a> <a href="/tags/mysql/" style="font-size: 11.43px;">mysql</a> <a href="/tags/node/" style="font-size: 18.57px;">node</a> <a href="/tags/other/" style="font-size: 15.71px;">other</a> <a href="/tags/react/" style="font-size: 17.14px;">react</a> <a href="/tags/webpack/" style="font-size: 12.86px;">webpack</a> <a href="/tags/solution/" style="font-size: 14.29px;">算法</a> <a href="/tags/network/" style="font-size: 15.71px;">计算机网络</a> <a href="/tags/source/" style="font-size: 11.43px;">资源</a>
     </div>
   </div>
 
@@ -2361,7 +2355,7 @@ branch: master
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -2372,6 +2366,10 @@ branch: master
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/08/16/计算机网络-DNS/">计算机网络-DNS</a>
+          </li>
         
           <li>
             <a href="/2021/08/08/服务端渲染/">服务端渲染</a>
@@ -2387,10 +2385,6 @@ branch: master
         
           <li>
             <a href="/2021/07/26/术语/">术语</a>
-          </li>
-        
-          <li>
-            <a href="/2021/07/26/js沙箱/">js沙箱</a>
           </li>
         
       </ul>
