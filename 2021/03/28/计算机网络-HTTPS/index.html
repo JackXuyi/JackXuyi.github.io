@@ -3,23 +3,22 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>浏览器基础 | 奔跑的蜗牛</title>
+  <title>计算机网络-HTTPS | 奔跑的蜗牛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="浏览器组成用户界面包括浏览器中可见的地址输入框、浏览器前进返回按钮、打开书签、打开历史记录等用户可操作的功能选项 浏览器引擎可以在用户界面和渲染引擎之间传送指令或在客户端本地缓存中读写数据等，是浏览器各个部分通信的核心。 渲染引擎（内核）解析 DOM 文档和 CSS 规则并将内容排版到浏览器中显示有样式的界面 网络开启网络线程发送请求或下载资源文件 UI 后端绘制基本的浏览器窗口内的控件，比如组合">
-<meta name="keywords" content="JavaScript">
+  <meta name="description" content="HTTPS 协议是通过加入 SSL 层来加密 HTTP 数据进行安全通信的 HTTPS 建立链接的过程 客户端发起请求，携带客户端支持加密算法，同时携带随机串 1 服务端收到请求后与自己支持的加密算法进行比对，从双方都支持的加密算法中选择一个返回，同时返回域名相关的公钥和证书签名信息（包括证书时间、日期、颁发机构）及随机串 2 客户端收到响应后验证证书的合法性和公钥的正确性（通过请求证书颁发机构来">
+<meta name="keywords" content="计算机网络">
 <meta property="og:type" content="article">
-<meta property="og:title" content="浏览器基础">
-<meta property="og:url" content="http://yoursite.com/2021/03/02/浏览器基础/index.html">
+<meta property="og:title" content="计算机网络-HTTPS">
+<meta property="og:url" content="http://yoursite.com/2021/03/28/计算机网络-HTTPS/index.html">
 <meta property="og:site_name" content="奔跑的蜗牛">
-<meta property="og:description" content="浏览器组成用户界面包括浏览器中可见的地址输入框、浏览器前进返回按钮、打开书签、打开历史记录等用户可操作的功能选项 浏览器引擎可以在用户界面和渲染引擎之间传送指令或在客户端本地缓存中读写数据等，是浏览器各个部分通信的核心。 渲染引擎（内核）解析 DOM 文档和 CSS 规则并将内容排版到浏览器中显示有样式的界面 网络开启网络线程发送请求或下载资源文件 UI 后端绘制基本的浏览器窗口内的控件，比如组合">
+<meta property="og:description" content="HTTPS 协议是通过加入 SSL 层来加密 HTTP 数据进行安全通信的 HTTPS 建立链接的过程 客户端发起请求，携带客户端支持加密算法，同时携带随机串 1 服务端收到请求后与自己支持的加密算法进行比对，从双方都支持的加密算法中选择一个返回，同时返回域名相关的公钥和证书签名信息（包括证书时间、日期、颁发机构）及随机串 2 客户端收到响应后验证证书的合法性和公钥的正确性（通过请求证书颁发机构来">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/images/brower/gecko.svg">
-<meta property="og:image" content="http://yoursite.com/images/brower/webkit.svg">
-<meta property="og:updated_time" content="2021-03-20T14:22:31.713Z">
+<meta property="og:image" content="http://yoursite.com/images/https.svg">
+<meta property="og:updated_time" content="2021-08-22T13:45:59.911Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浏览器基础">
-<meta name="twitter:description" content="浏览器组成用户界面包括浏览器中可见的地址输入框、浏览器前进返回按钮、打开书签、打开历史记录等用户可操作的功能选项 浏览器引擎可以在用户界面和渲染引擎之间传送指令或在客户端本地缓存中读写数据等，是浏览器各个部分通信的核心。 渲染引擎（内核）解析 DOM 文档和 CSS 规则并将内容排版到浏览器中显示有样式的界面 网络开启网络线程发送请求或下载资源文件 UI 后端绘制基本的浏览器窗口内的控件，比如组合">
-<meta name="twitter:image" content="http://yoursite.com/images/brower/gecko.svg">
+<meta name="twitter:title" content="计算机网络-HTTPS">
+<meta name="twitter:description" content="HTTPS 协议是通过加入 SSL 层来加密 HTTP 数据进行安全通信的 HTTPS 建立链接的过程 客户端发起请求，携带客户端支持加密算法，同时携带随机串 1 服务端收到请求后与自己支持的加密算法进行比对，从双方都支持的加密算法中选择一个返回，同时返回域名相关的公钥和证书签名信息（包括证书时间、日期、颁发机构）及随机串 2 客户端收到响应后验证证书的合法性和公钥的正确性（通过请求证书颁发机构来">
+<meta name="twitter:image" content="http://yoursite.com/images/https.svg">
   
   
     <link rel="icon" href="0001.jpg#/favicon.png">
@@ -68,10 +67,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-浏览器基础" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-计算机网络-HTTPS" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2021/03/02/浏览器基础/" class="article-date">
-  <time datetime="2021-03-01T23:06:23.000Z" itemprop="datePublished">2021-03-01</time>
+    <a href="/2021/03/28/计算机网络-HTTPS/" class="article-date">
+  <time datetime="2021-03-27T20:13:54.000Z" itemprop="datePublished">2021-03-27</time>
 </a>
     
   </div>
@@ -82,7 +81,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      浏览器基础
+      计算机网络-HTTPS
     </h1>
   
 
@@ -90,41 +89,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="浏览器组成"><a href="#浏览器组成" class="headerlink" title="浏览器组成"></a>浏览器组成</h3><h4 id="用户界面"><a href="#用户界面" class="headerlink" title="用户界面"></a>用户界面</h4><p>包括浏览器中可见的地址输入框、浏览器前进返回按钮、打开书签、打开历史记录等用户可操作的功能选项</p>
-<h4 id="浏览器引擎"><a href="#浏览器引擎" class="headerlink" title="浏览器引擎"></a>浏览器引擎</h4><p>可以在用户界面和渲染引擎之间传送指令或在客户端本地缓存中读写数据等，是浏览器各个部分通信的核心。</p>
-<h4 id="渲染引擎（内核）"><a href="#渲染引擎（内核）" class="headerlink" title="渲染引擎（内核）"></a>渲染引擎（内核）</h4><p>解析 <code>DOM</code> 文档和 <code>CSS</code> 规则并将内容排版到浏览器中显示有样式的界面</p>
-<h4 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h4><p>开启网络线程发送请求或下载资源文件</p>
-<h4 id="UI-后端"><a href="#UI-后端" class="headerlink" title="UI 后端"></a>UI 后端</h4><p>绘制基本的浏览器窗口内的控件，比如组合选择框、按钮、输入框等</p>
-<h4 id="JavaScript-引擎"><a href="#JavaScript-引擎" class="headerlink" title="JavaScript 引擎"></a><code>JavaScript</code> 引擎</h4><p>解析和执行 <code>JavaScript</code> 脚本，比如 <code>V8</code> 引擎</p>
-<h4 id="持久化数据存储"><a href="#持久化数据存储" class="headerlink" title="持久化数据存储"></a>持久化数据存储</h4><p>数据持久化存储，涉及 <code>cookie</code> 、 <code>localStorage</code> 等客户端存储技术</p>
-<h3 id="渲染引擎"><a href="#渲染引擎" class="headerlink" title="渲染引擎"></a>渲染引擎</h3><ol>
-<li>解析 <code>HTML</code> 构建 <code>DOM</code>树：将 HTML 元素标签解析成由多个 DOM 元素对象节点组成的具有节点父子关系的 DOM 树结构</li>
-<li>构建渲染树：按顺序提取 DOM 元素对象的样式数据，构建带样式描述的 DOM 渲染树对象</li>
-<li>渲染布局阶段：根据节点的大小和位置把元素绘制在页面上，主要是布局属性（例如： postion、float、margin、padding 等）生效</li>
-<li>绘制渲染树：将节点的背景、颜色、文本等样式信息应用到节点上，主要是元素的内部显示样式（例如： color、background、text-shadow 等）生效</li>
+        <p><code>HTTPS</code> 协议是通过加入 <code>SSL</code> 层来加密 <code>HTTP</code> 数据进行安全通信的</p>
+<h3 id="HTTPS-建立链接的过程"><a href="#HTTPS-建立链接的过程" class="headerlink" title="HTTPS 建立链接的过程"></a><code>HTTPS</code> 建立链接的过程</h3><ol>
+<li>客户端发起请求，携带客户端支持加密算法，同时携带随机串 1</li>
+<li>服务端收到请求后与自己支持的加密算法进行比对，从双方都支持的加密算法中选择一个返回，同时返回域名相关的公钥和证书签名信息（包括证书时间、日期、颁发机构）及随机串 2</li>
+<li>客户端收到响应后验证证书的合法性和公钥的正确性（通过请求证书颁发机构来验证证书的合法性）</li>
+<li>证书验证通过后，利用公钥加密一个随机字符串作为后续传输数据的密钥，同时加入利用公钥加密随机串 1 和随机串 2 组成的握手信息，然后发送给服务端</li>
+<li>服务端获取到信息后利用私钥进行解密得到客户端生成的随机字符串把它作为后续传输的密钥，利用密钥对传输的随机串 1 和随机串 2 进行加密，然后返回</li>
+<li>客户端利用上述生成的随机串对返回的信息进行解密，然后验证其合法性，后续传输就是堆成加密传输</li>
 </ol>
-<h4 id="gecko-内核渲染流程"><a href="#gecko-内核渲染流程" class="headerlink" title="gecko 内核渲染流程"></a>gecko 内核渲染流程</h4><p>先解析 HTM，生成内容 Sink （Content Sink 可以认为是构建 DOM 结构树的工厂方法），再开始解析 CSS</p>
-<p><img src="/images/brower/gecko.svg" alt="gecko内核渲染流程"></p>
-<h4 id="webkit-内核渲染流程"><a href="#webkit-内核渲染流程" class="headerlink" title="webkit 内核渲染流程"></a>webkit 内核渲染流程</h4><p>HTML 和 CSS 的解析是并行的</p>
-<p><img src="/images/brower/webkit.svg" alt="webkit内核渲染流程"></p>
-<h3 id="持久化技术"><a href="#持久化技术" class="headerlink" title="持久化技术"></a>持久化技术</h3><ul>
-<li><a href="/2020/08/31/浏览器缓存/">HTTP 文件缓存</a></li>
-<li><code>localStorage</code></li>
-<li><code>sessionStorage</code></li>
-<li><code>cookie</code></li>
-<li><code>webSQL</code></li>
-<li><code>Application cache</code></li>
-<li><code>cacheStorage</code></li>
-<li><code>flash</code> 缓存</li>
+<p><img src="/images/https.svg" alt="HTTPS 获取密钥过程"></p>
+<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ul>
+<li><a href="https://www.jianshu.com/p/33d0f8631f90" target="_blank" rel="noopener">https 建立连接过程</a></li>
+<li><a href="https://blog.csdn.net/xiaoming100001/article/details/81109617" target="_blank" rel="noopener">HTTP 和 HTTPS 协议，看一篇就够了
+</a></li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/03/02/浏览器基础/" data-id="cksncpb0d003y8js65pyx0fq4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/03/28/计算机网络-HTTPS/" data-id="cksncpb0l004e8js6bw21mkwm" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">计算机网络</a></li></ul>
 
     </footer>
   </div>
@@ -132,19 +119,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2021/03/03/commonjs/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/04/02/实时协议/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          commonjs
+          实时协议
         
       </div>
     </a>
   
   
-    <a href="/2021/02/28/简单代码热更新/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/03/28/网络安全/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">简单代码热更新</div>
+      <div class="article-nav-title">网络安全</div>
     </a>
   
 </nav>

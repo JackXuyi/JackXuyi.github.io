@@ -3,23 +3,23 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>浏览器基础 | 奔跑的蜗牛</title>
+  <title>计算机网络-TCP链接的建立与释放 | 奔跑的蜗牛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="浏览器组成用户界面包括浏览器中可见的地址输入框、浏览器前进返回按钮、打开书签、打开历史记录等用户可操作的功能选项 浏览器引擎可以在用户界面和渲染引擎之间传送指令或在客户端本地缓存中读写数据等，是浏览器各个部分通信的核心。 渲染引擎（内核）解析 DOM 文档和 CSS 规则并将内容排版到浏览器中显示有样式的界面 网络开启网络线程发送请求或下载资源文件 UI 后端绘制基本的浏览器窗口内的控件，比如组合">
-<meta name="keywords" content="JavaScript">
+  <meta name="description" content="TCP 链接的建立（三次握手） 服务器启动之后会持续监听连接请求 客户端主动发起建立连接的请求，其请求中包含 SYN 标志位和一个报文客户端序列号 seq=x 服务端收到建立连接的请求时，主动进入 SYN 已收到的状态，同时返回一个确认报文，报文包含 SYN 和 ACK 状态位，同时返回确认序列号 ack=x+1 和当前报文的服务端序列号 seq=y 客户端收到确认报文之后进入连接已经建立状态，然">
+<meta name="keywords" content="计算机网络">
 <meta property="og:type" content="article">
-<meta property="og:title" content="浏览器基础">
-<meta property="og:url" content="http://yoursite.com/2021/03/02/浏览器基础/index.html">
+<meta property="og:title" content="计算机网络-TCP链接的建立与释放">
+<meta property="og:url" content="http://yoursite.com/2016/11/28/计算机网络-TCP链接的建立与释放/index.html">
 <meta property="og:site_name" content="奔跑的蜗牛">
-<meta property="og:description" content="浏览器组成用户界面包括浏览器中可见的地址输入框、浏览器前进返回按钮、打开书签、打开历史记录等用户可操作的功能选项 浏览器引擎可以在用户界面和渲染引擎之间传送指令或在客户端本地缓存中读写数据等，是浏览器各个部分通信的核心。 渲染引擎（内核）解析 DOM 文档和 CSS 规则并将内容排版到浏览器中显示有样式的界面 网络开启网络线程发送请求或下载资源文件 UI 后端绘制基本的浏览器窗口内的控件，比如组合">
+<meta property="og:description" content="TCP 链接的建立（三次握手） 服务器启动之后会持续监听连接请求 客户端主动发起建立连接的请求，其请求中包含 SYN 标志位和一个报文客户端序列号 seq=x 服务端收到建立连接的请求时，主动进入 SYN 已收到的状态，同时返回一个确认报文，报文包含 SYN 和 ACK 状态位，同时返回确认序列号 ack=x+1 和当前报文的服务端序列号 seq=y 客户端收到确认报文之后进入连接已经建立状态，然">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/images/brower/gecko.svg">
-<meta property="og:image" content="http://yoursite.com/images/brower/webkit.svg">
-<meta property="og:updated_time" content="2021-03-20T14:22:31.713Z">
+<meta property="og:image" content="http://yoursite.com/images/network/tcp-connect.svg">
+<meta property="og:image" content="http://yoursite.com/images/network/tcp-close.svg">
+<meta property="og:updated_time" content="2021-08-22T15:08:30.696Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浏览器基础">
-<meta name="twitter:description" content="浏览器组成用户界面包括浏览器中可见的地址输入框、浏览器前进返回按钮、打开书签、打开历史记录等用户可操作的功能选项 浏览器引擎可以在用户界面和渲染引擎之间传送指令或在客户端本地缓存中读写数据等，是浏览器各个部分通信的核心。 渲染引擎（内核）解析 DOM 文档和 CSS 规则并将内容排版到浏览器中显示有样式的界面 网络开启网络线程发送请求或下载资源文件 UI 后端绘制基本的浏览器窗口内的控件，比如组合">
-<meta name="twitter:image" content="http://yoursite.com/images/brower/gecko.svg">
+<meta name="twitter:title" content="计算机网络-TCP链接的建立与释放">
+<meta name="twitter:description" content="TCP 链接的建立（三次握手） 服务器启动之后会持续监听连接请求 客户端主动发起建立连接的请求，其请求中包含 SYN 标志位和一个报文客户端序列号 seq=x 服务端收到建立连接的请求时，主动进入 SYN 已收到的状态，同时返回一个确认报文，报文包含 SYN 和 ACK 状态位，同时返回确认序列号 ack=x+1 和当前报文的服务端序列号 seq=y 客户端收到确认报文之后进入连接已经建立状态，然">
+<meta name="twitter:image" content="http://yoursite.com/images/network/tcp-connect.svg">
   
   
     <link rel="icon" href="0001.jpg#/favicon.png">
@@ -68,10 +68,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-浏览器基础" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-计算机网络-TCP链接的建立与释放" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2021/03/02/浏览器基础/" class="article-date">
-  <time datetime="2021-03-01T23:06:23.000Z" itemprop="datePublished">2021-03-01</time>
+    <a href="/2016/11/28/计算机网络-TCP链接的建立与释放/" class="article-date">
+  <time datetime="2016-11-27T16:07:50.000Z" itemprop="datePublished">2016-11-27</time>
 </a>
     
   </div>
@@ -82,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      浏览器基础
+      计算机网络-TCP链接的建立与释放
     </h1>
   
 
@@ -90,41 +90,43 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="浏览器组成"><a href="#浏览器组成" class="headerlink" title="浏览器组成"></a>浏览器组成</h3><h4 id="用户界面"><a href="#用户界面" class="headerlink" title="用户界面"></a>用户界面</h4><p>包括浏览器中可见的地址输入框、浏览器前进返回按钮、打开书签、打开历史记录等用户可操作的功能选项</p>
-<h4 id="浏览器引擎"><a href="#浏览器引擎" class="headerlink" title="浏览器引擎"></a>浏览器引擎</h4><p>可以在用户界面和渲染引擎之间传送指令或在客户端本地缓存中读写数据等，是浏览器各个部分通信的核心。</p>
-<h4 id="渲染引擎（内核）"><a href="#渲染引擎（内核）" class="headerlink" title="渲染引擎（内核）"></a>渲染引擎（内核）</h4><p>解析 <code>DOM</code> 文档和 <code>CSS</code> 规则并将内容排版到浏览器中显示有样式的界面</p>
-<h4 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h4><p>开启网络线程发送请求或下载资源文件</p>
-<h4 id="UI-后端"><a href="#UI-后端" class="headerlink" title="UI 后端"></a>UI 后端</h4><p>绘制基本的浏览器窗口内的控件，比如组合选择框、按钮、输入框等</p>
-<h4 id="JavaScript-引擎"><a href="#JavaScript-引擎" class="headerlink" title="JavaScript 引擎"></a><code>JavaScript</code> 引擎</h4><p>解析和执行 <code>JavaScript</code> 脚本，比如 <code>V8</code> 引擎</p>
-<h4 id="持久化数据存储"><a href="#持久化数据存储" class="headerlink" title="持久化数据存储"></a>持久化数据存储</h4><p>数据持久化存储，涉及 <code>cookie</code> 、 <code>localStorage</code> 等客户端存储技术</p>
-<h3 id="渲染引擎"><a href="#渲染引擎" class="headerlink" title="渲染引擎"></a>渲染引擎</h3><ol>
-<li>解析 <code>HTML</code> 构建 <code>DOM</code>树：将 HTML 元素标签解析成由多个 DOM 元素对象节点组成的具有节点父子关系的 DOM 树结构</li>
-<li>构建渲染树：按顺序提取 DOM 元素对象的样式数据，构建带样式描述的 DOM 渲染树对象</li>
-<li>渲染布局阶段：根据节点的大小和位置把元素绘制在页面上，主要是布局属性（例如： postion、float、margin、padding 等）生效</li>
-<li>绘制渲染树：将节点的背景、颜色、文本等样式信息应用到节点上，主要是元素的内部显示样式（例如： color、background、text-shadow 等）生效</li>
+        <h2 id="TCP-链接的建立（三次握手）"><a href="#TCP-链接的建立（三次握手）" class="headerlink" title="TCP 链接的建立（三次握手）"></a>TCP 链接的建立（三次握手）</h2><ol>
+<li>服务器启动之后会持续监听连接请求</li>
+<li>客户端主动发起建立连接的请求，其请求中包含 <code>SYN</code> 标志位和一个报文客户端序列号 <code>seq=x</code></li>
+<li>服务端收到建立连接的请求时，主动进入 <code>SYN</code> 已收到的状态，同时返回一个确认报文，报文包含 <code>SYN</code> 和 <code>ACK</code> 状态位，同时返回确认序列号 <code>ack=x+1</code> 和当前报文的服务端序列号 <code>seq=y</code></li>
+<li>客户端收到确认报文之后进入连接已经建立状态，然后立即返回一个确认报文，报文包含 <code>ACK</code> 状态位，同时返回确认序列号 <code>ack=y+1</code> 和当前报文的服务端序列号 <code>seq=x+1</code></li>
 </ol>
-<h4 id="gecko-内核渲染流程"><a href="#gecko-内核渲染流程" class="headerlink" title="gecko 内核渲染流程"></a>gecko 内核渲染流程</h4><p>先解析 HTM，生成内容 Sink （Content Sink 可以认为是构建 DOM 结构树的工厂方法），再开始解析 CSS</p>
-<p><img src="/images/brower/gecko.svg" alt="gecko内核渲染流程"></p>
-<h4 id="webkit-内核渲染流程"><a href="#webkit-内核渲染流程" class="headerlink" title="webkit 内核渲染流程"></a>webkit 内核渲染流程</h4><p>HTML 和 CSS 的解析是并行的</p>
-<p><img src="/images/brower/webkit.svg" alt="webkit内核渲染流程"></p>
-<h3 id="持久化技术"><a href="#持久化技术" class="headerlink" title="持久化技术"></a>持久化技术</h3><ul>
-<li><a href="/2020/08/31/浏览器缓存/">HTTP 文件缓存</a></li>
-<li><code>localStorage</code></li>
-<li><code>sessionStorage</code></li>
-<li><code>cookie</code></li>
-<li><code>webSQL</code></li>
-<li><code>Application cache</code></li>
-<li><code>cacheStorage</code></li>
-<li><code>flash</code> 缓存</li>
+<p><img src="/images/network/tcp-connect.svg" alt="TCP链接建立完整示意图"></p>
+<h3 id="注"><a href="#注" class="headerlink" title="注"></a>注</h3><ul>
+<li><code>TCP</code> 规定，<code>SYN</code> 报文段（即 <code>SYN=1</code> 的报文段）不能携带数据，但是要消耗掉一个序号；<code>ACK</code> 报文段可以携带数据，如果不携带数据则不消耗序号。</li>
+<li>流程中每一个报文若未收到响应，发送端都会重复发送几次</li>
+<li>服务端进入 <code>SYN</code> 已经收到状态且已经发送响应时会启动超时定时器，超时未收到响应时就会释放相应的资源</li>
+<li>部分服务器为了避免 <code>TCP</code> 连接攻击，会在收到客户端确认响应之后才会分配相应的资源</li>
+</ul>
+<h2 id="TCP-链接的释放（四次挥手）"><a href="#TCP-链接的释放（四次挥手）" class="headerlink" title="TCP 链接的释放（四次挥手）"></a>TCP 链接的释放（四次挥手）</h2><p>以客户端主动断开连接为例</p>
+<ol>
+<li>客户端发送端开连接的请求报文，报文包含 <code>FIN</code> 状态位和客户端序列号 <code>seq=u</code>，并进入发送通道关闭等待响应状态</li>
+<li>服务端收到报文后会通知上层的应用程序，同时返回确认报文，报文包含 <code>FIN</code> 和 <code>ACK</code> 状态位，以及确认序列号 <code>ack=u+1</code> 和当前报文的服务端序列号 <code>seq=v</code></li>
+<li>客户端收到响应报文之后进入发送通道关闭状态，同时进入接收通道等待关闭</li>
+<li>服务端发送完所有数据之后会发送连接关闭报文，此报文包含 <code>FIN</code> 和 <code>ACK</code> 状态位，以及确认序列号 <code>ack=u+1</code> 和当前报文的服务端序列号 <code>seq=w</code>，进入连接关闭等待确认状态</li>
+<li>客户端收到接收通道关闭请求报文后，等待一段时间后关闭接收通道，同时发送一个确认报文给服务端，此报文包含 <code>ACK</code> 状态位，同时返回确认序列号 <code>ack=w+1</code> 和当前报文的服务端序列号 <code>seq=u+1</code></li>
+<li>服务端收到请求后关闭发送通道</li>
+<li>客户端等待时间过期之后关闭连接</li>
+</ol>
+<p><img src="/images/network/tcp-close.svg" alt="TCP链接释放完整示意图"></p>
+<h3 id="注-1"><a href="#注-1" class="headerlink" title="注"></a>注</h3><ul>
+<li>TCP 规定，FIN 报文段即使不携带数据也要消耗一个序号。</li>
+<li>四次挥手是为了确保对方发送的数据发送完毕，全双工通信只能确保主动关闭的一方无数据发送，对端可能还有数据需要发送</li>
+<li>客户端收到关闭请求不会立即进入关闭状态而是等待一段时间后再关闭是为了等待网络中滞留的报文</li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/03/02/浏览器基础/" data-id="cksncpb0d003y8js65pyx0fq4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/28/计算机网络-TCP链接的建立与释放/" data-id="cksncpb0q004k8js6xx6ygf06" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">计算机网络</a></li></ul>
 
     </footer>
   </div>
@@ -132,19 +134,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2021/03/03/commonjs/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/11/29/strcpy的实现/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          commonjs
+          strcpy的实现
         
       </div>
     </a>
   
   
-    <a href="/2021/02/28/简单代码热更新/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/11/05/资源/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">简单代码热更新</div>
+      <div class="article-nav-title">各种资源</div>
     </a>
   
 </nav>

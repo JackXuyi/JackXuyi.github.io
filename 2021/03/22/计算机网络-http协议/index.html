@@ -3,23 +3,24 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>浏览器基础 | 奔跑的蜗牛</title>
+  <title>计算机网络-http协议 | 奔跑的蜗牛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="浏览器组成用户界面包括浏览器中可见的地址输入框、浏览器前进返回按钮、打开书签、打开历史记录等用户可操作的功能选项 浏览器引擎可以在用户界面和渲染引擎之间传送指令或在客户端本地缓存中读写数据等，是浏览器各个部分通信的核心。 渲染引擎（内核）解析 DOM 文档和 CSS 规则并将内容排版到浏览器中显示有样式的界面 网络开启网络线程发送请求或下载资源文件 UI 后端绘制基本的浏览器窗口内的控件，比如组合">
-<meta name="keywords" content="JavaScript">
+  <meta name="description" content="HTTP无状态、无连接的应用层协议 HTTP 1.0浏览器和服务器保持短暂的连接，浏览器的每次请求都需要与服务器建立一个 TCP 连接，服务器处理完成后立即断开 TCP 连接（无连接），服务器不跟踪每个客户端也不记录过去的请求（无状态）。 HTTP 1.1发布于 1999 年，默认使用文本格式传输数据 长链接默认包含 Connection: keep-alive 头，可以让客户端和服务端在一段时间">
+<meta name="keywords" content="计算机网络">
 <meta property="og:type" content="article">
-<meta property="og:title" content="浏览器基础">
-<meta property="og:url" content="http://yoursite.com/2021/03/02/浏览器基础/index.html">
+<meta property="og:title" content="计算机网络-http协议">
+<meta property="og:url" content="http://yoursite.com/2021/03/22/计算机网络-http协议/index.html">
 <meta property="og:site_name" content="奔跑的蜗牛">
-<meta property="og:description" content="浏览器组成用户界面包括浏览器中可见的地址输入框、浏览器前进返回按钮、打开书签、打开历史记录等用户可操作的功能选项 浏览器引擎可以在用户界面和渲染引擎之间传送指令或在客户端本地缓存中读写数据等，是浏览器各个部分通信的核心。 渲染引擎（内核）解析 DOM 文档和 CSS 规则并将内容排版到浏览器中显示有样式的界面 网络开启网络线程发送请求或下载资源文件 UI 后端绘制基本的浏览器窗口内的控件，比如组合">
+<meta property="og:description" content="HTTP无状态、无连接的应用层协议 HTTP 1.0浏览器和服务器保持短暂的连接，浏览器的每次请求都需要与服务器建立一个 TCP 连接，服务器处理完成后立即断开 TCP 连接（无连接），服务器不跟踪每个客户端也不记录过去的请求（无状态）。 HTTP 1.1发布于 1999 年，默认使用文本格式传输数据 长链接默认包含 Connection: keep-alive 头，可以让客户端和服务端在一段时间">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/images/brower/gecko.svg">
-<meta property="og:image" content="http://yoursite.com/images/brower/webkit.svg">
-<meta property="og:updated_time" content="2021-03-20T14:22:31.713Z">
+<meta property="og:image" content="http://yoursite.com/images/brower/http_pipe.png">
+<meta property="og:image" content="http://yoursite.com/images/brower/http_bf.jpg">
+<meta property="og:image" content="http://yoursite.com/images/brower/http_stream.jpg">
+<meta property="og:updated_time" content="2021-08-22T15:13:19.738Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浏览器基础">
-<meta name="twitter:description" content="浏览器组成用户界面包括浏览器中可见的地址输入框、浏览器前进返回按钮、打开书签、打开历史记录等用户可操作的功能选项 浏览器引擎可以在用户界面和渲染引擎之间传送指令或在客户端本地缓存中读写数据等，是浏览器各个部分通信的核心。 渲染引擎（内核）解析 DOM 文档和 CSS 规则并将内容排版到浏览器中显示有样式的界面 网络开启网络线程发送请求或下载资源文件 UI 后端绘制基本的浏览器窗口内的控件，比如组合">
-<meta name="twitter:image" content="http://yoursite.com/images/brower/gecko.svg">
+<meta name="twitter:title" content="计算机网络-http协议">
+<meta name="twitter:description" content="HTTP无状态、无连接的应用层协议 HTTP 1.0浏览器和服务器保持短暂的连接，浏览器的每次请求都需要与服务器建立一个 TCP 连接，服务器处理完成后立即断开 TCP 连接（无连接），服务器不跟踪每个客户端也不记录过去的请求（无状态）。 HTTP 1.1发布于 1999 年，默认使用文本格式传输数据 长链接默认包含 Connection: keep-alive 头，可以让客户端和服务端在一段时间">
+<meta name="twitter:image" content="http://yoursite.com/images/brower/http_pipe.png">
   
   
     <link rel="icon" href="0001.jpg#/favicon.png">
@@ -68,10 +69,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-浏览器基础" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-计算机网络-http协议" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2021/03/02/浏览器基础/" class="article-date">
-  <time datetime="2021-03-01T23:06:23.000Z" itemprop="datePublished">2021-03-01</time>
+    <a href="/2021/03/22/计算机网络-http协议/" class="article-date">
+  <time datetime="2021-03-21T16:41:21.000Z" itemprop="datePublished">2021-03-21</time>
 </a>
     
   </div>
@@ -82,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      浏览器基础
+      计算机网络-http协议
     </h1>
   
 
@@ -90,41 +91,48 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="浏览器组成"><a href="#浏览器组成" class="headerlink" title="浏览器组成"></a>浏览器组成</h3><h4 id="用户界面"><a href="#用户界面" class="headerlink" title="用户界面"></a>用户界面</h4><p>包括浏览器中可见的地址输入框、浏览器前进返回按钮、打开书签、打开历史记录等用户可操作的功能选项</p>
-<h4 id="浏览器引擎"><a href="#浏览器引擎" class="headerlink" title="浏览器引擎"></a>浏览器引擎</h4><p>可以在用户界面和渲染引擎之间传送指令或在客户端本地缓存中读写数据等，是浏览器各个部分通信的核心。</p>
-<h4 id="渲染引擎（内核）"><a href="#渲染引擎（内核）" class="headerlink" title="渲染引擎（内核）"></a>渲染引擎（内核）</h4><p>解析 <code>DOM</code> 文档和 <code>CSS</code> 规则并将内容排版到浏览器中显示有样式的界面</p>
-<h4 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h4><p>开启网络线程发送请求或下载资源文件</p>
-<h4 id="UI-后端"><a href="#UI-后端" class="headerlink" title="UI 后端"></a>UI 后端</h4><p>绘制基本的浏览器窗口内的控件，比如组合选择框、按钮、输入框等</p>
-<h4 id="JavaScript-引擎"><a href="#JavaScript-引擎" class="headerlink" title="JavaScript 引擎"></a><code>JavaScript</code> 引擎</h4><p>解析和执行 <code>JavaScript</code> 脚本，比如 <code>V8</code> 引擎</p>
-<h4 id="持久化数据存储"><a href="#持久化数据存储" class="headerlink" title="持久化数据存储"></a>持久化数据存储</h4><p>数据持久化存储，涉及 <code>cookie</code> 、 <code>localStorage</code> 等客户端存储技术</p>
-<h3 id="渲染引擎"><a href="#渲染引擎" class="headerlink" title="渲染引擎"></a>渲染引擎</h3><ol>
-<li>解析 <code>HTML</code> 构建 <code>DOM</code>树：将 HTML 元素标签解析成由多个 DOM 元素对象节点组成的具有节点父子关系的 DOM 树结构</li>
-<li>构建渲染树：按顺序提取 DOM 元素对象的样式数据，构建带样式描述的 DOM 渲染树对象</li>
-<li>渲染布局阶段：根据节点的大小和位置把元素绘制在页面上，主要是布局属性（例如： postion、float、margin、padding 等）生效</li>
-<li>绘制渲染树：将节点的背景、颜色、文本等样式信息应用到节点上，主要是元素的内部显示样式（例如： color、background、text-shadow 等）生效</li>
-</ol>
-<h4 id="gecko-内核渲染流程"><a href="#gecko-内核渲染流程" class="headerlink" title="gecko 内核渲染流程"></a>gecko 内核渲染流程</h4><p>先解析 HTM，生成内容 Sink （Content Sink 可以认为是构建 DOM 结构树的工厂方法），再开始解析 CSS</p>
-<p><img src="/images/brower/gecko.svg" alt="gecko内核渲染流程"></p>
-<h4 id="webkit-内核渲染流程"><a href="#webkit-内核渲染流程" class="headerlink" title="webkit 内核渲染流程"></a>webkit 内核渲染流程</h4><p>HTML 和 CSS 的解析是并行的</p>
-<p><img src="/images/brower/webkit.svg" alt="webkit内核渲染流程"></p>
-<h3 id="持久化技术"><a href="#持久化技术" class="headerlink" title="持久化技术"></a>持久化技术</h3><ul>
-<li><a href="/2020/08/31/浏览器缓存/">HTTP 文件缓存</a></li>
-<li><code>localStorage</code></li>
-<li><code>sessionStorage</code></li>
-<li><code>cookie</code></li>
-<li><code>webSQL</code></li>
-<li><code>Application cache</code></li>
-<li><code>cacheStorage</code></li>
-<li><code>flash</code> 缓存</li>
+        <h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><p>无状态、无连接的应用层协议</p>
+<h3 id="HTTP-1-0"><a href="#HTTP-1-0" class="headerlink" title="HTTP 1.0"></a>HTTP 1.0</h3><p>浏览器和服务器保持短暂的连接，浏览器的每次请求都需要与服务器建立一个 TCP 连接，服务器处理完成后立即断开 TCP 连接（无连接），服务器不跟踪每个客户端也不记录过去的请求（无状态）。</p>
+<h3 id="HTTP-1-1"><a href="#HTTP-1-1" class="headerlink" title="HTTP 1.1"></a>HTTP 1.1</h3><p>发布于 1999 年，默认使用文本格式传输数据</p>
+<h4 id="长链接"><a href="#长链接" class="headerlink" title="长链接"></a>长链接</h4><p>默认包含 <code>Connection: keep-alive</code> 头，可以让客户端和服务端在一段时间内可以复用这个链接，无需再次建立链接。链接复用发生在应用层，且复用是串行的</p>
+<h4 id="支持请求管道化"><a href="#支持请求管道化" class="headerlink" title="支持请求管道化"></a>支持请求管道化</h4><p>基于 HTTP1.1 的长连接，使得请求管线化成为可能。管线化使得请求能够“并行”传输。虽然 HTTP1.1 支持管道化，但是服务器必须按照客户端请求的先后顺序依次回送相应的结果，以保证客户端能够区分出每次请求的响应内容。</p>
+<p><img src="/images/brower/http_pipe.png" alt="HTTP1.1 支持管道化链接图"></p>
+<p>由于“管道化”技术存在各种各样的问题，所以很多浏览器要么根本不支持它，要么就直接默认关闭。</p>
+<h4 id="协议扩展切换"><a href="#协议扩展切换" class="headerlink" title="协议扩展切换"></a>协议扩展切换</h4><p>支持在请求头部域消息中包含 <code>Upgrade</code> 头并让客户端通过头部标识令服务器知道它能够支持其它备用通信协议的一种机制，服务器根据客户端请求的其它协议进行切换，切换后使用备用协议与客户端进行通信</p>
+<h4 id="缓存控制"><a href="#缓存控制" class="headerlink" title="缓存控制"></a>缓存控制</h4><p>新增 <code>Cache-Control</code> 字段，支持 <code>max-age</code> 用来表示相对过期时间；服务器也可以通过 <code>Etag</code> 和 <code>Last-Modified</code> 来判断是否从浏览器中加载文件，此时缓存的控制和判断将决定响应状态码是 200 还是 304。参考<a href="/2020/08/31/浏览器缓存/">浏览器缓存</a>章节</p>
+<h4 id="部分内容传输优化"><a href="#部分内容传输优化" class="headerlink" title="部分内容传输优化"></a>部分内容传输优化</h4><p>引入了 <code>range</code> 头域支持超文本文件的部分传输。如允许请求一个文件的起始位置和偏移长度来进行文件内容的部分传输</p>
+<h4 id="Host-头处理"><a href="#Host-头处理" class="headerlink" title="Host 头处理"></a>Host 头处理</h4><p>请求消息和响应消息都支持 <code>Host</code> 头域，且请求消息中如果没有 <code>Host</code> 头域会报告一个错误（<code>400 Bad Request</code>）</p>
+<h4 id="错误通知的管理"><a href="#错误通知的管理" class="headerlink" title="错误通知的管理"></a>错误通知的管理</h4><p>新增了 <code>24</code> 个错误状态响应码，如 <code>409（Conflict）</code>表示请求的资源与资源的当前状态发生冲突；<code>410（Gone）</code>表示服务器上的某个资源被永久性的删除。</p>
+<h3 id="HTTP-2-0"><a href="#HTTP-2-0" class="headerlink" title="HTTP 2.0"></a>HTTP 2.0</h3><ul>
+<li>采用完全的二进制格式来传输数据，其在网络中以帧的形式传播，多个帧在网络中形成了帧的传输网络流，即流式传播的。</li>
+<li>使用 <code>TCP</code> 复用的方式来降低网络请求链接的建立和关闭的开销，多个请求可以通过一个链接来进行并发完成。复用发生在传输层，是帧的多路复用，不同文件的传输可以在一个 <code>TCP</code> 连接中一起同时进行流式传播</li>
+<li>支持传输流的优先级和流量控制机制</li>
+<li>支持服务端推送</li>
+</ul>
+<h4 id="二进制分帧"><a href="#二进制分帧" class="headerlink" title="二进制分帧"></a>二进制分帧</h4><p>通过在应用层和传输层之间增加一个二进制分帧层，突破了 HTTP1.1 的性能限制、改进传输性能。</p>
+<p><img src="/images/brower/http_bf.jpg" alt="二进制分帧结构图"></p>
+<h4 id="多路复用（连接共享）"><a href="#多路复用（连接共享）" class="headerlink" title="多路复用（连接共享）"></a>多路复用（连接共享）</h4><ul>
+<li>流（stream）：已建立连接上的双向字节流。</li>
+<li>消息：与逻辑消息对应的完整的一系列数据帧。</li>
+<li>帧（frame）：HTTP2.0 通信的最小单位，每个帧包含帧头部，至少也会标识出当前帧所属的流（stream id）。</li>
+</ul>
+<p><img src="/images/brower/http_stream.jpg" alt="多路复用（连接共享）"></p>
+<p>所有的 HTTP2.0 通信都在一个 TCP 连接上完成，这个连接可以承载任意数量的双向数据流。每个数据流以消息的形式发送，而消息由一或多个帧组成。这些帧可以乱序发送，然后再根据每个帧头部的流标识符（stream id）重新组装。</p>
+<h4 id="头部压缩"><a href="#头部压缩" class="headerlink" title="头部压缩"></a>头部压缩</h4><p>使用 encoder 来减少需要传输的 header 大小，通讯双方各自 cache 一份 header fields 表，既避免了重复 header 的传输，又减小了需要传输的大小。高效的压缩算法可以很大的压缩 header，减少发送包的数量从而降低延迟。</p>
+<p>在头部压缩技术中，客户端和服务器均会维护两份相同的静态字典和动态字典。在静态字典中，包含了常见的头部名称以及头部名称与值的组合。静态字典在首次请求时就可以使用。那么现在头部的字段就可以被简写成静态字典中相应字段对应的 index。而动态字典跟连接的上下文相关，每个 HTTP/2 连接维护的动态字典是不尽相同的。动态字典可以在连接中不听的进行更新。原本完整的 HTTP 报文头部的键值对或字段，由于字典的存在，现在可以转换成索引 index，在相应的端再进行查找还原，也就起到了压缩的作用。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://www.jianshu.com/p/be29d679cbff" target="_blank" rel="noopener">HTTP1.0、HTTP1.1 和 HTTP2.0 的区别</a></li>
+<li><a href="https://segmentfault.com/a/1190000013028798?utm_source=tag-newest" target="_blank" rel="noopener">HTTP1.0 HTTP1.1 HTTP2.0 主要特性对比</a></li>
+<li><a href="https://www.jianshu.com/p/52d86558ca57" target="_blank" rel="noopener">如何优雅的谈论 HTTP／1.0／1.1／2.0</a></li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/03/02/浏览器基础/" data-id="cksncpb0d003y8js65pyx0fq4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/03/22/计算机网络-http协议/" data-id="cksncpb0t004q8js6978gkmws" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">计算机网络</a></li></ul>
 
     </footer>
   </div>
@@ -132,19 +140,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2021/03/03/commonjs/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/03/28/网络安全/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          commonjs
+          网络安全
         
       </div>
     </a>
   
   
-    <a href="/2021/02/28/简单代码热更新/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/03/03/commonjs/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">简单代码热更新</div>
+      <div class="article-nav-title">commonjs</div>
     </a>
   
 </nav>
