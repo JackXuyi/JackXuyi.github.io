@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2021-12-12T09:39:51.848Z</updated>
+  <updated>2022-01-02T08:16:00.334Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>antd中form表单联动</title>
+    <link href="http://yoursite.com/2022/01/02/antd%E4%B8%ADform%E8%A1%A8%E5%8D%95%E8%81%94%E5%8A%A8/"/>
+    <id>http://yoursite.com/2022/01/02/antd中form表单联动/</id>
+    <published>2022-01-02T15:19:35.000Z</published>
+    <updated>2022-01-02T08:16:00.334Z</updated>
+    
+    <content type="html"><![CDATA[<p>日常开发过程中，经常涉及到 <code>form</code> 表单的联动，在 <code>A</code> 选项中的某个值选中时出现 <code>BCE</code> 选项，其它值选中时不显示</p><p><img src="/images/form/form-a.png" alt="选中 A 时无选项"></p><p>切换选项后新增选项</p><p><img src="/images/form/form-a-more.jpg" alt="切换选项后新增选项"></p><h3 id="监听选项的-onChange-事件实现"><a href="#监听选项的-onChange-事件实现" class="headerlink" title="监听选项的 onChange 事件实现"></a>监听选项的 <code>onChange</code> 事件实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">export function CustomForm() &#123;</span><br><span class="line">  const [a, setA] = useState()</span><br><span class="line">  return (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;Form.Item name=&quot;testa&quot;&gt;</span><br><span class="line">        &lt;Radio.Group onChange=&#123;(e) =&gt; setA(e.target.value)&#125;&gt;</span><br><span class="line">          &lt;Radio value=&quot;A&quot;&gt;A&lt;/Radio&gt;</span><br><span class="line">          &lt;Radio value=&quot;B&quot;&gt;B&lt;/Radio&gt;</span><br><span class="line">        &lt;/Radio.Group&gt;</span><br><span class="line">      &lt;/Form.Item&gt;</span><br><span class="line">      &#123;a === &apos;B&apos; &amp;&amp; &lt;Form.Item name=&quot;testb&quot;&gt;表单项&lt;/Form.Item&gt;&#125;</span><br><span class="line">    &lt;/&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>通过监听表单项的 <code>onChange</code> 事件来修改 <code>state</code> ，<code>state</code> 值来驱动表单项的显示，官方已不建议在 form 表单中使用 <code>onChange</code> 事件</p><h3 id="监听表单的-onValuesChange-事件实现"><a href="#监听表单的-onValuesChange-事件实现" class="headerlink" title="监听表单的 onValuesChange 事件实现"></a>监听表单的 <code>onValuesChange</code> 事件实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">export function CustomForm() &#123;</span><br><span class="line">  const [a, setA] = useState()</span><br><span class="line">  return (</span><br><span class="line">    &lt;Form</span><br><span class="line">      onValuesChange=&#123;(_, values) =&gt; &#123;</span><br><span class="line">        const &#123; testa &#125; = values</span><br><span class="line">        setA(testa)</span><br><span class="line">      &#125;&#125;</span><br><span class="line">    &gt;</span><br><span class="line">      &lt;Form.Item name=&quot;testa&quot;&gt;</span><br><span class="line">        &lt;Radio.Group&gt;</span><br><span class="line">          &lt;Radio value=&quot;A&quot;&gt;A&lt;/Radio&gt;</span><br><span class="line">          &lt;Radio value=&quot;B&quot;&gt;B&lt;/Radio&gt;</span><br><span class="line">        &lt;/Radio.Group&gt;</span><br><span class="line">      &lt;/Form.Item&gt;</span><br><span class="line">      &#123;a === &apos;B&apos; &amp;&amp; &lt;Form.Item name=&quot;testb&quot;&gt;表单项&lt;/Form.Item&gt;&#125;</span><br><span class="line">    &lt;/Form&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>通过监听表单的 <code>onValuesChange</code> 事件来修改 <code>state</code> ，<code>state</code> 值来驱动表单项的显示</p><h3 id="自定义组件-children-的渲染实现"><a href="#自定义组件-children-的渲染实现" class="headerlink" title="自定义组件 children 的渲染实现"></a>自定义组件 <code>children</code> 的渲染实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">export function Advertise(props: RadioGroupProps) &#123;</span><br><span class="line">  const &#123; value, children, defaultValue, ...otherProps &#125; = props</span><br><span class="line">  const isShowChildren =</span><br><span class="line">    (isUndefined(value) &amp;&amp; defaultValue === 1) || value === 1</span><br><span class="line">  return (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;Radio.Group &#123;...otherProps&#125; value=&#123;value&#125; defaultValue=&#123;defaultValue&#125;&gt;</span><br><span class="line">        &#123;AdActList.map((item) =&gt; (</span><br><span class="line">          &lt;Radio key=&#123;item.value&#125; value=&#123;item.value&#125;&gt;</span><br><span class="line">            &#123;item.label&#125;</span><br><span class="line">          &lt;/Radio&gt;</span><br><span class="line">        ))&#125;</span><br><span class="line">      &lt;/Radio.Group&gt;</span><br><span class="line">      &#123;isShowChildren &amp;&amp; children&#125;</span><br><span class="line">    &lt;/&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>通过自定义的表单驱动其它元素的渲染，把逻辑收束到组件内</p><h5 id="提示：参考-antd-官方文档实现子定义表单控件"><a href="#提示：参考-antd-官方文档实现子定义表单控件" class="headerlink" title="提示：参考 antd 官方文档实现子定义表单控件"></a>提示：参考 <code>antd</code> 官方文档实现子定义表单控件</h5><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="https://ant.design/components/form-cn/" target="_blank" rel="noopener">antd form 表单</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;日常开发过程中，经常涉及到 &lt;code&gt;form&lt;/code&gt; 表单的联动，在 &lt;code&gt;A&lt;/code&gt; 选项中的某个值选中时出现 &lt;code&gt;BCE&lt;/code&gt; 选项，其它值选中时不显示&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/form/form-a.pn
+      
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
+    
+      <category term="antd" scheme="http://yoursite.com/tags/antd/"/>
+    
+      <category term="form" scheme="http://yoursite.com/tags/form/"/>
+    
+  </entry>
   
   <entry>
     <title>chorme插件开发（一）</title>
@@ -491,31 +519,6 @@
       <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
     
       <category term="react" scheme="http://yoursite.com/tags/react/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>前端框架</title>
-    <link href="http://yoursite.com/2021/04/18/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/"/>
-    <id>http://yoursite.com/2021/04/18/前端框架/</id>
-    <published>2021-04-17T22:48:43.000Z</published>
-    <updated>2021-04-18T07:46:17.845Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="DOM-操作时代"><a href="#DOM-操作时代" class="headerlink" title="DOM 操作时代"></a>DOM 操作时代</h3><p>代表库 <a href="https://jquery.com/" target="_blank" rel="noopener"><code>jQuery</code></a> 和 <a href="https://zeptojs.com/" target="_blank" rel="noopener"><code>zepto</code></a></p><ul><li>简化选择器</li><li>简化 <code>DOM</code> 操作</li><li>简化 <code>AJAX</code> 操作</li><li>统一事件绑定</li><li>兼容性实现</li><li>延时对象（<code>$.Deferred</code>）</li></ul><h4 id="DOM-操作的一般流程"><a href="#DOM-操作的一般流程" class="headerlink" title="DOM 操作的一般流程"></a>DOM 操作的一般流程</h4><ol><li><code>DOM</code> 加载</li><li><code>js</code> 脚本加载</li><li><code>js</code>脚本执行，发送异步请求获取数据</li><li>操作 <code>DOM</code> 进行数据渲染</li><li>对 <code>DOM</code> 节点进行事件绑定</li></ol><p><img src="/images/domprocess.png" alt="DOM 操作流程"></p><h3 id="MV-交互模式"><a href="#MV-交互模式" class="headerlink" title="MV* 交互模式"></a>MV* 交互模式</h3><h4 id="MVC-模式"><a href="#MVC-模式" class="headerlink" title="MVC 模式"></a>MVC 模式</h4><p>将 <code>DOM</code> 交互部分的内容分为数据模型、视图和事件控制三部分</p><ul><li><code>Model</code>：存放请求的数据结果和数据对象</li><li><code>View</code>: 页面 <code>DOM</code> 的更新与修改</li><li><code>Controller</code>: 根据前端路由条件调用不同的 <code>Model</code> 和 <code>View</code>渲染不同的数据内容</li></ul><p>用户的操作直接通过 <code>Controller</code> 控制</p><h4 id="MVP-模式"><a href="#MVP-模式" class="headerlink" title="MVP 模式"></a>MVP 模式</h4><p><code>Model-View-Presenter</code>，将 <code>DOM</code> 交互部分的内容分为数据模型、视图和 <code>Presenter</code> 三部分</p><ul><li><code>Model</code>：存放请求的数据结果和数据对象（仅提供数据）</li><li><code>View</code>: 页面 <code>DOM</code> 的更新与修改（仅提供视图模板）</li><li><code>Presenter</code>: 根据前端路由条件调用不同的 <code>Model</code> 和 <code>View</code>渲染不同的数据内容（主要的逻辑处理）</li></ul><p><code>Presenter</code> 与 <code>View</code> 的绑定是双向的，<code>Presenter</code> 的改变会改变 <code>View</code>，<code>View</code> 的改变也会触发 <code>Presenter</code>，所有的逻辑调用数据和渲染视图 <code>View</code> 模板都在 <code>Presenter</code> 中完成，同时用户在 <code>View</code> 层操作的改变反馈到 <code>Presenter</code> 改变 <code>Model</code>并渲染新的 <code>View</code> 视图。</p><ul><li>优点：只需关注 <code>Presenter</code> 的逻辑</li><li>缺点：内容较重</li></ul><h4 id="MVVM-模式"><a href="#MVVM-模式" class="headerlink" title="MVVM 模式"></a>MVVM 模式</h4><p>自动化的 <code>MVP</code> 框架，用 <code>ViewModel</code> 代替 <code>Presenter</code>，<code>Model</code> 的调用和 <code>View</code> 由 <code>ViewModel</code> 自动触发完成<br>用户操作时， <code>ViewModel</code> 捕获数据变化，将变化反应到 <code>View</code> 上。 <code>ViewModel</code> 的数据操作最终在页面上以 <code>Directive</code> 的形式体现，通过对 <code>Directive</code> 的识别来渲染数据或绑定事件。</p><h5 id="通用基本设计"><a href="#通用基本设计" class="headerlink" title="通用基本设计"></a>通用基本设计</h5><ul><li><code>Directive</code>: 指令，即自定义执行函数</li><li><code>Filter</code>: 过滤器，对传入的初始数据信进行处理，然后把处理结果交给下一步（<code>Directive</code> 或 <code>Filter</code>）。</li><li>表达式：控制页面内容按照具体条件展示</li><li><code>ViewModel</code>: 实现传入的 <code>Model</code> 数据在内存中存放，也提供一些基本的读取或修改数据的 <code>API</code></li><li>数据变更检查： 即数据变化自动触发其它操作，通过手动触发、脏检测、对象劫持、<code>Proxy</code> 等</li></ul><h6 id="数据变更检查"><a href="#数据变更检查" class="headerlink" title="数据变更检查"></a>数据变更检查</h6><ul><li>手动触发: 通过在数据对象上定义 <code>get</code> 和 <code>set</code> 方法，调用时手动触发 <code>get</code> 和 <code>set</code> 来获取和修改数据，改变后主动触发 <code>get</code> 和 <code>set</code> 中 <code>View</code> 层的重新渲染功能</li><li>脏检测: 在 <code>ViewModel</code> 对象的某个属性值发生变化时找到与这个属性值相关的所有元素，然后比较数据变化，如果有变化则进行 <code>Directive</code> 指令调用，对这个元素进行重新扫描渲染</li><li>前端数据对象劫持： 使用 <code>Object.defineProperty</code> 和 <code>Object.defineProperties</code> 对 <code>ViewModel</code> 数据对象进行属性 <code>get</code> 和 <code>set</code> 的监听，当有数据读取和赋值时则扫描节点元素，运行指定对应节点的 <code>Directive</code> 指令。</li><li><code>ES6 Proxy</code>:类似与 <code>Object.defineProperty</code> 和 <code>Object.defineProperties</code></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;DOM-操作时代&quot;&gt;&lt;a href=&quot;#DOM-操作时代&quot; class=&quot;headerlink&quot; title=&quot;DOM 操作时代&quot;&gt;&lt;/a&gt;DOM 操作时代&lt;/h3&gt;&lt;p&gt;代表库 &lt;a href=&quot;https://jquery.com/&quot; target=&quot;_bla
-      
-    
-    </summary>
-    
-    
-      <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
-    
-      <category term="other" scheme="http://yoursite.com/tags/other/"/>
     
   </entry>
   
