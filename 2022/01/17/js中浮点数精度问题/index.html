@@ -3,20 +3,22 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>antd中遇到的问题（一） | 奔跑的蜗牛</title>
+  <title>js中浮点数精度问题 | 奔跑的蜗牛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="antd v4 版本中 Form.Item 子组件 value 不生效问题背景在 Form.Item 中使用 Input 输入框设置 value 时发现其不生效，查看使用文档也没有发现问题 猜测Form.Item 对子组件的 value 属性做了劫持，导致手动设置的 value 被覆盖 代码验证 通过查找 return 语句，发现执行了 renderLayout 这个方法 查看 renderLay">
-<meta name="keywords" content="react">
+  <meta name="description" content="在商品的价格计算中，由于精度的需要，要把用户输入的价格从元转化为分，其转化规则如下 12const price = Number(inputPrice) * 100console.log(price) 但是在测试过程中发现，输入 2.01 时，输出结果不为 201 ，而是 200.99999999999997通过研究发现和 js 的数字存储方式 IEEE 754 有关，计算机存储数字时，由于存储方">
+<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="antd中遇到的问题（一）">
-<meta property="og:url" content="http://yoursite.com/2020/09/21/antd中遇到的问题（一）/index.html">
+<meta property="og:title" content="js中浮点数精度问题">
+<meta property="og:url" content="http://yoursite.com/2022/01/17/js中浮点数精度问题/index.html">
 <meta property="og:site_name" content="奔跑的蜗牛">
-<meta property="og:description" content="antd v4 版本中 Form.Item 子组件 value 不生效问题背景在 Form.Item 中使用 Input 输入框设置 value 时发现其不生效，查看使用文档也没有发现问题 猜测Form.Item 对子组件的 value 属性做了劫持，导致手动设置的 value 被覆盖 代码验证 通过查找 return 语句，发现执行了 renderLayout 这个方法 查看 renderLay">
+<meta property="og:description" content="在商品的价格计算中，由于精度的需要，要把用户输入的价格从元转化为分，其转化规则如下 12const price = Number(inputPrice) * 100console.log(price) 但是在测试过程中发现，输入 2.01 时，输出结果不为 201 ，而是 200.99999999999997通过研究发现和 js 的数字存储方式 IEEE 754 有关，计算机存储数字时，由于存储方">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:updated_time" content="2021-04-03T12:12:19.304Z">
+<meta property="og:image" content="http://yoursite.com/images/js/float-num.webp">
+<meta property="og:updated_time" content="2022-01-22T10:21:00.283Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="antd中遇到的问题（一）">
-<meta name="twitter:description" content="antd v4 版本中 Form.Item 子组件 value 不生效问题背景在 Form.Item 中使用 Input 输入框设置 value 时发现其不生效，查看使用文档也没有发现问题 猜测Form.Item 对子组件的 value 属性做了劫持，导致手动设置的 value 被覆盖 代码验证 通过查找 return 语句，发现执行了 renderLayout 这个方法 查看 renderLay">
+<meta name="twitter:title" content="js中浮点数精度问题">
+<meta name="twitter:description" content="在商品的价格计算中，由于精度的需要，要把用户输入的价格从元转化为分，其转化规则如下 12const price = Number(inputPrice) * 100console.log(price) 但是在测试过程中发现，输入 2.01 时，输出结果不为 201 ，而是 200.99999999999997通过研究发现和 js 的数字存储方式 IEEE 754 有关，计算机存储数字时，由于存储方">
+<meta name="twitter:image" content="http://yoursite.com/images/js/float-num.webp">
   
   
     <link rel="icon" href="0001.jpg#/favicon.png">
@@ -65,10 +67,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-antd中遇到的问题（一）" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="js-js中浮点数精度问题" class="article article-type-js" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/09/21/antd中遇到的问题（一）/" class="article-date">
-  <time datetime="2020-09-20T22:42:42.000Z" itemprop="datePublished">2020-09-20</time>
+    <a href="/2022/01/17/js中浮点数精度问题/" class="article-date">
+  <time datetime="2022-01-16T17:46:51.000Z" itemprop="datePublished">2022-01-16</time>
 </a>
     
   </div>
@@ -79,7 +81,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      antd中遇到的问题（一）
+      js中浮点数精度问题
     </h1>
   
 
@@ -87,23 +89,100 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="antd-v4-版本中-Form-Item-子组件-value-不生效问题"><a href="#antd-v4-版本中-Form-Item-子组件-value-不生效问题" class="headerlink" title="antd v4 版本中 Form.Item 子组件 value 不生效问题"></a>antd v4 版本中 Form.Item 子组件 value 不生效问题</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>在 <code>Form.Item</code> 中使用 <code>Input</code> 输入框设置 <code>value</code> 时发现其不生效，查看使用文档也没有发现问题</p>
-<h4 id="猜测"><a href="#猜测" class="headerlink" title="猜测"></a>猜测</h4><p><code>Form.Item</code> 对子组件的 <code>value</code> 属性做了劫持，导致手动设置的 <code>value</code> 被覆盖</p>
-<h4 id="代码验证"><a href="#代码验证" class="headerlink" title="代码验证"></a>代码验证</h4><ol>
-<li>通过查找 <code>return</code> 语句，发现执行了 <code>renderLayout</code> 这个方法</li>
-<li>查看 <code>renderLayout</code> 的具体实现子组件实际渲染的是方法的实际参数 <code>baseChildren</code></li>
-<li>查看 <code>renderLayout</code> 的调用发现在 <code>!hasName &amp;&amp; !isRenderProps &amp;&amp; !dependencies</code> 才会直接渲染子组件，其它情况会注入 <code>value</code> 等属性</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 先执行</span><br><span class="line">if (!hasName &amp;&amp; !isRenderProps &amp;&amp; !dependencies) &#123;</span><br><span class="line">  return renderLayout(children)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 再执行</span><br><span class="line">if (React.isValidElement(children)) &#123;</span><br><span class="line">  childNode = (</span><br><span class="line">    &lt;MemoInput</span><br><span class="line">      value=&#123;mergedControl[props.valuePropName || &apos;value&apos;]&#125;</span><br><span class="line">      update=&#123;updateRef.current&#125;</span><br><span class="line">    &gt;</span><br><span class="line">      &#123;React.cloneElement(children, childProps)&#125;</span><br><span class="line">    &lt;/MemoInput&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h4><p>去除 <code>Form.Item</code> 中的 <code>name</code> 属性，验证 <code>value</code> 属性生效</p>
+        <p>在商品的价格计算中，由于精度的需要，要把用户输入的价格从元转化为分，其转化规则如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> price = <span class="built_in">Number</span>(inputPrice) * <span class="number">100</span></span><br><span class="line"><span class="built_in">console</span>.log(price)</span><br></pre></td></tr></table></figure>
+<p>但是在测试过程中发现，输入 <code>2.01</code> 时，输出结果不为 <code>201</code> ，而是 <code>200.99999999999997</code><br>通过研究发现和 js 的数字存储方式 <code>IEEE 754</code> 有关，计算机存储数字时，由于存储方式的原因，存储的并不是准确的数字，而是有一定误差的数字，如经典的</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0.1</span> + <span class="number">0.2</span> === <span class="number">0.3</span></span><br><span class="line"><span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<h2 id="IEEE-754-浮点数"><a href="#IEEE-754-浮点数" class="headerlink" title="IEEE 754 浮点数"></a>IEEE 754 浮点数</h2><p><img src="/images/js/float-num.webp" alt="IEEE 754 浮点数表示"></p>
+<p>IEEE 754 浮点数由三个域组成，分别为 sign bit (符号位)、exponent bias (指数偏移值) 和 fraction (尾数)。64 位中，sign bit 占 1 位，exponent bias 占 11 位，fraction 占 52 位。</p>
+<h3 id="0-1-转换为二进制表示"><a href="#0-1-转换为二进制表示" class="headerlink" title="0.1 转换为二进制表示"></a>0.1 转换为二进制表示</h3><p>小数转二进制用乘 R 取整的方法，运算如下</p>
+<table>
+<thead>
+<tr>
+<th>小数</th>
+<th>x2 的结果</th>
+<th>整数部分</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.1</td>
+<td>0.2</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0.2</td>
+<td>0.4</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0.4</td>
+<td>0.8</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0.8</td>
+<td>1.6</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0.6</td>
+<td>1.2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0.2</td>
+<td>0.4</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0.4</td>
+<td>0.8</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0.8</td>
+<td>1.6</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0.6</td>
+<td>1.2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0.2</td>
+<td>0.4</td>
+<td>0</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>结果 <code>0.00011001100110011…</code>(循环 <code>0011</code>), 将转换后的二进制通过科学计数法表示 <code>0.00011...</code>(无限重复 <code>0011</code>) 通过科学计数法表示则是 <code>1.10011001...(重复 1001)*2</code> - 4(偏移 4 位)</p>
+<h5 id="指数偏移值"><a href="#指数偏移值" class="headerlink" title="指数偏移值"></a>指数偏移值</h5><p>双精度浮点数固定偏移值 (2^(11-1)-1) 加上指数实际值(即 2^-4 中的 -4) 的 11 位二进制表示。</p>
+<h6 id="注：-exponent-bias-在-64-位中占-11-位"><a href="#注：-exponent-bias-在-64-位中占-11-位" class="headerlink" title="注： exponent bias 在 64 位中占 11 位"></a>注： exponent bias 在 64 位中占 11 位</h6><h5 id="尾数"><a href="#尾数" class="headerlink" title="尾数"></a>尾数</h5><p>fraction 占 52 位所以抽取 52 位小数（多出来的采用四舍五入制）</p>
+<h4 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1001...(中间有 11 个 1001)...1010 (请注意最后四位，是 1010 而不是 1001，因为四舍五入有进位）</span><br></pre></td></tr></table></figure>
+<h3 id="处理办法"><a href="#处理办法" class="headerlink" title="处理办法"></a>处理办法</h3><p>可以通过四舍五入的方式进行取整，保证数据的准确性</p>
+<h4 id="toFixed"><a href="#toFixed" class="headerlink" title="toFixed"></a><code>toFixed</code></h4><p>具备自动四舍五入的能力</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> price = <span class="built_in">Number</span>((<span class="built_in">Number</span>(inputPrice) * <span class="number">100</span>).toFixed())</span><br><span class="line"><span class="built_in">console</span>.log(price)</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://zhuanlan.zhihu.com/p/227951185" target="_blank" rel="noopener">0.1 + 0.2 为什么不等于 0.3–奇怪的相等与不等</a></li>
+<li><a href="https://segmentfault.com/a/1190000016884479" target="_blank" rel="noopener">为什么 JavaScript 里面 0.1+0.2 === 0.3 是 false</a></li>
+<li><a href="https://baike.baidu.com/item/IEEE%20754/3869922?fr=aladdin" target="_blank" rel="noopener">IEEE 754</a></li>
+<li><a href="https://zhidao.baidu.com/question/1831743003782686540.html" target="_blank" rel="noopener">十进制变二进制小数乘二取整是什么意思</a></li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/09/21/antd中遇到的问题（一）/" data-id="ckyh2rhpm000c5sdzbe9v2uzm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2022/01/17/js中浮点数精度问题/" data-id="ckyh2rhpv000q5sdzlj3x6qab" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
 
     </footer>
   </div>
@@ -111,19 +190,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/09/23/三数之和/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          三数之和
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/09/14/mysql数据库操作（二）/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2022/01/02/antd中form表单联动/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">mysql数据库操作（二）</div>
+      <div class="article-nav-title">antd中form表单联动</div>
     </a>
   
 </nav>

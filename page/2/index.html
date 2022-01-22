@@ -66,6 +66,70 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-粘贴图片" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/24/粘贴图片/" class="article-date">
+  <time datetime="2021-01-23T22:16:19.000Z" itemprop="datePublished">2021-01-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/24/粘贴图片/">粘贴图片</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>优化用户编辑体验，实现在编辑内容（markdown 或富文本）时通过复制的方式实现图片的插入</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ol>
+<li>监听剪贴板事件中的 <code>paste</code> 事件</li>
+<li>通过事件的回调对象获取粘贴内容，若为文本则执行默认操作，若为图片类型则阻止默认操作并继续处理</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cb = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> data = event.clipboardData <span class="comment">// 获取粘贴内容</span></span><br><span class="line">  <span class="keyword">let</span> fileContent</span><br><span class="line">  <span class="keyword">let</span> stopFlag = <span class="literal">false</span></span><br><span class="line">  <span class="comment">// 遍历对象获取粘贴文件</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; data &amp;&amp; data.items &amp;&amp; i &lt; data.items.length; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> item = data.items[i]</span><br><span class="line">    <span class="keyword">if</span> (item.kind === <span class="string">'file'</span> &amp;&amp; item.type.match(<span class="string">'^image/'</span>)) &#123;</span><br><span class="line">      stopFlag = <span class="literal">true</span></span><br><span class="line">      fileContent = item.getAsFile()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 对 fileContent 做处理</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><ul>
+<li><code>event</code> 是 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/ClipboardEvent" target="_blank" rel="noopener"><code>ClipboardEvent</code></a> 类型，可以通过 <code>clipboardData</code> 属性拿到数据内容</li>
+<li><code>clipboardData</code> 是 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/DataTransfer" target="_blank" rel="noopener"> DataTransfer`</a>对象，在粘贴事件中可以通过 <code>items</code> 属性获取粘贴的内容和数据类型，其是一个 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/DataTransferItemList" target="_blank" rel="noopener"><code>DataTransferItemList</code></a> 对象，通过 <code>for</code> 循环的方式遍历每一个元素，每个元素都是 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/DataTransferItem" target="_blank" rel="noopener"><code>DataTransferItem</code></a>对象</li>
+</ul>
+<h4 id="DataTransferItem-对象"><a href="#DataTransferItem-对象" class="headerlink" title="DataTransferItem 对象"></a><code>DataTransferItem</code> 对象</h4><h5 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h5><ul>
+<li><code>kind</code>： 拖拽项的种类，<code>string</code> 或是 <code>file</code></li>
+<li><code>type</code>：拖拽项的类型，一般是一个 MIME 类型</li>
+</ul>
+<h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5><ul>
+<li><code>getAsFile()</code>：返回一个关联拖拽项的 File 对象 （当拖拽项不是一个文件时返回 null）</li>
+<li><code>getAsString()</code>：使用拖拽项的字符串作为参数执行指定回调函数。</li>
+<li><code>webkitGetAsEntry()</code>：返回一个基于 FileSystemEntry 的对象来表示文件系统中选中的项目。通常是返回一个 FileSystemFileEntry 或是 FileSystemDirectoryEntry 对象.</li>
+</ul>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ol>
+<li>在 <code>mac</code> 上复制一张图片文件时会产生两个记录，第一个记录是文件名，第二个对象是文件本身</li>
+<li>在 <code>mac</code> 上复制一个非图片类型的文件时，也会产生两个记录，一个是文件名，另一个是文件的缩略图，但是这个文章的缩略图通过 <code>getAsFile</code> 方法无法获取到内容</li>
+</ol>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/Events/paste" target="_blank" rel="noopener">paste 事件</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/01/24/粘贴图片/" data-id="ckyh2rhs9004v5sdzp4eqb6un" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-用Hexo搭建静态博客" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/01/23/用Hexo搭建静态博客/" class="article-date">
@@ -128,7 +192,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/01/23/用Hexo搭建静态博客/" data-id="ckxwzctc0004jocdzfbb1t9c7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/01/23/用Hexo搭建静态博客/" data-id="ckyh2rhs8004t5sdzl37xbejb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/other/">other</a></li></ul>
@@ -205,7 +269,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/01/17/跨页面通信/" data-id="ckxwzctc90055ocdz1run1cwu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/01/17/跨页面通信/" data-id="ckyh2rhsi005h5sdzb9ioe6iq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -275,7 +339,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/01/06/nodejs中实现websocket服务/" data-id="ckxwzctb0002hocdz1c2ye6iu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/01/06/nodejs中实现websocket服务/" data-id="ckyh2rhr8002r5sdzz1s559vs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">计算机网络</a></li></ul>
@@ -363,7 +427,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/12/23/记一次项目打包优化/" data-id="ckxwzctc80051ocdzs52kc5k8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/12/23/记一次项目打包优化/" data-id="ckyh2rhse00575sdzd6hss4zs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/other/">other</a></li></ul>
@@ -424,7 +488,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/12/14/ts之type、interface和class区别/" data-id="ckxwzctba0035ocdzjrunnohj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/12/14/ts之type、interface和class区别/" data-id="ckyh2rhrf00355sdzj60qx5kg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TypeScript/">TypeScript</a></li></ul>
@@ -512,7 +576,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/11/22/for-in和for-of的区别/" data-id="ckxwzcta4000locdzpejhbr5d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/11/22/for-in和for-of的区别/" data-id="ckyh2rhpt000m5sdzb9uk7l3w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -563,7 +627,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/10/19/异步任务按顺序分组执行/" data-id="ckxwzctbn003xocdz9t1qgjji" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/10/19/异步任务按顺序分组执行/" data-id="ckyh2rhrw00435sdzwobn8j6q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solution/">算法</a></li></ul>
@@ -606,7 +670,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/09/23/三数之和/" data-id="ckxwzctbf003focdzhjfzy9c4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/09/23/三数之和/" data-id="ckyh2rhrq003r5sdz1139c6g3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solution/">算法</a></li></ul>
@@ -653,7 +717,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/09/21/antd中遇到的问题（一）/" data-id="ckxwzcta0000docdz5bihsfty" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/09/21/antd中遇到的问题（一）/" data-id="ckyh2rhpm000c5sdzbe9v2uzm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
@@ -699,7 +763,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/09/14/mysql数据库操作（二）/" data-id="ckxwzctaw0029ocdzvvj5f1wk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/09/14/mysql数据库操作（二）/" data-id="ckyh2rhr5002m5sdzsgmzhyfx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TypeORM/">TypeORM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/express/">express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
@@ -754,7 +818,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/09/14/mysql数据库操作（一）/" data-id="ckxwzctau0024ocdzo4wbkj3x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/09/14/mysql数据库操作（一）/" data-id="ckyh2rhr3002h5sdz4bszijlb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/express/">express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
@@ -854,7 +918,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/31/浏览器缓存/" data-id="ckxwzctbx004docdz2ucyg0rg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/31/浏览器缓存/" data-id="ckyh2rhs6004n5sdz8ewcy669" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -909,7 +973,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/30/babel编译过程/" data-id="ckxwzcta1000focdzzjxcogaq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/30/babel编译过程/" data-id="ckyh2rhpo000d5sdzlodf0ild" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -969,7 +1033,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/27/ES6模块与CommonJS模块/" data-id="ckxwzct9m0000ocdzvrgab36z" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/27/ES6模块与CommonJS模块/" data-id="ckyh2rhp700005sdzr2ez8xzm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -1014,7 +1078,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/17/除自身以外数组的乘积/" data-id="ckxwzctcb0059ocdzlztjmlcm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/17/除自身以外数组的乘积/" data-id="ckyh2rhsl005n5sdz6p7sj9sm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solution/">算法</a></li></ul>
@@ -1079,7 +1143,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/05/检测项目中的包版本变化/" data-id="ckxwzctbt0047ocdzvuod0e52" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/05/检测项目中的包版本变化/" data-id="ckyh2rhry00475sdzk547wz2u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
@@ -1133,7 +1197,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/03/react16中生命周期hooks/" data-id="ckxwzctb2002mocdzp8gw6hlz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/03/react16中生命周期hooks/" data-id="ckyh2rhra002v5sdz97y2e5qc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
@@ -1177,7 +1241,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/27/排列/" data-id="ckxwzctbl003tocdzsm2ni7dy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/27/排列/" data-id="ckyh2rhs1004b5sdzs18vp4uw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solution/">算法</a></li></ul>
@@ -1242,7 +1306,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/25/项目脚手架/" data-id="ckxwzctcd005docdz43o5rukh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/25/项目脚手架/" data-id="ckyh2rhsk005l5sdzrslpzepm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
@@ -1328,7 +1392,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/25/滚动加载更多/" data-id="ckxwzctbw004bocdzkrt6ac5o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/25/滚动加载更多/" data-id="ckyh2rhs4004j5sdzv3vaewo7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -1394,7 +1458,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/13/mac下查询端口占用并杀掉node进程/" data-id="ckxwzctav0027ocdz5yte04dg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/13/mac下查询端口占用并杀掉node进程/" data-id="ckyh2rhr2002f5sdzg67ilofv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
@@ -1484,7 +1548,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/05/用ts搭建express项目/" data-id="ckxwzctby004focdz2n0rf6rm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/05/用ts搭建express项目/" data-id="ckyh2rhs7004p5sdzf23xz8g6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
@@ -1702,7 +1766,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/29/js基础知识系列（九）/" data-id="ckxwzctai001bocdzwomimwdt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/29/js基础知识系列（九）/" data-id="ckyh2rhq5001a5sdziwfkocl7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -1835,7 +1899,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/08/js基础知识系列（八）/" data-id="ckxwzctaj001docdzl0ze6cbq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/08/js基础知识系列（八）/" data-id="ckyh2rhq8001f5sdz9qo5qbfj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -1901,7 +1965,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/01/js基础知识系列（七）/" data-id="ckxwzctag0016ocdzlfffjcoo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/01/js基础知识系列（七）/" data-id="ckyh2rhq200135sdz5sh31szg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -2009,7 +2073,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/01/js基础知识系列（六）/" data-id="ckxwzctan001nocdz24ezlctt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/01/js基础知识系列（六）/" data-id="ckyh2rhqv00235sdztzvokiji" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -2267,7 +2331,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/24/js基础知识系列（五）/" data-id="ckxwzctak001gocdzta00d97q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/05/24/js基础知识系列（五）/" data-id="ckyh2rhq7001d5sdzqbgxv9pq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -2379,7 +2443,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/07/js基础知识系列（四）/" data-id="ckxwzctao001qocdzefb0tads" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/05/07/js基础知识系列（四）/" data-id="ckyh2rhqt001z5sdzunwl0kx2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -2435,75 +2499,7 @@ branch: master
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/04/27/typedoc源码阅读系列（二）/" data-id="ckxwzctbg003iocdz0lle3ybe" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-typedoc源码阅读系列（一）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/04/20/typedoc源码阅读系列（一）/" class="article-date">
-  <time datetime="2020-04-19T23:09:21.000Z" itemprop="datePublished">2020-04-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/20/typedoc源码阅读系列（一）/">typedoc源码阅读系列（一）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="了解-typedoc"><a href="#了解-typedoc" class="headerlink" title="了解 typedoc"></a>了解 typedoc</h2><p>TypeDoc 是一款支持 TypeScript 的文档生成工具。</p>
-<p><a href="https://github.com/TypeStrong/typedoc" target="_blank" rel="noopener">查看源码</a></p>
-<p><a href="https://typedoc.org/api/index.html" target="_blank" rel="noopener">查看文档</a></p>
-<h2 id="typedoc-运行流程"><a href="#typedoc-运行流程" class="headerlink" title="typedoc 运行流程"></a>typedoc 运行流程</h2><h3 id="入口"><a href="#入口" class="headerlink" title="入口"></a>入口</h3><p>查看 <code>package.json</code> 代码</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    "bin": &#123;</span><br><span class="line">        "typedoc": "bin/typedoc"</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行了 <code>bin/typedoc</code> 这个文件</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env node</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> td = <span class="built_in">require</span>(<span class="string">"../dist/lib/cli.js"</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> td.CliApplication();</span><br><span class="line">app.bootstrap();</span><br></pre></td></tr></table></figure>
-<p>通过引入 <code>../dist/lib/cli.js</code> ，实例化了 <code>CliApplication</code> 对象，经过分析发现，这个文件的源文件是 <code>src/lib/cli.ts</code></p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Application &#125; <span class="keyword">from</span> <span class="string">"./application"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; BindOption &#125; <span class="keyword">from</span> <span class="string">"./utils/options"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; TypeDocAndTSOptions &#125; <span class="keyword">from</span> <span class="string">"./utils/options/declaration"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="keyword">enum</span> ExitCode &#123;</span><br><span class="line">  OptionError = <span class="number">1</span>,</span><br><span class="line">  NoInputFiles = <span class="number">2</span>,</span><br><span class="line">  NoOutput = <span class="number">3</span>,</span><br><span class="line">  CompileError = <span class="number">4</span>,</span><br><span class="line">  OutputError = <span class="number">5</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> CliApplication <span class="keyword">extends</span> Application &#123;</span><br><span class="line">  <span class="meta">@BindOption</span>(<span class="string">"out"</span>)</span><br><span class="line">  out!: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@BindOption</span>(<span class="string">"json"</span>)</span><br><span class="line">  json!: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@BindOption</span>(<span class="string">"version"</span>)</span><br><span class="line">  version!: <span class="built_in">boolean</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@BindOption</span>(<span class="string">"help"</span>)</span><br><span class="line">  help!: <span class="built_in">boolean</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Run TypeDoc from the command line.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  bootstrap(options?: Partial&lt;TypeDocAndTSOptions&gt;) &#123;</span><br><span class="line">    <span class="comment">// 其它代码</span></span><br><span class="line">    <span class="keyword">const</span> result = <span class="keyword">super</span>.bootstrap(options);</span><br><span class="line">    <span class="comment">// 其它代码</span></span><br><span class="line">    <span class="keyword">const</span> src = <span class="keyword">this</span>.expandInputFiles(result.inputFiles);</span><br><span class="line">    <span class="keyword">const</span> project = <span class="keyword">this</span>.convert(src);</span><br><span class="line">    <span class="keyword">if</span> (project) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.out) &#123;</span><br><span class="line">        <span class="keyword">this</span>.generateDocs(project, <span class="keyword">this</span>.out);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.json) &#123;</span><br><span class="line">        <span class="keyword">this</span>.generateJson(project, <span class="keyword">this</span>.json);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (!<span class="keyword">this</span>.out &amp;&amp; !<span class="keyword">this</span>.json) &#123;</span><br><span class="line">        <span class="keyword">this</span>.generateDocs(project, <span class="string">"./docs"</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 其它代码</span></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>CliApplication</code> 继承了 <code>Application</code> 对象，并且新增了 <code>out</code>、<code>json</code>、<code>version</code>、<code>help</code>等属性，实现了 <code>bootstrap</code>方法。</p>
-<h3 id="CliApplication-分析"><a href="#CliApplication-分析" class="headerlink" title="CliApplication 分析"></a>CliApplication 分析</h3><h4 id="bootstrap的实现"><a href="#bootstrap的实现" class="headerlink" title="bootstrap的实现"></a><code>bootstrap</code>的实现</h4><ul>
-<li>调用父组件的 <code>bootstrap</code> 获取结果</li>
-<li>调用 <code>expandInputFiles</code> 获取输入的文件</li>
-<li>调用 <code>convert</code> 逐个转化需要转化的源文件，得到 <code>project</code> 对象</li>
-<li>调用 <code>generateDocs</code> 生成对应的输出文件</li>
-</ul>
-<h5 id="注：expandInputFiles、convert、generateDocs通过继承的方式源自父类"><a href="#注：expandInputFiles、convert、generateDocs通过继承的方式源自父类" class="headerlink" title="注：expandInputFiles、convert、generateDocs通过继承的方式源自父类"></a>注：<code>expandInputFiles</code>、<code>convert</code>、<code>generateDocs</code>通过继承的方式源自父类</h5><h3 id="父类-Application"><a href="#父类-Application" class="headerlink" title="父类 Application"></a>父类 <code>Application</code></h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> Application <span class="keyword">extends</span> ChildableComponent&lt;</span><br><span class="line">  Application,</span><br><span class="line">  AbstractComponent&lt;Application&gt;</span><br><span class="line">&gt; &#123;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * The converter used to create the declaration reflections.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  converter: Converter;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * The renderer used to generate the documentation output.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  renderer: Renderer;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * The serializer used to generate JSON output.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  serializer: Serializer;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 其它属性</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Create a new TypeDoc application instance.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @param options An object containing the options that should be used.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">super</span>(DUMMY_APPLICATION_OWNER);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.logger = <span class="keyword">new</span> ConsoleLogger();</span><br><span class="line">    <span class="keyword">this</span>.options = <span class="keyword">new</span> Options(<span class="keyword">this</span>.logger);</span><br><span class="line">    <span class="keyword">this</span>.options.addDefaultDeclarations();</span><br><span class="line">    <span class="keyword">this</span>.serializer = <span class="keyword">new</span> Serializer();</span><br><span class="line">    <span class="keyword">this</span>.converter = <span class="keyword">this</span>.addComponent&lt;Converter&gt;(<span class="string">"converter"</span>, Converter);</span><br><span class="line">    <span class="keyword">this</span>.renderer = <span class="keyword">this</span>.addComponent&lt;Renderer&gt;(<span class="string">"renderer"</span>, Renderer);</span><br><span class="line">    <span class="keyword">this</span>.plugins = <span class="keyword">this</span>.addComponent(<span class="string">"plugins"</span>, PluginHost);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Initialize TypeDoc with the given options object.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @param options  The desired options to set.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  bootstrap(</span><br><span class="line">    options: Partial&lt;TypeDocAndTSOptions&gt; = &#123;&#125;</span><br><span class="line">  ): &#123; hasErrors: <span class="built_in">boolean</span>; inputFiles: <span class="built_in">string</span>[] &#125; &#123;</span><br><span class="line">    <span class="comment">// 日志相关配置</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.plugins.load();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.options.reset();</span><br><span class="line">    <span class="keyword">this</span>.options.setValues(options).mapErr(<span class="function">(<span class="params">errors</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">const</span> error of errors) &#123;</span><br><span class="line">        <span class="keyword">this</span>.logger.error(error.message);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">this</span>.options.read(<span class="keyword">this</span>.logger);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      hasErrors: <span class="keyword">this</span>.logger.hasErrors(),</span><br><span class="line">      inputFiles: <span class="keyword">this</span>.inputFiles,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Run the converter for the given set of files and return the generated reflections.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @param src  A list of source that should be compiled and converted.</span></span><br><span class="line"><span class="comment">   * @returns An instance of ProjectReflection on success, undefined otherwise.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> convert(src: <span class="built_in">string</span>[]): ProjectReflection | <span class="literal">undefined</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> result = <span class="keyword">this</span>.converter.convert(src);</span><br><span class="line">    <span class="comment">// 其它代码</span></span><br><span class="line">    <span class="keyword">return</span> result.project;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Run the documentation generator for the given set of files.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @param out  The path the documentation should be written to.</span></span><br><span class="line"><span class="comment">   * @returns TRUE if the documentation could be generated successfully, otherwise FALSE.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> generateDocs(</span><br><span class="line">    input: ProjectReflection | <span class="built_in">string</span>[],</span><br><span class="line">    out: <span class="built_in">string</span></span><br><span class="line">  ): <span class="built_in">boolean</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> project =</span><br><span class="line">      input <span class="keyword">instanceof</span> ProjectReflection ? input : <span class="keyword">this</span>.convert(input);</span><br><span class="line"></span><br><span class="line">    out = Path.resolve(out);</span><br><span class="line">    <span class="keyword">this</span>.renderer.render(project, out);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Run the converter for the given set of files and write the reflections to a json file.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @param out  The path and file name of the target file.</span></span><br><span class="line"><span class="comment">   * @returns TRUE if the json file could be written successfully, otherwise FALSE.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> generateJson(</span><br><span class="line">    input: ProjectReflection | <span class="built_in">string</span>[],</span><br><span class="line">    out: <span class="built_in">string</span></span><br><span class="line">  ): <span class="built_in">boolean</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> project =</span><br><span class="line">      input <span class="keyword">instanceof</span> ProjectReflection ? input : <span class="keyword">this</span>.convert(input);</span><br><span class="line">    <span class="keyword">if</span> (!project) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    out = Path.resolve(out);</span><br><span class="line">    <span class="keyword">const</span> eventData = &#123;</span><br><span class="line">      outputDirectory: Path.dirname(out),</span><br><span class="line">      outputFile: Path.basename(out),</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">const</span> ser = <span class="keyword">this</span>.serializer.projectToObject(project, &#123;</span><br><span class="line">      begin: eventData,</span><br><span class="line">      end: eventData,</span><br><span class="line">    &#125;);</span><br><span class="line">    writeFile(out, <span class="built_in">JSON</span>.stringify(ser, <span class="literal">null</span>, <span class="string">"\t"</span>), <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Expand a list of input files.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * Searches for directories in the input files list and replaces them with a</span></span><br><span class="line"><span class="comment">   * listing of all TypeScript files within them. One may use the ```--exclude``` option</span></span><br><span class="line"><span class="comment">   * to filter out files with a pattern.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @param inputFiles  The list of files that should be expanded.</span></span><br><span class="line"><span class="comment">   * @returns  The list of input files with expanded directories.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> expandInputFiles(inputFiles: <span class="built_in">string</span>[] = []): <span class="built_in">string</span>[] &#123;</span><br><span class="line">    <span class="keyword">const</span> files: <span class="built_in">string</span>[] = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> exclude = <span class="keyword">this</span>.exclude ? createMinimatch(<span class="keyword">this</span>.exclude) : [];</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">isExcluded</span>(<span class="params">fileName: <span class="built_in">string</span></span>): <span class="title">boolean</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> exclude.some(<span class="function">(<span class="params">mm</span>) =&gt;</span> mm.match(fileName));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> supportedFileRegex = <span class="keyword">this</span>.options.getCompilerOptions().allowJs</span><br><span class="line">      ? <span class="regexp">/\.[tj]sx?$/</span></span><br><span class="line">      : <span class="regexp">/\.tsx?$/</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">file: <span class="built_in">string</span>, entryPoint: <span class="built_in">boolean</span></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">let</span> stats: FS.Stats;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        stats = FS.statSync(file);</span><br><span class="line">      &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">        <span class="comment">// No permission or a symbolic link, do not resolve.</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">const</span> fileIsDir = stats.isDirectory();</span><br><span class="line">      <span class="keyword">if</span> (fileIsDir &amp;&amp; !file.endsWith(<span class="string">"/"</span>)) &#123;</span><br><span class="line">        file = <span class="string">`<span class="subst">$&#123;file&#125;</span>/`</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> ((!fileIsDir || !entryPoint) &amp;&amp; isExcluded(file.replace(<span class="regexp">/\\/g</span>, <span class="string">"/"</span>))) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (fileIsDir) &#123;</span><br><span class="line">        FS.readdirSync(file).forEach(<span class="function">(<span class="params">next</span>) =&gt;</span> &#123;</span><br><span class="line">          add(Path.join(file, next), <span class="literal">false</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (supportedFileRegex.test(file)) &#123;</span><br><span class="line">        files.push(file);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    inputFiles.forEach(<span class="function">(<span class="params">file</span>) =&gt;</span> &#123;</span><br><span class="line">      add(Path.resolve(file), <span class="literal">true</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> files;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通过上面代码的分析可以梳理出调用流程</p>
-<ol>
-<li>类初始化时，依次注入 <code>serializer</code>、<code>converter</code>、<code>renderer</code>、<code>plugins</code>等属性。<code>serializer</code> 序列化输入数据成 <code>JSON</code> 格式；<code>converter</code> 创建映射对象；<code>renderer</code> 主要是控制文档数据的输出；<code>plugins</code> 数据转化过程中执行的一系列插件，主要是对映射对象进行操作。</li>
-<li><code>bootstrap</code> 是整个流程的调用入口，主要用途是加载插件和重置参数，返回一个包含错误信息和输入文件列表的对象</li>
-<li><code>convert</code> 函数主要作用就是调用 <code>converter</code> 属性中的 <code>convert</code> 创建映射对象并返回映射对象</li>
-<li><code>generateDocs</code> 生成文档文件</li>
-<li><code>generateJson</code> 生成 <code>JSON</code> 文件</li>
-<li><code>expandInputFiles</code> 过滤输入的文件，返回需要转化的全部文件完整列表</li>
-</ol>
-<h3 id="待完成"><a href="#待完成" class="headerlink" title="待完成"></a>待完成</h3><p><code>serializer</code>、<code>converter</code>、<code>renderer</code>、<code>plugins</code> 等对象实现细节解析</p>
-<h3 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h3><ul>
-<li><a href="/images/typedoc/application-props.pdf">typedoc application 对象属性</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/04/20/typedoc源码阅读系列（一）/" data-id="ckxwzctbc0038ocdz9ndzidmc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/04/27/typedoc源码阅读系列（二）/" data-id="ckyh2rhrp003o5sdzwsa28l7u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -2531,7 +2527,7 @@ branch: master
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/">C/C++语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">56</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeORM/">TypeORM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/antd/">antd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/form/">form</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">19</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">other</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/插件/">插件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solution/">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">计算机网络</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/">资源</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/">C/C++语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">57</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeORM/">TypeORM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/antd/">antd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/form/">form</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">19</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">other</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/插件/">插件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solution/">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">计算机网络</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/">资源</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -2550,7 +2546,7 @@ branch: master
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -2561,6 +2557,10 @@ branch: master
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2022/01/17/js中浮点数精度问题/">js中浮点数精度问题</a>
+          </li>
         
           <li>
             <a href="/2022/01/02/antd中form表单联动/">antd中form表单联动</a>
@@ -2576,10 +2576,6 @@ branch: master
         
           <li>
             <a href="/2021/08/16/计算机网络-DNS/">计算机网络-DNS</a>
-          </li>
-        
-          <li>
-            <a href="/2021/08/08/服务端渲染/">服务端渲染</a>
           </li>
         
       </ul>
