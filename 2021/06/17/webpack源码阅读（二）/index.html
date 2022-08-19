@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>webpack源码阅读（二） | 奔跑的蜗牛</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="webpack Compilation 执行过程 构建 Compilation 实例 调用 compilation.finish 执行构建 异步调用 finishModules 钩子函数 调用 compilation.seal 完成构建 构建 ChunkGraph 实例，并调用 ChunkGraph.setChunkGraphForModule(module, chunkGraph) 同步调用 s">
+<meta name="keywords" content="JavaScript,webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack源码阅读（二）">
+<meta property="og:url" content="http://yoursite.com/2021/06/17/webpack源码阅读（二）/index.html">
+<meta property="og:site_name" content="奔跑的蜗牛">
+<meta property="og:description" content="webpack Compilation 执行过程 构建 Compilation 实例 调用 compilation.finish 执行构建 异步调用 finishModules 钩子函数 调用 compilation.seal 完成构建 构建 ChunkGraph 实例，并调用 ChunkGraph.setChunkGraphForModule(module, chunkGraph) 同步调用 s">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:updated_time" content="2021-07-10T15:44:48.156Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack源码阅读（二）">
+<meta name="twitter:description" content="webpack Compilation 执行过程 构建 Compilation 实例 调用 compilation.finish 执行构建 异步调用 finishModules 钩子函数 调用 compilation.seal 完成构建 构建 ChunkGraph 实例，并调用 ChunkGraph.setChunkGraphForModule(module, chunkGraph) 同步调用 s">
+  
+  
+    <link rel="icon" href="0001.jpg#/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">奔跑的蜗牛</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">奔跑的蜗牛</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">分类</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-webpack源码阅读（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/06/17/webpack源码阅读（二）/" class="article-date">
+  <time datetime="2021-06-16T19:22:20.000Z" itemprop="datePublished">2021-06-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      webpack源码阅读（二）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="webpack-Compilation-执行过程"><a href="#webpack-Compilation-执行过程" class="headerlink" title="webpack Compilation 执行过程"></a>webpack Compilation 执行过程</h3><ol>
+<li>构建 <code>Compilation</code> 实例</li>
+<li>调用 <code>compilation.finish</code> 执行构建</li>
+<li>异步调用 <code>finishModules</code> 钩子函数</li>
+<li>调用 <code>compilation.seal</code> 完成构建</li>
+<li>构建 <code>ChunkGraph</code> 实例，并调用 <code>ChunkGraph.setChunkGraphForModule(module, chunkGraph)</code></li>
+<li>同步调用 <code>seal</code> 钩子函数</li>
+<li>同步调用 <code>optimizeDependencies</code> 钩子函数，等待钩子函数执行完毕</li>
+<li>同步调用 <code>afterOptimizeDependencies</code> 钩子函数</li>
+<li>同步调用 <code>beforeChunks</code> 钩子函数</li>
+<li>构建 <code>chunk</code></li>
+<li>同步调用 <code>afterChunks</code> 钩子函数</li>
+<li>同步调用 <code>optimize</code> 钩子函数</li>
+<li>同步调用 <code>optimizeModules</code> 钩子函数，等待钩子函数执行完毕</li>
+<li>同步调用 <code>afterOptimizeModules</code> 钩子函数</li>
+<li>同步调用 <code>optimizeChunks</code> 钩子函数，等待钩子函数执行完毕</li>
+<li>同步调用 <code>afterOptimizeChunks</code> 钩子函数</li>
+<li>异步调用 <code>optimizeTree</code> 钩子函数</li>
+<li>同步调用 <code>afterOptimizeTree</code> 钩子函数</li>
+<li>异步调用 <code>optimizeChunkModules</code> 钩子函数</li>
+<li>同步调用 <code>afterOptimizeChunkModules</code> 钩子函数</li>
+<li>同步调用 <code>shouldRecord</code> 钩子函数</li>
+<li>同步调用 <code>reviveModules</code> 钩子函数</li>
+<li>同步调用 <code>beforeModuleIds</code> 钩子函数</li>
+<li>同步调用 <code>moduleIds</code> 钩子函数</li>
+<li>同步调用 <code>optimizeModuleIds</code> 钩子函数</li>
+<li>同步调用 <code>afterOptimizeModuleIds</code> 钩子函数</li>
+<li>同步调用 <code>reviveChunks</code> 钩子函数</li>
+<li>同步调用 <code>beforeChunkIds</code> 钩子函数</li>
+<li>同步调用 <code>chunkIds</code> 钩子函数</li>
+<li>同步调用 <code>optimizeChunkIds</code> 钩子函数</li>
+<li>同步调用 <code>afterOptimizeChunkIds</code> 钩子函数</li>
+<li>若 <code>shouldRecord</code> 钩子函数为正，则同步调用 <code>recordModules</code> 钩子函数</li>
+<li>若 <code>shouldRecord</code> 钩子函数为正，则同步调用 <code>recordChunks</code> 钩子函数</li>
+<li>同步调用 <code>optimizeCodeGeneration</code> 钩子函数</li>
+<li>同步调用 <code>beforeModuleHash</code> 钩子函数</li>
+<li>同步调用 <code>afterModuleHash</code> 钩子函数</li>
+<li>同步调用 <code>beforeCodeGeneration</code> 钩子函数</li>
+<li>调用 <code>codeGeneration</code> 生成代码</li>
+<li>同步调用 <code>afterCodeGeneration</code> 钩子函数</li>
+<li>同步调用 <code>beforeRuntimeRequirements</code> 钩子函数</li>
+<li>提取 <code>modules</code> 中的 <code>runtime</code>，对于每个 <code>module</code> 的 <code>runtime</code> 都同步调用 <code>additionalModuleRuntimeRequirements</code> 钩子函数</li>
+<li>若存在对应的 <code>runtimeRequirementInModule</code> 钩子函数，则同步调用该钩子函数</li>
+<li>对每个 <code>chunk</code> 同步调用 <code>additionalChunkRuntimeRequirements</code> 钩子函数</li>
+<li>对每个 <code>chunk</code> 中依赖的 <code>runtime</code> 调用 <code>runtimeRequirementInChunk</code> 钩子函数</li>
+<li>构建含有重复依赖的依赖树</li>
+<li>每个入口文件的依赖进行扁平化处理，去掉重复依赖，然后同步调用 <code>additionalTreeRuntimeRequirements</code> 钩子函数</li>
+<li>每个入口文件的依赖一次调用 <code>runtimeRequirementInTree</code> 钩子函数</li>
+<li>同步调用 <code>afterRuntimeRequirements</code> 钩子函数</li>
+<li>同步调用 <code>beforeHash</code> 钩子函数</li>
+<li>同步调用 <code>updateHash</code> 钩子函数</li>
+<li>若为非 <code>fullHashModules</code> 是同步调用 <code>contentHash</code> 钩子函数</li>
+<li>同步调用 <code>fullHash</code> 钩子函数</li>
+<li>对每个 <code>chunk</code> 同步调用 <code>fullHash</code> 钩子函数</li>
+<li>同步调用 <code>afterHash</code> 钩子函数</li>
+<li>若需要记录则同步调用 <code>shouldRecord</code> 钩子函数</li>
+<li>清理 <code>chunk</code> 记录的文件</li>
+<li>同步调用 <code>beforeModuleAssets</code> 钩子函数</li>
+<li>针对 <code>module</code> 的每一个需要输出的资源同步调用 <code>moduleAsset</code> 钩子函数</li>
+<li>同步调用 <code>shouldGenerateChunkAssets</code> 判断是否需要输出资源</li>
+<li>输出资源前同步调用 <code>beforeChunkAssets</code> 钩子函数</li>
+<li>针对每个 <code>chunk</code> 构建一个 <code>manifest</code> 文件</li>
+<li>为每个 <code>chunk</code> 写入包含的资源</li>
+<li>同步调用 <code>chunkAsset</code> 钩子函数</li>
+<li>异步调用 <code>processAssets</code> 钩子函数</li>
+<li>同步调用 <code>afterProcessAssets</code> 钩子函数</li>
+<li>构建依赖</li>
+<li>若需要记录则同步调用 <code>record</code> 钩子函数</li>
+<li>同步调用 <code>needAdditionalSeal</code> 钩子函数，判读是否需要新增</li>
+<li>异步调用 <code>afterSeal</code> 钩子函数</li>
+<li>回调</li>
+</ol>
+<h4 id="Module"><a href="#Module" class="headerlink" title="Module"></a><code>Module</code></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">/** <span class="doctag">@type <span class="type">&#123;string&#125;</span> </span>*/</span></span><br><span class="line">		type: type,</span><br><span class="line">		<span class="comment">/** <span class="doctag">@type <span class="type">&#123;string&#125;</span> </span>*/</span></span><br><span class="line">		context: context,</span><br><span class="line">		<span class="comment">/** <span class="doctag">@type <span class="type">&#123;boolean&#125;</span> </span>*/</span></span><br><span class="line">		needId: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Unique Id</span></span><br><span class="line">		<span class="comment">/** <span class="doctag">@type <span class="type">&#123;number&#125;</span> </span>*/</span></span><br><span class="line">		debugId:  debugId++,</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Info from Factory</span></span><br><span class="line">		<span class="comment">/** <span class="doctag">@type <span class="type">&#123;ResolveOptions&#125;</span> </span>*/</span></span><br><span class="line">		resolveOptions: EMPTY_RESOLVE_OPTIONS,</span><br><span class="line">		<span class="comment">/** <span class="doctag">@type <span class="type">&#123;object | undefined&#125;</span> </span>*/</span></span><br><span class="line">		factoryMeta: <span class="literal">undefined</span>,</span><br><span class="line">		<span class="comment">// TODO refactor this -&gt; options object filled from Factory</span></span><br><span class="line">		<span class="comment">// TODO webpack 6: use an enum</span></span><br><span class="line">		<span class="comment">/** <span class="doctag">@type <span class="type">&#123;boolean&#125;</span> </span>*/</span></span><br><span class="line">		useSourceMap: <span class="literal">false</span>,</span><br><span class="line">		<span class="comment">/** <span class="doctag">@type <span class="type">&#123;boolean&#125;</span> </span>*/</span></span><br><span class="line">		useSimpleSourceMap: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Info from Build</span></span><br><span class="line">		<span class="comment">/** <span class="doctag">@type <span class="type">&#123;WebpackError[] | undefined&#125;</span> </span>*/</span></span><br><span class="line">		_warnings: <span class="literal">undefined</span>,</span><br><span class="line">		<span class="comment">/** <span class="doctag">@type <span class="type">&#123;WebpackError[] | undefined&#125;</span> </span>*/</span></span><br><span class="line">		_errors: <span class="literal">undefined</span>,</span><br><span class="line">		<span class="comment">/** <span class="doctag">@type <span class="type">&#123;BuildMeta&#125;</span> </span>*/</span></span><br><span class="line">		buildMeta: <span class="literal">undefined</span>,</span><br><span class="line">		<span class="comment">/** <span class="doctag">@type <span class="type">&#123;object&#125;</span> </span>*/</span></span><br><span class="line">		buildInfo: <span class="literal">undefined</span>,</span><br><span class="line">		<span class="comment">/** <span class="doctag">@type <span class="type">&#123;Dependency[] | undefined&#125;</span> </span>*/</span></span><br><span class="line">		presentationalDependencies: <span class="literal">undefined</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="chunk-具有的属性"><a href="#chunk-具有的属性" class="headerlink" title="chunk 具有的属性"></a><code>chunk</code> 具有的属性</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">/** <span class="doctag">@type <span class="type">&#123;number | string | null&#125;</span> </span>*/</span></span><br><span class="line">  id: <span class="literal">null</span>,</span><br><span class="line">  <span class="comment">/** <span class="doctag">@type <span class="type">&#123;(number|string)[] | null&#125;</span> </span>*/</span></span><br><span class="line">  ids: <span class="literal">null</span>,</span><br><span class="line">  <span class="comment">/** <span class="doctag">@type <span class="type">&#123;number&#125;</span> </span>*/</span></span><br><span class="line">  debugId: debugId++,</span><br><span class="line">  <span class="comment">/** <span class="doctag">@type <span class="type">&#123;string&#125;</span> </span>*/</span></span><br><span class="line">  name: name,</span><br><span class="line">  <span class="comment">/** <span class="doctag">@type <span class="type">&#123;SortableSet&lt;string&gt;&#125;</span> </span>*/</span></span><br><span class="line">  idNameHints: <span class="keyword">new</span> SortableSet(),</span><br><span class="line">  <span class="comment">/** <span class="doctag">@type <span class="type">&#123;boolean&#125;</span> </span>*/</span></span><br><span class="line">  preventIntegration: <span class="literal">false</span>,</span><br><span class="line">  <span class="comment">/** <span class="doctag">@type <span class="type">&#123;(string | function(PathData, AssetInfo=): string)?&#125;</span> </span>*/</span></span><br><span class="line">  filenameTemplate: <span class="literal">undefined</span>,</span><br><span class="line">  <span class="comment">/** <span class="doctag">@private </span><span class="doctag">@type <span class="type">&#123;SortableSet&lt;ChunkGroup&gt;&#125;</span> </span>*/</span></span><br><span class="line">  _groups: <span class="keyword">new</span> SortableSet(<span class="literal">undefined</span>, compareChunkGroupsByIndex),</span><br><span class="line">  <span class="comment">/** <span class="doctag">@type <span class="type">&#123;RuntimeSpec&#125;</span> </span>*/</span></span><br><span class="line">  runtime: <span class="literal">undefined</span>,</span><br><span class="line">  <span class="comment">/** <span class="doctag">@type <span class="type">&#123;Set&lt;string&gt;&#125;</span> </span>*/</span></span><br><span class="line">  files: <span class="keyword">new</span> ChunkFilesSet(),</span><br><span class="line">  <span class="comment">/** <span class="doctag">@type <span class="type">&#123;Set&lt;string&gt;&#125;</span> </span>*/</span></span><br><span class="line">  auxiliaryFiles: <span class="keyword">new</span> <span class="built_in">Set</span>(),</span><br><span class="line">  <span class="comment">/** <span class="doctag">@type <span class="type">&#123;boolean&#125;</span> </span>*/</span></span><br><span class="line">  rendered: <span class="literal">false</span>,</span><br><span class="line">  <span class="comment">/** <span class="doctag">@type <span class="type">&#123;string=&#125;</span> </span>*/</span></span><br><span class="line">  hash: <span class="literal">undefined</span>,</span><br><span class="line">  <span class="comment">/** <span class="doctag">@type <span class="type">&#123;Record&lt;string, string&gt;&#125;</span> </span>*/</span></span><br><span class="line">  contentHash: <span class="built_in">Object</span>.create(<span class="literal">null</span>),</span><br><span class="line">  <span class="comment">/** <span class="doctag">@type <span class="type">&#123;string=&#125;</span> </span>*/</span></span><br><span class="line">  renderedHash: <span class="literal">undefined</span>,</span><br><span class="line">  <span class="comment">/** <span class="doctag">@type <span class="type">&#123;string=&#125;</span> </span>*/</span></span><br><span class="line">  chunkReason: <span class="literal">undefined</span>,</span><br><span class="line">  <span class="comment">/** <span class="doctag">@type <span class="type">&#123;boolean&#125;</span> </span>*/</span></span><br><span class="line">  extraAsync: <span class="literal">false</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="ChunkGraph-具有的属性"><a href="#ChunkGraph-具有的属性" class="headerlink" title="ChunkGraph 具有的属性"></a><code>ChunkGraph</code> 具有的属性</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"> <span class="comment">/** <span class="doctag">@private </span><span class="doctag">@type <span class="type">&#123;WeakMap&lt;Module, ChunkGraphModule&gt;&#125;</span> </span>*/</span></span><br><span class="line">		_modules: <span class="keyword">new</span> <span class="built_in">WeakMap</span>(),</span><br><span class="line">		<span class="comment">/** <span class="doctag">@private </span><span class="doctag">@type <span class="type">&#123;WeakMap&lt;Chunk, ChunkGraphChunk&gt;&#125;</span> </span>*/</span></span><br><span class="line">		_chunks:  <span class="keyword">new</span> <span class="built_in">WeakMap</span>(),</span><br><span class="line">		<span class="comment">/** <span class="doctag">@private </span><span class="doctag">@type <span class="type">&#123;WeakMap&lt;AsyncDependenciesBlock, ChunkGroup&gt;&#125;</span> </span>*/</span></span><br><span class="line">		_blockChunkGroups: <span class="keyword">new</span> <span class="built_in">WeakMap</span>(),</span><br><span class="line">		<span class="comment">/** <span class="doctag">@private </span><span class="doctag">@type <span class="type">&#123;Map&lt;string, string | number&gt;&#125;</span> </span>*/</span></span><br><span class="line">		_runtimeIds: <span class="keyword">new</span> <span class="built_in">Map</span>(),</span><br><span class="line">		<span class="comment">/** <span class="doctag">@type <span class="type">&#123;ModuleGraph&#125;</span> </span>*/</span></span><br><span class="line">		moduleGraph: moduleGraph;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h4><ol>
+<li>对于一份同逻辑的代码，当我们手写下一个一个的文件，它们无论是 <code>ESM</code> 还是 <code>commonJS</code> 或是 <code>AMD</code>，他们都是 <code>module</code></li>
+<li>当我们写的 <code>module</code> 源文件传到 <code>webpack</code> 进行打包时，<code>webpack</code> 会根据文件引用关系生成 <code>chunk</code> 文件，<code>webpack</code> 会对这个 <code>chunk</code> 文件进行一些操作；</li>
+<li><code>webpack</code> 处理好 <code>chunk</code> 文件后，最后会输出 <code>bundle</code> 文件，这个 <code>bundle</code> 文件包含了经过加载和编译的最终源文件，所以它可以直接在浏览器中运行。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/06/17/webpack源码阅读（二）/" data-id="cl70n2sps003mvcdz9paya587" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/06/20/react从dom-render到初次组件渲染完成/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          react从dom.render到初次组件渲染完成
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/06/15/webpack源码阅读（一）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">webpack源码阅读（一）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/">C/C++语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">58</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeORM/">TypeORM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/antd/">antd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/form/">form</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">19</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">other</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/插件/">插件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solution/">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">计算机网络</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/">资源</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/c-language/" style="font-size: 12.86px;">C/C++语言</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/TypeORM/" style="font-size: 10px;">TypeORM</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/antd/" style="font-size: 10px;">antd</a> <a href="/tags/express/" style="font-size: 11.43px;">express</a> <a href="/tags/form/" style="font-size: 10px;">form</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mysql/" style="font-size: 11.43px;">mysql</a> <a href="/tags/node/" style="font-size: 18.57px;">node</a> <a href="/tags/other/" style="font-size: 15.71px;">other</a> <a href="/tags/react/" style="font-size: 17.14px;">react</a> <a href="/tags/webpack/" style="font-size: 12.86px;">webpack</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/浏览器/" style="font-size: 10px;">浏览器</a> <a href="/tags/solution/" style="font-size: 14.29px;">算法</a> <a href="/tags/network/" style="font-size: 15.71px;">计算机网络</a> <a href="/tags/source/" style="font-size: 11.43px;">资源</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/08/20/js获取位置信息/">js获取位置信息</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/29/merge和rebase/">git merge和rebase</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/09/黑客增长/">黑客增长</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/17/js中浮点数精度问题/">js中浮点数精度问题</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/02/antd中form表单联动/">antd中form表单联动</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 奔跑的蜗牛<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">分类</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
