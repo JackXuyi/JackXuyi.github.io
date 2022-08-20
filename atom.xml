@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2022-08-19T15:35:05.008Z</updated>
+  <updated>2022-08-20T15:22:52.841Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>js获取方位信息</title>
+    <link href="http://yoursite.com/2022/08/21/js%E8%8E%B7%E5%8F%96%E6%96%B9%E4%BD%8D%E4%BF%A1%E6%81%AF/"/>
+    <id>http://yoursite.com/2022/08/21/js获取方位信息/</id>
+    <published>2022-08-20T22:56:47.000Z</published>
+    <updated>2022-08-20T15:22:52.841Z</updated>
+    
+    <content type="html"><![CDATA[<p>js 提供了获取方位信息的方法，整体可以分为以下几步</p><h3 id="前置检查"><a href="#前置检查" class="headerlink" title="前置检查"></a>前置检查</h3><p>通过判断 <code>window</code> 是否具有 <code>DeviceOrientationEvent</code> 这个属性来判断是否支持获取方位信息</p><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkOrientation</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Boolean</span>(<span class="built_in">window</span>.DeviceOrientationEvent)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="获取方位信息"><a href="#获取方位信息" class="headerlink" title="获取方位信息"></a>获取方位信息</h3><p>通过监听事件实现对方位信息的获取</p><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">watchOrientation</span>(<span class="params">callback: (e: DeviceOrientationEvent) =&gt; <span class="built_in">void</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (checkOrientation()) &#123;</span><br><span class="line">    <span class="built_in">window</span>.addEventListener(<span class="string">'deviceorientation'</span>, callback, <span class="literal">true</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">window</span>.removeEventListener(<span class="string">'deviceorientation'</span>, callback, <span class="literal">true</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> loop</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><h5 id="callback"><a href="#callback" class="headerlink" title="callback"></a><code>callback</code></h5><p>获取方位信息后的回调，类型为 <code>(e: DeviceOrientationEvent) =&gt; void</code></p><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> DeviceOrientationEvent <span class="keyword">extends</span> Event &#123;</span><br><span class="line">  readonly absolute: <span class="built_in">boolean</span> <span class="comment">// 一个布尔值，指示设备是否绝对提供方向数据。</span></span><br><span class="line">  readonly alpha: <span class="built_in">number</span> | <span class="literal">null</span> <span class="comment">// 表示设备绕z轴运动的数字，以度表示，值范围为0（包括）到360（不包括）。以正北方向为 0 度</span></span><br><span class="line">  readonly beta: <span class="built_in">number</span> | <span class="literal">null</span> <span class="comment">// 表示设备绕x轴运动的数字，以度表示，值范围为-180（包括）到180（不包括）。这表示设备的前后运动。</span></span><br><span class="line">  readonly gamma: <span class="built_in">number</span> | <span class="literal">null</span> <span class="comment">// 表示设备绕y轴运动的数字，以度表示，值范围为-90（包括）到90（不包括）。这表示设备从左到右的运动。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul><li>需要当前页面为 <code>HTTPS</code> 才被允许获取方位信息</li><li>可以通过<a href="https://sensorbox.glitch.me/" target="_blank" rel="noopener">当前页面</a>检测设备是否支持获取方位信息</li></ul><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Geolocation/getCurrentPosition" target="_blank" rel="noopener">Geolocation 获取位置</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;js 提供了获取方位信息的方法，整体可以分为以下几步&lt;/p&gt;
+&lt;h3 id=&quot;前置检查&quot;&gt;&lt;a href=&quot;#前置检查&quot; class=&quot;headerlink&quot; title=&quot;前置检查&quot;&gt;&lt;/a&gt;前置检查&lt;/h3&gt;&lt;p&gt;通过判断 &lt;code&gt;window&lt;/code&gt; 是否具
+      
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>js获取位置信息</title>
@@ -493,29 +517,6 @@
       <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
     
       <category term="webpack" scheme="http://yoursite.com/tags/webpack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Performance</title>
-    <link href="http://yoursite.com/2021/06/15/Performance/"/>
-    <id>http://yoursite.com/2021/06/15/Performance/</id>
-    <published>2021-06-14T22:48:44.000Z</published>
-    <updated>2021-06-14T15:40:45.361Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h3><h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h4><h5 id="navigation"><a href="#navigation" class="headerlink" title="navigation"></a><code>navigation</code></h5><p>只读属性 Performance.navigation 会返回一个 PerformanceNavigation 对象。</p><ul><li>type: 一个无符号短整型，表示是如何导航到这个页面的。<ul><li>TYPE_NAVIGATE (0): 当前页面是通过点击链接，书签和表单提交，或者脚本操作，或者在 url 中直接输入地址;</li><li>TYPE_RELOAD (1): 点击刷新页面按钮或者通过 Location.reload()方法显示的页面;</li><li>TYPE_BACK_FORWARD (2): 页面通过历史记录和前进后退访问时;</li><li>TYPE_RESERVED (255): 任何其他方式。</li></ul></li><li>redirectCount: 无符号短整型，表示在到达这个页面之前重定向了多少次。</li></ul><h5 id="timing"><a href="#timing" class="headerlink" title="timing"></a><code>timing</code></h5><p>只读属性返回一个 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/PerformanceTiming" target="_blank" rel="noopener">PerformanceTiming</a> 对象，这个对象包括了页面相关的性能信息。</p><h5 id="timeOrigin"><a href="#timeOrigin" class="headerlink" title="timeOrigin"></a><code>timeOrigin</code></h5><p>只读属性 timeOrigin 返回一个表示 the performance measurement 开始时间的高精度 timestamp</p><h5 id="onresourcetimingbufferfull"><a href="#onresourcetimingbufferfull" class="headerlink" title="onresourcetimingbufferfull"></a><code>onresourcetimingbufferfull</code></h5><p>在 resourcetimingbufferfull 事件触发时会被调用的事件处理器，参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Performance/onresourcetimingbufferfull" target="_blank" rel="noopener">Performance.onresourcetimingbufferfull</a></p><h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><h5 id="Performance-now"><a href="#Performance-now" class="headerlink" title="Performance.now()"></a><code>Performance.now()</code></h5><p>方法返回一个精确到毫秒的事件戳 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/DOMHighResTimeStamp" target="_blank" rel="noopener">DOMHighResTimeStamp</a></p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">performance.now() <span class="comment">// 38544.5</span></span><br><span class="line"><span class="built_in">Date</span>.now() <span class="comment">// 1623685111685</span></span><br></pre></td></tr></table></figure><h6 id="tips：-测量程序性能时可以使用"><a href="#tips：-测量程序性能时可以使用" class="headerlink" title="tips： 测量程序性能时可以使用"></a>tips： 测量程序性能时可以使用</h6><h5 id="performance-setResourceTimingBufferSize"><a href="#performance-setResourceTimingBufferSize" class="headerlink" title="performance.setResourceTimingBufferSize()"></a><a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/setResourceTimingBufferSize" target="_blank" rel="noopener"><code>performance.setResourceTimingBufferSize()</code></a></h5><p>设置浏览器记录资源加载情况的缓冲区大小，单位是对象个数，最小为 150</p><h5 id="Performance-mark"><a href="#Performance-mark" class="headerlink" title="Performance.mark()"></a><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Performance/mark" target="_blank" rel="noopener"><code>Performance.mark()</code></a></h5><p>在浏览器的性能缓冲区中使用给定名称添加一个 timestamp</p><h5 id="Performance-measure"><a href="#Performance-measure" class="headerlink" title="Performance.measure()"></a><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Performance/measure" target="_blank" rel="noopener"><code>Performance.measure()</code></a></h5><p>在浏览器性能记录缓存中创建了一个名为时间戳的记录来记录两个特殊标志位（通常称为开始标志和结束标志）。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">performance.mark(<span class="string">'test1'</span>)</span><br><span class="line">performance.mark(<span class="string">'test2'</span>)</span><br><span class="line">performance.measure(<span class="string">'test'</span>, <span class="string">'test1'</span>, <span class="string">'test2'</span>) <span class="comment">// &#123; detail: null, duration: 0.09999999403953552, entryType: "measure", name: "test", startTime: 33062.60000000894 &#125;</span></span><br></pre></td></tr></table></figure><h6 id="tips：-与-Performance-mark-结合可以测量指定项目的时间"><a href="#tips：-与-Performance-mark-结合可以测量指定项目的时间" class="headerlink" title="tips： 与 Performance.mark() 结合可以测量指定项目的时间"></a>tips： 与 <code>Performance.mark()</code> 结合可以测量指定项目的时间</h6><h5 id="Performance-clearResourceTimings"><a href="#Performance-clearResourceTimings" class="headerlink" title="Performance.clearResourceTimings()"></a><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Performance/clearResourceTimings" target="_blank" rel="noopener"><code>Performance.clearResourceTimings()</code></a></h5><p>移除所有的记录</p><h5 id="Performance-clearMarks"><a href="#Performance-clearMarks" class="headerlink" title="Performance.clearMarks()"></a><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Performance/clearMarks" target="_blank" rel="noopener"><code>Performance.clearMarks()</code></a></h5><p>从浏览器的 performance entry 缓存中移除声明的标记。</p><h5 id="Performance-clearMeasures"><a href="#Performance-clearMeasures" class="headerlink" title="Performance.clearMeasures()"></a><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Performance/clearMeasures" target="_blank" rel="noopener"><code>Performance.clearMeasures()</code></a></h5><p>从浏览器的性能入口缓存区中移除声明的度量衡。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;Performance&quot;&gt;&lt;a href=&quot;#Performance&quot; class=&quot;headerlink&quot; title=&quot;Performance&quot;&gt;&lt;/a&gt;Performance&lt;/h3&gt;&lt;h4 id=&quot;属性&quot;&gt;&lt;a href=&quot;#属性&quot; class=&quot;head
-      
-    
-    </summary>
-    
-    
-      <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
     
   </entry>
   
