@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>检测项目中的包版本变化 | 奔跑的蜗牛</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="概述由于项目中的某个依赖版本意外的升级导致项目中的部分功能不可使用 目的每次 package.json 有更新时检测依赖版本是否有更新，小版本更新提示，大版本更新直接警告，避免依赖包的意外升级 准备 git 检测指定文件的内容变更 正则等方式分割变更内容，提取出对应的信息 在 node 脚本中运行上述命令 在 commit 之前检测变更并提示  实现提取内容变更 git diff 查看尚未暂存的文">
+<meta name="keywords" content="node">
+<meta property="og:type" content="article">
+<meta property="og:title" content="检测项目中的包版本变化">
+<meta property="og:url" content="http://yoursite.com/2020/08/05/检测项目中的包版本变化/index.html">
+<meta property="og:site_name" content="奔跑的蜗牛">
+<meta property="og:description" content="概述由于项目中的某个依赖版本意外的升级导致项目中的部分功能不可使用 目的每次 package.json 有更新时检测依赖版本是否有更新，小版本更新提示，大版本更新直接警告，避免依赖包的意外升级 准备 git 检测指定文件的内容变更 正则等方式分割变更内容，提取出对应的信息 在 node 脚本中运行上述命令 在 commit 之前检测变更并提示  实现提取内容变更 git diff 查看尚未暂存的文">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:updated_time" content="2021-01-23T15:02:12.774Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="检测项目中的包版本变化">
+<meta name="twitter:description" content="概述由于项目中的某个依赖版本意外的升级导致项目中的部分功能不可使用 目的每次 package.json 有更新时检测依赖版本是否有更新，小版本更新提示，大版本更新直接警告，避免依赖包的意外升级 准备 git 检测指定文件的内容变更 正则等方式分割变更内容，提取出对应的信息 在 node 脚本中运行上述命令 在 commit 之前检测变更并提示  实现提取内容变更 git diff 查看尚未暂存的文">
+  
+  
+    <link rel="icon" href="0001.jpg#/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">奔跑的蜗牛</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">奔跑的蜗牛</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">分类</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-检测项目中的包版本变化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/05/检测项目中的包版本变化/" class="article-date">
+  <time datetime="2020-08-04T21:07:56.000Z" itemprop="datePublished">2020-08-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      检测项目中的包版本变化
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>由于项目中的某个依赖版本意外的升级导致项目中的部分功能不可使用</p>
+<h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>每次 <code>package.json</code> 有更新时检测依赖版本是否有更新，小版本更新提示，大版本更新直接警告，避免依赖包的意外升级</p>
+<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul>
+<li>git 检测指定文件的内容变更</li>
+<li>正则等方式分割变更内容，提取出对应的信息</li>
+<li>在 node 脚本中运行上述命令</li>
+<li>在 commit 之前检测变更并提示</li>
+</ul>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><h4 id="提取内容变更"><a href="#提取内容变更" class="headerlink" title="提取内容变更"></a>提取内容变更</h4><ul>
+<li><code>git diff</code> 查看尚未暂存的文件更新了哪些部分</li>
+<li><code>git diff filename</code> 查看尚未暂存的某个文件更新了哪些</li>
+<li><code>git diff –cached</code> 查看已经暂存起来的文件和上次提交的版本之间的差异</li>
+<li><code>git diff –cached filename</code> 查看已经暂存起来的某个文件和上次提交的版本之间的差异</li>
+<li><code>git diff commitHash commitHash</code> 查看某两个版本之间的差异</li>
+<li><code>git diff commitHash:filename commitHash:filename</code> 查看某两个版本的某个文件之间的差异</li>
+</ul>
+<h4 id="node-脚本中运行命令"><a href="#node-脚本中运行命令" class="headerlink" title="node 脚本中运行命令"></a>node 脚本中运行命令</h4><ul>
+<li><a href="http://nodejs.cn/api/child_process.html#child_process_child_process_exec_command_options_callback" target="_blank" rel="noopener">child_process.exec</a>异步执行命令</li>
+<li><a href="http://nodejs.cn/api/child_process.html#child_process_child_process_execsync_command_options" target="_blank" rel="noopener">child_process.execSync</a>同步执行命令</li>
+</ul>
+<h4 id="输出内容"><a href="#输出内容" class="headerlink" title="输出内容"></a>输出内容</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">+  <span class="string">"packageA"</span>: <span class="string">"~x.y.z"</span>,</span><br><span class="line">-  <span class="string">"packageB"</span>: <span class="string">"^x.y.z"</span>,</span><br></pre></td></tr></table></figure>
+<p>观察得出变化内容以 <code>+</code> 或 <code>-</code> 开头，依赖包的格式固定，每行变更内容以换行符分割，所以先用换行符分割内容，再检查 <code>+</code> 和 <code>-</code> 筛选出变化内容，最后用正则等方法分离出依赖包的名称和版本，最后通过前后版本的比较获取变化的包及包版本</p>
+<h4 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /usr/bin/env node</span></span><br><span class="line"><span class="keyword">const</span> childProcess = <span class="built_in">require</span>(<span class="string">'child_process'</span>)</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; logger, warn, info &#125; = <span class="built_in">require</span>(<span class="string">'./logger'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">resolveRootPath</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> path.resolve(process.cwd(), ...args)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取变化</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getDiff</span>(<span class="params">isCached = false</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> result = childProcess.execSync(</span><br><span class="line">      <span class="string">`git diff <span class="subst">$&#123;isCached ? <span class="string">'--cached'</span> : <span class="string">''</span>&#125;</span> <span class="subst">$&#123;resolveRootPath(</span></span></span><br><span class="line"><span class="string"><span class="subst">        <span class="string">'./package.json'</span></span></span></span><br><span class="line"><span class="string"><span class="subst">      )&#125;</span>`</span>,</span><br><span class="line">      &#123; <span class="attr">encoding</span>: <span class="string">'utf8'</span> &#125;</span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 序列化版本为对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">serializeDiff</span>(<span class="params">diffStr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> VERSION_REG = <span class="regexp">/\"\S+\"\s*:\s*\"(~|\-|\^)?(\d+)\.(\d+)\.(\d+)/</span></span><br><span class="line">  <span class="keyword">const</span> arr = <span class="string">`<span class="subst">$&#123;diffStr || <span class="string">''</span>&#125;</span>`</span></span><br><span class="line">    .split(<span class="string">'\n'</span>)</span><br><span class="line">    .filter(<span class="function">(<span class="params">str</span>) =&gt;</span> <span class="regexp">/^(\-|\+)\s+/</span>.test(str))</span><br><span class="line">    .filter(<span class="function">(<span class="params">str</span>) =&gt;</span> VERSION_REG.test(str))</span><br><span class="line">  <span class="keyword">const</span> beforeArr = arr</span><br><span class="line">    .filter(<span class="function">(<span class="params">str</span>) =&gt;</span> <span class="regexp">/^\-\s+/</span>.test(str))</span><br><span class="line">    .map(<span class="function">(<span class="params">str</span>) =&gt;</span> str.replace(<span class="regexp">/^\-\s+/</span>, <span class="string">''</span>))</span><br><span class="line">    .map(<span class="function">(<span class="params">str</span>) =&gt;</span> str.replace(<span class="regexp">/\,$/</span>, <span class="string">''</span>))</span><br><span class="line">  <span class="keyword">const</span> afterArr = arr</span><br><span class="line">    .filter(<span class="function">(<span class="params">str</span>) =&gt;</span> <span class="regexp">/^\+\s+/</span>.test(str))</span><br><span class="line">    .map(<span class="function">(<span class="params">str</span>) =&gt;</span> str.replace(<span class="regexp">/^\+\s+/</span>, <span class="string">''</span>))</span><br><span class="line">    .map(<span class="function">(<span class="params">str</span>) =&gt;</span> str.replace(<span class="regexp">/\,$/</span>, <span class="string">''</span>))</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> beforeObj = beforeArr.reduce(<span class="function">(<span class="params">prev, curr</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> [key, value] = curr.replace(<span class="regexp">/"/g</span>, <span class="string">''</span>).split(<span class="regexp">/\s*:\s*/</span>)</span><br><span class="line">    prev[key] = value</span><br><span class="line">    <span class="keyword">return</span> prev</span><br><span class="line">  &#125;, &#123;&#125;)</span><br><span class="line">  <span class="keyword">const</span> afterObj = afterArr.reduce(<span class="function">(<span class="params">prev, curr</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> [key, value] = curr.replace(<span class="regexp">/"/g</span>, <span class="string">''</span>).split(<span class="regexp">/\s*:\s*/</span>)</span><br><span class="line">    prev[key] = value</span><br><span class="line">    <span class="keyword">return</span> prev</span><br><span class="line">  &#125;, &#123;&#125;)</span><br><span class="line">  <span class="keyword">return</span> [beforeObj, afterObj]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getChange</span>(<span class="params">before, after</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> beforeKeys = <span class="built_in">Object</span>.keys(before)</span><br><span class="line">  <span class="keyword">const</span> afterKeys = <span class="built_in">Object</span>.keys(after)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> deletePackage = beforeKeys</span><br><span class="line">    .filter(<span class="function">(<span class="params">key</span>) =&gt;</span> !after[key])</span><br><span class="line">    .map(<span class="function">(<span class="params">key</span>) =&gt;</span> <span class="string">`<span class="subst">$&#123;key&#125;</span>: <span class="subst">$&#123;after[key]&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">const</span> addPackage = afterKeys</span><br><span class="line">    .filter(<span class="function">(<span class="params">key</span>) =&gt;</span> !before[key])</span><br><span class="line">    .map(<span class="function">(<span class="params">key</span>) =&gt;</span> <span class="string">`<span class="subst">$&#123;key&#125;</span>: <span class="subst">$&#123;after[key]&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">const</span> updatePackage = beforeKeys</span><br><span class="line">    .filter(<span class="function">(<span class="params">key</span>) =&gt;</span> after[key])</span><br><span class="line">    .map(<span class="function">(<span class="params">key</span>) =&gt;</span> <span class="string">`<span class="subst">$&#123;key&#125;</span>: <span class="subst">$&#123;before[key]&#125;</span> ===&gt; <span class="subst">$&#123;after[key]&#125;</span>`</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> waringUpdatePackage = beforeKeys</span><br><span class="line">    .filter(<span class="function">(<span class="params">key</span>) =&gt;</span> after[key])</span><br><span class="line">    .filter(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> beforeVision = <span class="built_in">Number</span>(<span class="regexp">/(~|\-|\^)?(\d+)\./</span>.exec(before[key])[<span class="number">2</span>])</span><br><span class="line">      <span class="keyword">const</span> afterVision = <span class="built_in">Number</span>(<span class="regexp">/(~|\-|\^)?(\d+)\./</span>.exec(after[key])[<span class="number">2</span>])</span><br><span class="line">      <span class="keyword">return</span> beforeVision !== afterVision</span><br><span class="line">    &#125;)</span><br><span class="line">    .map(<span class="function">(<span class="params">key</span>) =&gt;</span> <span class="string">`<span class="subst">$&#123;key&#125;</span>: <span class="subst">$&#123;before[key]&#125;</span> ===&gt; <span class="subst">$&#123;after[key]&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">const</span> outList = [</span><br><span class="line">    &#123;</span><br><span class="line">      label: <span class="string">`此次删除的依赖包有: \n <span class="subst">$&#123;deletePackage.join(<span class="string">'\n'</span>)&#125;</span>`</span>,</span><br><span class="line">      show: !!deletePackage.length,</span><br><span class="line">      log: warn,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      label: <span class="string">`此次新增的依赖包有: \n <span class="subst">$&#123;addPackage.join(<span class="string">'\n'</span>)&#125;</span>`</span>,</span><br><span class="line">      show: !!addPackage.length,</span><br><span class="line">      log: info,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      label: <span class="string">`此次更新的依赖包有: \n <span class="subst">$&#123;updatePackage.join(<span class="string">'\n'</span>)&#125;</span>`</span>,</span><br><span class="line">      show: !!updatePackage.length,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      label: <span class="string">`此次大版本更新的依赖包有: \n <span class="subst">$&#123;waringUpdatePackage.join(<span class="string">'\n'</span>)&#125;</span>`</span>,</span><br><span class="line">      show: !!waringUpdatePackage.length,</span><br><span class="line">      log: warn,</span><br><span class="line">    &#125;,</span><br><span class="line">  ].filter(<span class="function">(<span class="params">item</span>) =&gt;</span> item.show)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (outList.length) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'\n'</span>)</span><br><span class="line">    outList.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; log = logger, label &#125; = item</span><br><span class="line">      log(label)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'\n'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> diffStr = getDiff(<span class="literal">true</span>)</span><br><span class="line"><span class="keyword">const</span> [before, after] = serializeDiff(diffStr)</span><br><span class="line">getChange(before, after)</span><br></pre></td></tr></table></figure>
+<h4 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h4><ul>
+<li>放入 <code>package.json</code> 中每次提交确认变化</li>
+<li>配置提示方式和确认方法等</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/05/检测项目中的包版本变化/" data-id="cltvjhx1j004i1wdzc8luj57k" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/08/17/除自身以外数组的乘积/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          除自身以外数组的乘积
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/08/03/react16中生命周期hooks/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">react16中生命周期hooks</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/">C/C++语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">62</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeORM/">TypeORM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/antd/">antd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/form/">form</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">other</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/插件/">插件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solution/">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">计算机网络</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/">资源</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/c-language/" style="font-size: 12.86px;">C/C++语言</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/TypeORM/" style="font-size: 10px;">TypeORM</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/antd/" style="font-size: 10px;">antd</a> <a href="/tags/express/" style="font-size: 11.43px;">express</a> <a href="/tags/form/" style="font-size: 10px;">form</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mysql/" style="font-size: 12.86px;">mysql</a> <a href="/tags/node/" style="font-size: 18.57px;">node</a> <a href="/tags/other/" style="font-size: 15.71px;">other</a> <a href="/tags/react/" style="font-size: 17.14px;">react</a> <a href="/tags/webpack/" style="font-size: 12.86px;">webpack</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/浏览器/" style="font-size: 10px;">浏览器</a> <a href="/tags/solution/" style="font-size: 14.29px;">算法</a> <a href="/tags/network/" style="font-size: 15.71px;">计算机网络</a> <a href="/tags/source/" style="font-size: 11.43px;">资源</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/03/17/菜单设计/">菜单设计</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/15/js打印分页/">js打印分页</a>
+          </li>
+        
+          <li>
+            <a href="/2022/11/28/高德地图/">高德地图</a>
+          </li>
+        
+          <li>
+            <a href="/2022/11/28/pixi-js/">pixi.js</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/21/js获取方位信息/">js获取方位信息</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 奔跑的蜗牛<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">分类</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

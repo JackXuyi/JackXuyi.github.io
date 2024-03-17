@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>奔跑的蜗牛</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前端开发工程师">
+<meta name="keywords" content="React、node、webpack">
+<meta property="og:type" content="website">
+<meta property="og:title" content="奔跑的蜗牛">
+<meta property="og:url" content="http://yoursite.com/page/4/index.html">
+<meta property="og:site_name" content="奔跑的蜗牛">
+<meta property="og:description" content="前端开发工程师">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="奔跑的蜗牛">
+<meta name="twitter:description" content="前端开发工程师">
+  
+  
+    <link rel="icon" href="0001.jpg#/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">奔跑的蜗牛</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">奔跑的蜗牛</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">分类</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-npm和webpack搭建react开发环境" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/16/npm和webpack搭建react开发环境/" class="article-date">
+  <time datetime="2018-03-16T09:30:41.000Z" itemprop="datePublished">2018-03-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/16/npm和webpack搭建react开发环境/">npm和webpack搭建react开发环境</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="npm环境搭建"><a href="#npm环境搭建" class="headerlink" title="npm环境搭建"></a>npm环境搭建</h2><ul>
+<li><code>nodejs</code>安装参考<a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener"><code>Nnodejs</code>官网</a></li>
+<li>安装完毕后用<code>npm --version</code>查看<code>nodejs</code>是否安装成功</li>
+</ul>
+<hr>
+<h2 id="工程初始化"><a href="#工程初始化" class="headerlink" title="工程初始化"></a>工程初始化</h2><ul>
+<li>用<code>npm init</code>初始化工程，在根目录产生一个<code>package.json</code>文件</li>
+</ul>
+<hr>
+<h2 id="webpack安装"><a href="#webpack安装" class="headerlink" title="webpack安装"></a>webpack安装</h2><ul>
+<li>用<code>npm install webpack webpack-cli webpack-dev-server webpack-merge</code>安装<code>webpack</code>和其相关的包，安装完毕后会在<code>package.json</code>文件的<code>dependencies</code>选项中看到刚刚安装的包</li>
+</ul>
+<hr>
+<h2 id="react安装"><a href="#react安装" class="headerlink" title="react安装"></a>react安装</h2><ul>
+<li>用<code>npm install react react-dom</code>安装<code>react</code>和其相关的包，安装完毕后会在<code>package.json</code>文件的<code>dependencies</code>选项中看到刚刚安装的包</li>
+<li>由于<code>react</code>使用<code>ES6</code>语法大多数无法支持，所以还需用<code>npm install babel babel-core babel-loader babel-preset-env babel-preset-es2015 babel-preset-react</code>安装<code>babel</code>和其相关的包把<code>ES6</code>语法转化，安装完毕后会在<code>package.json</code>文件的<code>dependencies</code>选项中看到刚刚安装的包</li>
+<li>由于<code>react</code>使用<code>ES6</code>语法大多数无法在class中支持箭头，所以还需用<code>npm install babel-preset-stage-0 babel-plugin-transform-class-properties</code>安装相关的包把语法转化，安装完毕后会在<code>package.json</code>文件的<code>dependencies</code>选项中看到刚刚安装的包</li>
+</ul>
+<hr>
+<h2 id="hello-word的实现"><a href="#hello-word的实现" class="headerlink" title="hello word的实现"></a>hello word的实现</h2><ul>
+<li>用<code>npm install uglifyjs-webpack-plugin html-webpack-plugin clean-webpack-plugin</code>安装其它依赖包</li>
+<li>在根目录下新建<code>webpack.config.js</code>文件作为<code>webpack</code>的基础通用配置，配置文件如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">const path = require(&apos;path&apos;);</span><br><span class="line">const HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;);</span><br><span class="line">const CleanWebpackPlugin = require(&apos;clean-webpack-plugin&apos;);</span><br><span class="line">const webpack = require(&apos;webpack&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  entry: &apos;./src/index.js&apos;,</span><br><span class="line">  plugins: [</span><br><span class="line">    new CleanWebpackPlugin([&apos;dist&apos;]), // 清理数据</span><br><span class="line">    new HtmlWebpackPlugin(&#123; // 自动打包数据</span><br><span class="line">      title: &apos;测试&apos;,</span><br><span class="line">      template: &apos;./src/index.html&apos;, // html文件模板</span><br><span class="line">    &#125;),</span><br><span class="line">  ],</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: &apos;[name].[hash].bundle.js&apos;, // 输出文件名称</span><br><span class="line">    path: path.resolve(__dirname, &apos;dist&apos;) // 输出文件路径</span><br><span class="line">  &#125;,</span><br><span class="line">  module: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: /\.(js|jsx)$/, //配置要处理的文件格式，一般使用正则表达式匹配</span><br><span class="line">        use: [&apos;babel-loader&apos;], //使用的加载器名称</span><br><span class="line">        exclude: /node_modules/</span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在根目录下新建<code>webpack.dev.js</code>文件作为<code>webpack</code>的开发者模式配置，配置文件如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">const merge = require(&apos;webpack-merge&apos;);</span><br><span class="line">const webpack = require(&apos;webpack&apos;);</span><br><span class="line">const config = require(&apos;./webpack.config.js&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = merge(config, &#123;</span><br><span class="line">  devtool: &apos;inline-source-map&apos;, // 开发工具</span><br><span class="line">  plugins: [</span><br><span class="line">    new webpack.HotModuleReplacementPlugin(), // 热替换</span><br><span class="line">    new webpack.DefinePlugin(&#123;</span><br><span class="line">      &apos;process.env.NODE_ENV&apos;: JSON.stringify(&apos;development&apos;) // 定义开发者模式</span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">  devServer: &#123; // 开发模式下服务器配置</span><br><span class="line">    contentBase: &apos;./dist&apos;, // 编译后文件路径</span><br><span class="line">    hot: true, // 是否开启热替换</span><br><span class="line">    host: &apos;localhost&apos; // 主机</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在根目录下新建<code>webpack.prod.js</code>文件作为<code>webpack</code>的生产环境配置，配置文件如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const webpack = require(&apos;webpack&apos;);</span><br><span class="line">const merge = require(&apos;webpack-merge&apos;);</span><br><span class="line">const UglifyJSPlugin = require(&apos;uglifyjs-webpack-plugin&apos;);// 精简输出</span><br><span class="line">const config = require(&apos;./webpack.config.js&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = merge(config, &#123;</span><br><span class="line">  plugins: [</span><br><span class="line">    new UglifyJSPlugin(&#123;</span><br><span class="line">      sourceMap: true // 调试</span><br><span class="line">    &#125;),</span><br><span class="line">    new webpack.DefinePlugin(&#123;</span><br><span class="line">      &apos;process.env.NODE_ENV&apos;: JSON.stringify(&apos;production&apos;) // 定义生产模式</span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在根目录下新建<code>.babelrc</code>文件作为<code>react</code>的开发环境下<code>babel</code>的配置，配置文件如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [</span><br><span class="line">    &quot;react&quot;,</span><br><span class="line">    &quot;stage-0&quot;,</span><br><span class="line">    &quot;es2015&quot;</span><br><span class="line">  ]，</span><br><span class="line">  &quot;plugins&quot;: [&quot;transform-class-properties&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在根目录下的<code>packge.json</code>中加入命令，配置文件如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;react-exercise&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;0.0.0&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;react exercise&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;index.js&quot;,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;test&quot;: &quot;echo \&quot;Project completed\&quot;&quot;,</span><br><span class="line">    &quot;build&quot;: &quot;webpack --config webpack.prod.js&quot;,</span><br><span class="line">    &quot;start&quot;: &quot;webpack-dev-server --open --config webpack.dev.js&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;keywords&quot;: [</span><br><span class="line">    &quot;react-exercise&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;author&quot;: &quot;xxx&quot;,</span><br><span class="line">  &quot;license&quot;: &quot;ISC&quot;,</span><br><span class="line">  &quot;dependencies&quot;: &#123;</span><br><span class="line">    &quot;babel&quot;: &quot;^6.23.0&quot;,</span><br><span class="line">    &quot;babel-cli&quot;: &quot;^6.26.0&quot;,</span><br><span class="line">    &quot;babel-core&quot;: &quot;^6.26.0&quot;,</span><br><span class="line">    &quot;babel-loader&quot;: &quot;^7.1.4&quot;,</span><br><span class="line">    &quot;babel-plugin-transform-class-properties&quot;: &quot;^6.24.1&quot;,</span><br><span class="line">    &quot;babel-preset-env&quot;: &quot;^1.6.1&quot;,</span><br><span class="line">    &quot;babel-preset-es2015&quot;: &quot;^6.24.1&quot;,</span><br><span class="line">    &quot;babel-preset-react&quot;: &quot;^6.24.1&quot;,</span><br><span class="line">    &quot;babel-preset-stage-0&quot;: &quot;^6.24.1&quot;,</span><br><span class="line">    &quot;clean-webpack-plugin&quot;: &quot;^0.1.19&quot;,</span><br><span class="line">    &quot;html-webpack-plugin&quot;: &quot;^3.0.6&quot;,</span><br><span class="line">    &quot;react&quot;: &quot;^16.2.0&quot;,</span><br><span class="line">    &quot;react-dom&quot;: &quot;^16.2.0&quot;,</span><br><span class="line">    &quot;uglifyjs-webpack-plugin&quot;: &quot;^1.2.3&quot;,</span><br><span class="line">    &quot;webpack&quot;: &quot;^4.1.1&quot;,</span><br><span class="line">    &quot;webpack-cli&quot;: &quot;^2.0.12&quot;,</span><br><span class="line">    &quot;webpack-dev-server&quot;: &quot;^3.1.1&quot;,</span><br><span class="line">    &quot;webpack-merge&quot;: &quot;^4.1.2&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>在根目录下新建<code>src</code>文件夹，并在文件夹下新建<code>index.js</code>，<code>index.html</code>，<code>componentTest.js</code>文件</p>
+<ul>
+<li><p><code>index.js</code>是<code>webpack</code>的入口文件，文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; Component &#125; from &apos;react&apos;;</span><br><span class="line">import ReactDOM from &apos;react-dom&apos;;</span><br><span class="line">import ComponentTest from &apos;./componentTest&apos;;</span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;ComponentTest /&gt;,</span><br><span class="line">    document.getElementById(&apos;root&apos;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>index.html</code>是<code>webpack</code>的打包模板文件，文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;title&gt;Getting Started&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;root&quot;&gt;&lt;/div&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>componentTest.js</code>是<code>react</code>的一个组件，文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import React from &apos;react&apos;;</span><br><span class="line">const componentTest = () =&gt; (</span><br><span class="line">  &lt;h1&gt;hello react&lt;/h1&gt;</span><br><span class="line">);</span><br><span class="line">export default componentTest;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>在命令行中输入<code>npm start</code>即可运行项目，在打开的<code>http://localhost:8080/</code>网页中看到输出的<code>hello react</code></p>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>文件目录结构<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">|---src</span><br><span class="line">|   |---index.html(html模板文件)</span><br><span class="line">|   |---index.js(webpack入口文件)</span><br><span class="line">|   |---componentTest.js(React测试组件文件)</span><br><span class="line">|---.babelrc(babel配置文件)</span><br><span class="line">|---package-lock.json(自动生成的文件)</span><br><span class="line">|---package.json(依赖包文件)</span><br><span class="line">|---webpack.config.js(webpack公共配置文件)</span><br><span class="line">|---webpack.dev.js(开发环境下的webpack配置文件)</span><br><span class="line">|---webpack.prod.js(生产环境下的webpack配置文件)</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/16/npm和webpack搭建react开发环境/" data-id="cltvjhx0m002r1wdzwaqxhpgh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaScript的使用建议" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/25/JavaScript的使用建议/" class="article-date">
+  <time datetime="2017-09-24T17:23:03.000Z" itemprop="datePublished">2017-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/25/JavaScript的使用建议/">JavaScript的使用建议</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JavaScript的使用建议"><a href="#JavaScript的使用建议" class="headerlink" title="JavaScript的使用建议"></a>JavaScript的使用建议</h2><ol>
+<li>使用<code>===</code>代替<code>==</code>，<code>==</code>和<code>!=</code>会强制转换类型。</li>
+<li>避免使用<code>eval</code>，<code>eval</code>不仅降低脚本的性能，而且由于需要的权限比较高会造成安全风险。</li>
+<li>不要省略<code>{}</code>，即使代码快只有一行也不可以，便于以后的阅读和修改。</li>
+<li>使用<code>JSLint</code>检查代码是否存在错误。</li>
+<li>把js脚本嵌在文件的底部。</li>
+<li>避免在<code>for</code>语句中声明变量。</li>
+<li>使用数组或者对象构建字符串时使用<code>join</code>方法。</li>
+<li>脚本中减少全局变量的使用，建议用对象把方法和属性包裹起来。</li>
+<li>给代码添加注释。</li>
+<li>在没有启用<code>js</code>的情况下逐步增强网站效果。</li>
+<li><code>setInterval</code>和<code>setTimeout</code>不要传递字符串参数而是使用函数名称。</li>
+<li>不要使用<code>with</code>语句。</li>
+<li>使用<code>{}</code>代替<code>new Object()</code>。</li>
+<li>使用<code>[]</code>代替<code>new Array()</code>。</li>
+<li>定义多个变量时，省略关键字<code>let</code>、<code>var</code>等，用逗号代替。</li>
+<li>不要省略分号。</li>
+<li><code>for in</code>使用判断条件过滤信息避免多余的循环次数以提高性能。</li>
+<li>通过计算运行时间优化代码。</li>
+<li>多阅读。</li>
+<li>自执行函数，用<code>(函数实现)(函数参数);</code>实现自执行函数。</li>
+<li>移除<code>script</code>标签中的<code>language</code>属性。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/09/25/JavaScript的使用建议/" data-id="cltvjhwze00051wdzlthzcesg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-js学习（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/23/js学习（一）/" class="article-date">
+  <time datetime="2017-09-22T21:59:32.000Z" itemprop="datePublished">2017-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/23/js学习（一）/">js学习（一）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="setState参数"><a href="#setState参数" class="headerlink" title="setState参数"></a><code>setState</code>参数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">void setState(</span><br><span class="line">      function|object nextState,</span><br><span class="line">      [function callback]</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+<ol>
+<li>第一个参数可以是一个函数也可以是一个对象，但是返回值都是下一个<code>state</code>的状态。</li>
+<li>第二个参数为<code>setState</code>这个函数异步调用结束以后的回调函数，可以用在组件设置完<code>state</code>以后进行的操作。</li>
+</ol>
+<h2 id="js对网页滚动条的操作"><a href="#js对网页滚动条的操作" class="headerlink" title="js对网页滚动条的操作"></a><code>js</code>对网页滚动条的操作</h2><ul>
+<li><code>js</code>可以通过改变目标元素的<code>scrollTop</code>改变元素滚动条的位置</li>
+<li><code>onWheel</code>事件可以监听滚动条滚动事件，可以通过<code>deltaX</code>和<code>deltaY</code>属性获取滚动条滚动的位置和方向</li>
+<li><code>onScroll</code>事件可以监听滚动条事件，但是无法获取方向和滚动距离及位置</li>
+<li><code>CSS</code>中没有可以操作<code>scrollTop</code>值的属性</li>
+</ul>
+<h2 id="setInterval"><a href="#setInterval" class="headerlink" title="setInterval"></a><code>setInterval</code></h2><p><code>setInterval</code>定时执行函数，当先后创建多个定时器时可能不会按照你预想的顺序来执行，因为<code>js</code>是单线程的，只有当前一个任务执行完毕以后才能够继续执行下一任务，所以调用定时器的时间可能大于你预设的时间，由此造成调用定时器的混乱。</p>
+<h2 id="js实现动画"><a href="#js实现动画" class="headerlink" title="js实现动画"></a>js实现动画</h2><ul>
+<li>通过js中的定时器不断的改变元素的位置和高度模拟动画效果</li>
+<li>通过一个定时器管理函数管理定时器的先后调用顺序或者通过<code>dom2</code>级时间<code>removeEventLisenner</code>函数让元素在js调用定时器期间失去时间响应解决定时器无法顺序调用的各种问题</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/09/23/js学习（一）/" data-id="cltvjhx08001t1wdzsib7sxtu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-运算符重载" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/19/运算符重载/" class="article-date">
+  <time datetime="2017-03-18T16:35:51.000Z" itemprop="datePublished">2017-03-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/19/运算符重载/">运算符重载</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>C++中预定义的运算符的操作对象只能是基本数据类型。但实际上，对于许多用户自定义类型（例如类），也需要类似的运算操作。这时就必须在C++中重新定义这些运算符，赋予已有运算符新的功能，使它能够用于特定类型执行特定的操作。运算符重载的实质是函数重载，它提供了C++的可扩展性，也是C++最吸引人的特性之一。</p>
+<p>运算符重载是通过创建运算符函数实现的，运算符函数定义了重载的运算符将要进行的操作。运算符函数的定义与其他函数的定义类似，惟一的区别是运算符函数的函数名是由关键字operator和其后要重载的运算符符号构成的。运算符函数定义的一般格式如下：</p>
+<pre><code>&lt;返回类型说明符&gt; operator &lt;运算符符号&gt;(&lt;参数表&gt;)
+{
+    &lt;函数体&gt;
+}
+</code></pre><h3 id="运算符重载规则"><a href="#运算符重载规则" class="headerlink" title="运算符重载规则"></a>运算符重载规则</h3><ul>
+<li><p>除了类属关系运算符”.”、成员指针运算符”.*”、作用域运算符”::”、sizeof运算符和三目运算符”?:”以外，C++中的所有运算符都可以重载。</p>
+</li>
+<li><p>重载运算符限制在C++语言中已有的运算符范围内的允许重载的运算符之中，不能创建新的运算符。</p>
+</li>
+<li><p>运算符重载实质上是函数重载，因此编译程序对运算符重载的选择，遵循函数重载的选择原则。</p>
+</li>
+<li><p>重载之后的运算符不能改变运算符的优先级和结合性，也不能改变运算符操作数的个数及语法结构。</p>
+</li>
+<li><p>运算符重载不能改变该运算符用于内部类型对象的含义。它只能和用户自定义类型的对象一起使用，或者用于用户自定义类型的对象和内部类型的对象混合使用时。</p>
+</li>
+<li><p>运算符重载是针对新类型数据的实际需要对原有运算符进行的适当的改造，重载的功能应当与原有功能相类似，避免没有目的地使用重载运算符。</p>
+</li>
+</ul>
+<p>运算符函数重载一般有两种形式：重载为类的成员函数和重载为类的非成员函数。非成员函数通常是友元。可以把一个运算符作为一个非成员、非友元函数重载。但是，这样的运算符函数访问类的私有和保护成员时，必须使用类的公有接口中提供的设置数据和读取数据的函数，调用这些函数时会降低性能。可以内联这些函数以提高性能。</p>
+<h3 id="成员函数运算符"><a href="#成员函数运算符" class="headerlink" title="成员函数运算符"></a>成员函数运算符</h3><p>运算符重载为类的成员函数的一般格式为：</p>
+<pre><code>&lt;函数类型&gt; operator &lt;运算符&gt;(&lt;参数表&gt;)
+{
+    &lt;函数体&gt;
+}
+</code></pre><p>当运算符重载为类的成员函数时，函数的参数个数比原来的操作数要少一个（后置单目运算符除外），这是因为成员函数用this指针隐式地访问了类的一个对象，它充当了运算符函数最左边的操作数。因此：</p>
+<ul>
+<li><p>双目运算符重载为类的成员函数时，函数只显式说明一个参数，该形参是运算符的右操作数。</p>
+</li>
+<li><p>前置单目运算符重载为类的成员函数时，不需要显式说明参数，即函数没有形参。</p>
+</li>
+<li><p>后置单目运算符重载为类的成员函数时，函数要带有一个整型形参。</p>
+</li>
+</ul>
+<p>调用成员函数运算符的格式如下：</p>
+<pre><code>&lt;对象名&gt;.operator &lt;运算符&gt;(&lt;参数&gt;)
+</code></pre><p>它等价于</p>
+<pre><code>&lt;对象名&gt;&lt;运算符&gt;&lt;参数&gt;
+</code></pre><p>例如：a+b等价于a.operator +(b)。一般情况下，我们采用运算符的习惯表达方式。</p>
+<h3 id="友元函数运算符"><a href="#友元函数运算符" class="headerlink" title="友元函数运算符"></a>友元函数运算符</h3><p>运算符重载为类的友元函数的一般格式为：</p>
+<pre><code>friend &lt;函数类型&gt; operator &lt;运算符&gt;(&lt;参数表&gt;)
+{
+    &lt;函数体&gt;
+}
+</code></pre><p>当运算符重载为类的友元函数时，由于没有隐含的this指针，因此操作数的个数没有变化，所有的操作数都必须通过函数的形参进行传递，函数的参数与操作数自左至右一一对应。</p>
+<p>调用友元函数运算符的格式如下：</p>
+<pre><code>operator &lt;运算符&gt;(&lt;参数1&gt;,&lt;参数2&gt;)
+</code></pre><p>它等价于</p>
+<pre><code>&lt;参数1&gt;&lt;运算符&gt;&lt;参数2&gt;
+</code></pre><p>例如：a+b等价于operator +(a,b)。</p>
+<h3 id="两种重载形式的比较"><a href="#两种重载形式的比较" class="headerlink" title="两种重载形式的比较"></a>两种重载形式的比较</h3><p>在多数情况下，将运算符重载为类的成员函数和类的友元函数都是可以的。但成员函数运算符与友元函数运算符也具有各自的一些特点：</p>
+<ul>
+<li><p>一般情况下，单目运算符最好重载为类的成员函数；双目运算符则最好重载为类的友元函数。</p>
+</li>
+<li><p>以下一些双目运算符不能重载为类的友元函数：=、()、[]、-&gt;。</p>
+</li>
+<li><p>类型转换函数只能定义为一个类的成员函数而不能定义为类的友元函数。</p>
+</li>
+<li><p>若一个运算符的操作需要修改对象的状态，选择重载为成员函数较好。</p>
+</li>
+<li><p>若运算符所需的操作数（尤其是第一个操作数）希望有隐式类型转换，则只能选用友元函数。</p>
+</li>
+<li><p>当运算符函数是一个成员函数时，最左边的操作数（或者只有最左边的操作数）必须是运算符类的一　个类对象（或者是对该类对象的引用）。如果左边的操作数必须是一个不同类的对象，或者是一个内部　类型的对象，该运算符函数必须作为一个友元函数来实现。</p>
+</li>
+<li><p>当需要重载运算符具有可交换性时，选择重载为友元函数。</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/19/运算符重载/" data-id="cltvjhx21005o1wdzfk049w0e" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-language/">C/C++语言</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-memcpy函数的实现" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/29/memcpy函数的实现/" class="article-date">
+  <time datetime="2016-11-28T22:55:25.000Z" itemprop="datePublished">2016-11-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/29/memcpy函数的实现/">memcpy函数的实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="memcpy的代码实现"><a href="#memcpy的代码实现" class="headerlink" title="memcpy的代码实现"></a>memcpy的代码实现</h2><pre><code>void * memcpy(void *dest, const void *src, size_t count)
+{ 
+        if (dest == NULL || src == NULL)//判断是否为空避免非法操作
+        return NULL; 
+        char *pdest = static_cast &lt;char*&gt;(dest);
+        const char *psrc  = static_cast &lt;const char*&gt;(src); 
+        int n = count; 
+        if (pdest &gt; psrc &amp;&amp; pdest &lt; psrc+count) //目的地址大于源地址且存在内存重叠
+        { 
+            for (size_t i=n-1; i != -1; --i)//从高位开始复制避免出现字符覆盖的情况
+            { 
+                    *(pdest+i) = *(psrc+i); 
+            } 
+        } 
+        else
+        { 
+            for (size_t i= 0; i &lt; n; i++) //从低位开始复制
+            { 
+                   *(pdest+i) = *(psrc+i);
+            } 
+        }
+        return dest; 
+}
+</code></pre><h5 id="注：这里没有考虑内存重叠的所有情况"><a href="#注：这里没有考虑内存重叠的所有情况" class="headerlink" title="注：这里没有考虑内存重叠的所有情况"></a>注：这里没有考虑内存重叠的所有情况</h5>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/11/29/memcpy函数的实现/" data-id="cltvjhx0g002d1wdzs2pps6kj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-language/">C/C++语言</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-strcpy的实现" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/29/strcpy的实现/" class="article-date">
+  <time datetime="2016-11-28T22:12:57.000Z" itemprop="datePublished">2016-11-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/29/strcpy的实现/">strcpy的实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="不考虑内存重叠"><a href="#不考虑内存重叠" class="headerlink" title="不考虑内存重叠"></a>不考虑内存重叠</h2><pre><code>char * strcpy(char *dest,const char *src)
+{
+    char *ret;
+    if(dest==NULL || src==NULL)//检查是否为空指针
+        return NULL;
+    while((*dest++=*src++)!=&apos;\0&apos;);//复制字符串中的内容
+    return ret;
+}
+</code></pre><h2 id="考虑内存重叠"><a href="#考虑内存重叠" class="headerlink" title="考虑内存重叠"></a>考虑内存重叠</h2><pre><code>char *strcpy(char *dest,const char *src)
+{
+    char *ret=dest;
+    if(dest==NULL || src==NULL)//检查是否为空指针
+        return NULL;
+    memcpy(dest,src,strlen(src)+1);//调用memcpy函数避免内存重复的情况
+    return ret;
+}
+</code></pre><h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><ul>
+<li>const修饰源字符串避免对源字符串的修改</li>
+<li>检查指针的有效性避免非法操作</li>
+<li>返回目标字符串的首地址确保字符串的线性</li>
+<li>使用<code>(*dest++=*src++)!=&#39;\0&#39;</code>确保字符串的末尾有结束符</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/11/29/strcpy的实现/" data-id="cltvjhx10003i1wdzc08ct8pd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-language/">C/C++语言</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-计算机网络-TCP链接的建立与释放" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/28/计算机网络-TCP链接的建立与释放/" class="article-date">
+  <time datetime="2016-11-27T16:07:50.000Z" itemprop="datePublished">2016-11-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/28/计算机网络-TCP链接的建立与释放/">计算机网络-TCP链接的建立与释放</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="TCP-链接的建立（三次握手）"><a href="#TCP-链接的建立（三次握手）" class="headerlink" title="TCP 链接的建立（三次握手）"></a>TCP 链接的建立（三次握手）</h2><ol>
+<li>服务器启动之后会持续监听连接请求</li>
+<li>客户端主动发起建立连接的请求，其请求中包含 <code>SYN</code> 标志位和一个报文客户端序列号 <code>seq=x</code></li>
+<li>服务端收到建立连接的请求时，主动进入 <code>SYN</code> 已收到的状态，同时返回一个确认报文，报文包含 <code>SYN</code> 和 <code>ACK</code> 状态位，同时返回确认序列号 <code>ack=x+1</code> 和当前报文的服务端序列号 <code>seq=y</code></li>
+<li>客户端收到确认报文之后进入连接已经建立状态，然后立即返回一个确认报文，报文包含 <code>ACK</code> 状态位，同时返回确认序列号 <code>ack=y+1</code> 和当前报文的服务端序列号 <code>seq=x+1</code></li>
+</ol>
+<p><img src="/images/network/tcp-connect.svg" alt="TCP链接建立完整示意图"></p>
+<h3 id="注"><a href="#注" class="headerlink" title="注"></a>注</h3><ul>
+<li><code>TCP</code> 规定，<code>SYN</code> 报文段（即 <code>SYN=1</code> 的报文段）不能携带数据，但是要消耗掉一个序号；<code>ACK</code> 报文段可以携带数据，如果不携带数据则不消耗序号。</li>
+<li>流程中每一个报文若未收到响应，发送端都会重复发送几次</li>
+<li>服务端进入 <code>SYN</code> 已经收到状态且已经发送响应时会启动超时定时器，超时未收到响应时就会释放相应的资源</li>
+<li>部分服务器为了避免 <code>TCP</code> 连接攻击，会在收到客户端确认响应之后才会分配相应的资源</li>
+</ul>
+<h2 id="TCP-链接的释放（四次挥手）"><a href="#TCP-链接的释放（四次挥手）" class="headerlink" title="TCP 链接的释放（四次挥手）"></a>TCP 链接的释放（四次挥手）</h2><p>以客户端主动断开连接为例</p>
+<ol>
+<li>客户端发送端开连接的请求报文，报文包含 <code>FIN</code> 状态位和客户端序列号 <code>seq=u</code>，并进入发送通道关闭等待响应状态</li>
+<li>服务端收到报文后会通知上层的应用程序，同时返回确认报文，报文包含 <code>FIN</code> 和 <code>ACK</code> 状态位，以及确认序列号 <code>ack=u+1</code> 和当前报文的服务端序列号 <code>seq=v</code></li>
+<li>客户端收到响应报文之后进入发送通道关闭状态，同时进入接收通道等待关闭</li>
+<li>服务端发送完所有数据之后会发送连接关闭报文，此报文包含 <code>FIN</code> 和 <code>ACK</code> 状态位，以及确认序列号 <code>ack=u+1</code> 和当前报文的服务端序列号 <code>seq=w</code>，进入连接关闭等待确认状态</li>
+<li>客户端收到接收通道关闭请求报文后，等待一段时间后关闭接收通道，同时发送一个确认报文给服务端，此报文包含 <code>ACK</code> 状态位，同时返回确认序列号 <code>ack=w+1</code> 和当前报文的服务端序列号 <code>seq=u+1</code></li>
+<li>服务端收到请求后关闭发送通道</li>
+<li>客户端等待时间过期之后关闭连接</li>
+</ol>
+<p><img src="/images/network/tcp-close.svg" alt="TCP链接释放完整示意图"></p>
+<h3 id="注-1"><a href="#注-1" class="headerlink" title="注"></a>注</h3><ul>
+<li>TCP 规定，FIN 报文段即使不携带数据也要消耗一个序号。</li>
+<li>四次挥手是为了确保对方发送的数据发送完毕，全双工通信只能确保主动关闭的一方无数据发送，对端可能还有数据需要发送</li>
+<li>客户端收到关闭请求不会立即进入关闭状态而是等待一段时间后再关闭是为了等待网络中滞留的报文</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/11/28/计算机网络-TCP链接的建立与释放/" data-id="cltvjhx1v005a1wdzl38s3n3x" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">计算机网络</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-资源" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/05/资源/" class="article-date">
+  <time datetime="2016-11-05T00:20:31.000Z" itemprop="datePublished">2016-11-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/05/资源/">各种资源</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><ul>
+<li><a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="noopener">hexo文档</a></li>
+<li><a href="https://ctolib.com/topics-133463.html" target="_blank" rel="noopener">React学习路线图（2018 版）</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/11/05/资源/" data-id="cltvjhx1x005e1wdz5rwmkawi" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/source/">资源</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/">C/C++语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">62</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeORM/">TypeORM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/antd/">antd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/form/">form</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">other</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/插件/">插件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solution/">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">计算机网络</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/">资源</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/c-language/" style="font-size: 12.86px;">C/C++语言</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/TypeORM/" style="font-size: 10px;">TypeORM</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/antd/" style="font-size: 10px;">antd</a> <a href="/tags/express/" style="font-size: 11.43px;">express</a> <a href="/tags/form/" style="font-size: 10px;">form</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mysql/" style="font-size: 12.86px;">mysql</a> <a href="/tags/node/" style="font-size: 18.57px;">node</a> <a href="/tags/other/" style="font-size: 15.71px;">other</a> <a href="/tags/react/" style="font-size: 17.14px;">react</a> <a href="/tags/webpack/" style="font-size: 12.86px;">webpack</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/浏览器/" style="font-size: 10px;">浏览器</a> <a href="/tags/solution/" style="font-size: 14.29px;">算法</a> <a href="/tags/network/" style="font-size: 15.71px;">计算机网络</a> <a href="/tags/source/" style="font-size: 11.43px;">资源</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/03/17/菜单设计/">菜单设计</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/15/js打印分页/">js打印分页</a>
+          </li>
+        
+          <li>
+            <a href="/2022/11/28/高德地图/">高德地图</a>
+          </li>
+        
+          <li>
+            <a href="/2022/11/28/pixi-js/">pixi.js</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/21/js获取方位信息/">js获取方位信息</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 奔跑的蜗牛<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">分类</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
