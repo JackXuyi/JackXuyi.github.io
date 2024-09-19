@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <title>commonjs | 奔跑的蜗牛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="commonjs 规范 模块引用：通过 require 方法把模块引入上下文 模块定义：模块中通过 exports 属性导出模块的方法和变量，module 代表模块自身 模块标识：传递给 require 方法的参数  node 实现引入模块的流程 路径分析 文件定位 编译执行  模块分类 核心模块：Node 源代码的编译过程中，编译进了二进制执行文件。Node 启动时已经被加载入内存中 文件模块：">
-<meta name="keywords" content="node">
 <meta property="og:type" content="article">
 <meta property="og:title" content="commonjs">
-<meta property="og:url" content="http://yoursite.com/2021/03/03/commonjs/index.html">
+<meta property="og:url" content="http://example.com/2021/03/03/commonjs/index.html">
 <meta property="og:site_name" content="奔跑的蜗牛">
 <meta property="og:description" content="commonjs 规范 模块引用：通过 require 方法把模块引入上下文 模块定义：模块中通过 exports 属性导出模块的方法和变量，module 代表模块自身 模块标识：传递给 require 方法的参数  node 实现引入模块的流程 路径分析 文件定位 编译执行  模块分类 核心模块：Node 源代码的编译过程中，编译进了二进制执行文件。Node 启动时已经被加载入内存中 文件模块：">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:updated_time" content="2021-03-21T08:37:46.427Z">
+<meta property="article:published_time" content="2021-03-02T23:44:49.000Z">
+<meta property="article:modified_time" content="2021-03-21T08:37:46.427Z">
+<meta property="article:author" content="奔跑的蜗牛">
+<meta property="article:tag" content="node">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="commonjs">
-<meta name="twitter:description" content="commonjs 规范 模块引用：通过 require 方法把模块引入上下文 模块定义：模块中通过 exports 属性导出模块的方法和变量，module 代表模块自身 模块标识：传递给 require 方法的参数  node 实现引入模块的流程 路径分析 文件定位 编译执行  模块分类 核心模块：Node 源代码的编译过程中，编译进了二进制执行文件。Node 启动时已经被加载入内存中 文件模块：">
   
   
     <link rel="icon" href="0001.jpg#/favicon.png">
@@ -24,11 +24,14 @@
   
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
-  <link rel="stylesheet" href="/css/style.css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
   
 
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="奔跑的蜗牛" type="application/atom+xml">
 </head>
-</html>
+
 <body>
   <div id="container">
     <div id="wrap">
@@ -39,10 +42,6 @@
       <h1 id="logo-wrap">
         <a href="/" id="logo">奔跑的蜗牛</a>
       </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">奔跑的蜗牛</a>
-        </h2>
       
     </div>
     <div id="header-inner" class="inner">
@@ -59,7 +58,7 @@
         
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
       </div>
     </div>
   </div>
@@ -121,14 +120,15 @@
 <li>目录分析与包：分析标识符得到一个文件夹时，<code>Node</code> 会按照 <code>package.json</code>、<code>index.js</code>、<code>index.json</code>、<code>index.node</code>来查找文件，若查找到 <code>package.json</code> 会提取 <code>main</code> 指定的文件来进行定位</li>
 </ul>
 <h4 id="模块编译"><a href="#模块编译" class="headerlink" title="模块编译"></a>模块编译</h4><p>定位到具体的文件之后，<code>Node</code> 会构建一个模块对象，然后根据路径载入并编译</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Module</span>(<span class="params">id, parent</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.id = id</span><br><span class="line">  <span class="keyword">this</span>.parent = parent</span><br><span class="line">  <span class="keyword">this</span>.exports = &#123;&#125;</span><br><span class="line">  <span class="keyword">this</span>.filename = <span class="literal">null</span></span><br><span class="line">  <span class="keyword">this</span>.loaded = <span class="literal">false</span></span><br><span class="line">  <span class="keyword">this</span>.children = []</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (parent &amp;&amp; parent.children) &#123;</span><br><span class="line">    parent.children.push(<span class="keyword">this</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Module</span>(<span class="params">id, parent</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">id</span> = id</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">parent</span> = parent</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">exports</span> = &#123;&#125;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">filename</span> = <span class="literal">null</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">loaded</span> = <span class="literal">false</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">children</span> = []</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (parent &amp;&amp; parent.<span class="property">children</span>) &#123;</span><br><span class="line">    parent.<span class="property">children</span>.<span class="title function_">push</span>(<span class="variable language_">this</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h5 id="不同扩展名的载入方式"><a href="#不同扩展名的载入方式" class="headerlink" title="不同扩展名的载入方式"></a>不同扩展名的载入方式</h5><ul>
 <li><code>.js</code> 文件：通过 <code>fs</code> 模块同步读取文件后编译执行</li>
 <li><code>.node</code> 文件：<code>c/c++</code> 写的扩展文件，通过 <code>dlopen()</code> 方法加载编译生成的文件</li>
 <li><code>.json</code> 文件：通过 <code>fs</code> 模块同步读取文件后返回 <code>JSON.parse</code> 的结果</li>
 <li>其它类型的文件：当作 <code>.js</code> 文件来处理</li>
 </ul>
-<h6 id="注：-可以通过-require-extensions-quot-ext-quot-的方式来扩展方式，但是已不推荐"><a href="#注：-可以通过-require-extensions-quot-ext-quot-的方式来扩展方式，但是已不推荐" class="headerlink" title="注： 可以通过 require.extensions[&quot;.ext&quot;] 的方式来扩展方式，但是已不推荐"></a>注： 可以通过 <code>require.extensions[&quot;.ext&quot;]</code> 的方式来扩展方式，但是已不推荐</h6><h5 id="JavaScript-模块的编译"><a href="#JavaScript-模块的编译" class="headerlink" title="JavaScript 模块的编译"></a><code>JavaScript</code> 模块的编译</h5><p><code>Node</code> 对获取的 <code>JavaScript</code> 文件内容做了包装，在头部添加了 <code>(function(exports, require, module, __filename, __dirname){\n</code>，在尾部添加了 <code>\n})</code>，包装之后的代码会通过 <code>vm</code> 原生的 <code>runInThisContext()</code> 方法执行，返回一个 <code>function</code> 对象，然后将当前模块对象的 <code>exports</code> 属性、<code>require</code> 方法、 <code>module</code>（模块对象自身）、模块定位中的完整文件路径和目录作为参数传递给这个函数执行，执行之后模块的 <code>exports</code> 属性被返回给了调用方</p>
+<h6 id="注：-可以通过-require-extensions-ext-的方式来扩展方式，但是已不推荐"><a href="#注：-可以通过-require-extensions-ext-的方式来扩展方式，但是已不推荐" class="headerlink" title="注： 可以通过 require.extensions[&quot;.ext&quot;] 的方式来扩展方式，但是已不推荐"></a>注： 可以通过 <code>require.extensions[&quot;.ext&quot;]</code> 的方式来扩展方式，但是已不推荐</h6><h5 id="JavaScript-模块的编译"><a href="#JavaScript-模块的编译" class="headerlink" title="JavaScript 模块的编译"></a><code>JavaScript</code> 模块的编译</h5><p><code>Node</code> 对获取的 <code>JavaScript</code> 文件内容做了包装，在头部添加了 <code>(function(exports, require, module, __filename, __dirname)&#123;\n</code>，在尾部添加了 <code>\n&#125;)</code>，包装之后的代码会通过 <code>vm</code> 原生的 <code>runInThisContext()</code> 方法执行，返回一个 <code>function</code> 对象，然后将当前模块对象的 <code>exports</code> 属性、<code>require</code> 方法、 <code>module</code>（模块对象自身）、模块定位中的完整文件路径和目录作为参数传递给这个函数执行，执行之后模块的 <code>exports</code> 属性被返回给了调用方</p>
 <h6 id="注：-exports-属性是作为形参传入的，直接赋值会改变形参的引用，通过-module-exports-赋值采用迂回的方案不改变形参的引用"><a href="#注：-exports-属性是作为形参传入的，直接赋值会改变形参的引用，通过-module-exports-赋值采用迂回的方案不改变形参的引用" class="headerlink" title="注： exports 属性是作为形参传入的，直接赋值会改变形参的引用，通过 module.exports 赋值采用迂回的方案不改变形参的引用"></a>注： <code>exports</code> 属性是作为形参传入的，直接赋值会改变形参的引用，通过 <code>module.exports</code> 赋值采用迂回的方案不改变形参的引用</h6><h5 id="c-c-模块的编译"><a href="#c-c-模块的编译" class="headerlink" title="c/c++ 模块的编译"></a><code>c/c++</code> 模块的编译</h5><p><code>Node</code> 调用 <code>process.dlopen</code> 方法进行加载和执行，模块的 <code>exports</code> 对象和 <code>.node</code> 模块产生联系并返回给调用者</p>
 <ul>
 <li>优点： 执行效率高</li>
@@ -139,10 +139,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/03/03/commonjs/" data-id="cltvjhwzo000j1wdzb1y7vjtl" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/03/03/commonjs/" data-id="cm19b6ryq001xgkdzbljt3n82" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/" rel="tag">node</a></li></ul>
 
     </footer>
   </div>
@@ -150,7 +150,7 @@
     
 <nav id="article-nav">
   
-    <a href="/2021/03/22/计算机网络-http协议/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/03/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-http%E5%8D%8F%E8%AE%AE/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
@@ -160,7 +160,7 @@
     </a>
   
   
-    <a href="/2021/03/02/浏览器基础/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/03/02/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">浏览器基础</div>
     </a>
@@ -181,7 +181,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/">C/C++语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">62</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeORM/">TypeORM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/antd/">antd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/form/">form</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">other</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/插件/">插件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solution/">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">计算机网络</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/">资源</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/" rel="tag">C&#x2F;C++语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">62</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeORM/" rel="tag">TypeORM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/antd/" rel="tag">antd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/" rel="tag">express</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/form/" rel="tag">form</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/" rel="tag">node</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/" rel="tag">other</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%92%E4%BB%B6/" rel="tag">插件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solution/" rel="tag">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">计算机网络</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/read-book/" rel="tag">读书</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/" rel="tag">资源</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -191,7 +191,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/c-language/" style="font-size: 12.86px;">C/C++语言</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/TypeORM/" style="font-size: 10px;">TypeORM</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/antd/" style="font-size: 10px;">antd</a> <a href="/tags/express/" style="font-size: 11.43px;">express</a> <a href="/tags/form/" style="font-size: 10px;">form</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mysql/" style="font-size: 12.86px;">mysql</a> <a href="/tags/node/" style="font-size: 18.57px;">node</a> <a href="/tags/other/" style="font-size: 15.71px;">other</a> <a href="/tags/react/" style="font-size: 17.14px;">react</a> <a href="/tags/webpack/" style="font-size: 12.86px;">webpack</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/浏览器/" style="font-size: 10px;">浏览器</a> <a href="/tags/solution/" style="font-size: 14.29px;">算法</a> <a href="/tags/network/" style="font-size: 15.71px;">计算机网络</a> <a href="/tags/source/" style="font-size: 11.43px;">资源</a>
+      <a href="/tags/c-language/" style="font-size: 12.5px;">C/C++语言</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/TypeORM/" style="font-size: 10px;">TypeORM</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/antd/" style="font-size: 10px;">antd</a> <a href="/tags/express/" style="font-size: 11.25px;">express</a> <a href="/tags/form/" style="font-size: 10px;">form</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mysql/" style="font-size: 12.5px;">mysql</a> <a href="/tags/node/" style="font-size: 18.75px;">node</a> <a href="/tags/other/" style="font-size: 16.25px;">other</a> <a href="/tags/react/" style="font-size: 17.5px;">react</a> <a href="/tags/webpack/" style="font-size: 12.5px;">webpack</a> <a href="/tags/%E6%8F%92%E4%BB%B6/" style="font-size: 10px;">插件</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/solution/" style="font-size: 13.75px;">算法</a> <a href="/tags/network/" style="font-size: 15px;">计算机网络</a> <a href="/tags/read-book/" style="font-size: 10px;">读书</a> <a href="/tags/source/" style="font-size: 11.25px;">资源</a>
     </div>
   </div>
 
@@ -200,7 +200,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -213,23 +213,23 @@
       <ul>
         
           <li>
-            <a href="/2024/03/17/菜单设计/">菜单设计</a>
+            <a href="/2024/09/20/hexo%E5%8D%87%E7%BA%A7/">hexo升级</a>
           </li>
         
           <li>
-            <a href="/2023/10/15/js打印分页/">js打印分页</a>
+            <a href="/2024/07/08/%E5%A4%8D%E7%9B%98/">复盘</a>
           </li>
         
           <li>
-            <a href="/2022/11/28/高德地图/">高德地图</a>
+            <a href="/2024/03/17/%E8%8F%9C%E5%8D%95%E8%AE%BE%E8%AE%A1/">菜单设计</a>
           </li>
         
           <li>
-            <a href="/2022/11/28/pixi-js/">pixi.js</a>
+            <a href="/2023/10/15/js%E6%89%93%E5%8D%B0%E5%88%86%E9%A1%B5/">js打印分页</a>
           </li>
         
           <li>
-            <a href="/2022/08/21/js获取方位信息/">js获取方位信息</a>
+            <a href="/2022/11/28/%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE/">高德地图</a>
           </li>
         
       </ul>
@@ -262,11 +262,17 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
 
 
 <script src="/js/script.js"></script>
+
 
   </div>
 </body>

@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <title>跨域 | 奔跑的蜗牛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="同源策略当”协议+域名+端口”三者相同时，才能够相互访问资源。保证用户信息的安全，防止恶意的网站窃取数据。 限制 当前域下的 js 脚本不能够访问其他域下的 cookie、localStorage 和 indexDB 等本地存储 当前域下的 js 脚本不能够操作访问操作其他域下的 DOM。 当前域下 ajax 无法发送跨域请求。  跨域访问CORS跨域资源共享(CORS) 是一种机制，它使用额外的">
-<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="跨域">
-<meta property="og:url" content="http://yoursite.com/2021/08/06/跨域/index.html">
+<meta property="og:url" content="http://example.com/2021/08/06/%E8%B7%A8%E5%9F%9F/index.html">
 <meta property="og:site_name" content="奔跑的蜗牛">
 <meta property="og:description" content="同源策略当”协议+域名+端口”三者相同时，才能够相互访问资源。保证用户信息的安全，防止恶意的网站窃取数据。 限制 当前域下的 js 脚本不能够访问其他域下的 cookie、localStorage 和 indexDB 等本地存储 当前域下的 js 脚本不能够操作访问操作其他域下的 DOM。 当前域下 ajax 无法发送跨域请求。  跨域访问CORS跨域资源共享(CORS) 是一种机制，它使用额外的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:updated_time" content="2021-08-06T14:41:22.484Z">
+<meta property="article:published_time" content="2021-08-05T22:58:08.000Z">
+<meta property="article:modified_time" content="2021-08-06T14:41:22.484Z">
+<meta property="article:author" content="奔跑的蜗牛">
+<meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="跨域">
-<meta name="twitter:description" content="同源策略当”协议+域名+端口”三者相同时，才能够相互访问资源。保证用户信息的安全，防止恶意的网站窃取数据。 限制 当前域下的 js 脚本不能够访问其他域下的 cookie、localStorage 和 indexDB 等本地存储 当前域下的 js 脚本不能够操作访问操作其他域下的 DOM。 当前域下 ajax 无法发送跨域请求。  跨域访问CORS跨域资源共享(CORS) 是一种机制，它使用额外的">
   
   
     <link rel="icon" href="0001.jpg#/favicon.png">
@@ -24,11 +24,14 @@
   
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
-  <link rel="stylesheet" href="/css/style.css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
   
 
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="奔跑的蜗牛" type="application/atom+xml">
 </head>
-</html>
+
 <body>
   <div id="container">
     <div id="wrap">
@@ -39,10 +42,6 @@
       <h1 id="logo-wrap">
         <a href="/" id="logo">奔跑的蜗牛</a>
       </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">奔跑的蜗牛</a>
-        </h2>
       
     </div>
     <div id="header-inner" class="inner">
@@ -59,7 +58,7 @@
         
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
       </div>
     </div>
   </div>
@@ -67,7 +66,7 @@
       <div class="outer">
         <section id="main"><article id="post-跨域" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2021/08/06/跨域/" class="article-date">
+    <a href="/2021/08/06/%E8%B7%A8%E5%9F%9F/" class="article-date">
   <time datetime="2021-08-05T22:58:08.000Z" itemprop="datePublished">2021-08-05</time>
 </a>
     
@@ -106,29 +105,33 @@
 <li>Accept-Language</li>
 <li>Content-Language</li>
 <li>Last-Event-ID</li>
-<li>Content-Type：只限于三个值 application/x-www-form-urlencoded、multipart/form-data、text/plain</li>
+<li>Content-Type：只限于三个值 application&#x2F;x-www-form-urlencoded、multipart&#x2F;form-data、text&#x2F;plain</li>
 </ul>
 <h5 id="请求过程"><a href="#请求过程" class="headerlink" title="请求过程"></a>请求过程</h5><ol>
 <li>浏览器会直接发出 CORS 请求，它会在请求的头信息中增加一个 Orign 字段，该字段用来说明本次请求来自哪个源（协议+端口+域名）</li>
 <li>服务器会根据 origin 值来决定是否同意这次请求</li>
 </ol>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Access-Control-Allow-Origin:</span> <span class="string">http://api.baidu.com</span>  <span class="string">//</span> <span class="string">和</span> <span class="string">Orign</span> <span class="string">一致，必须要包含，可以为</span> <span class="string">*</span></span><br><span class="line"><span class="attr">Access-Control-Allow-Credentials:</span> <span class="literal">true</span>   <span class="string">//</span> <span class="string">表示是否允许发送Cookie</span></span><br><span class="line"><span class="attr">Access-Control-Expose-Headers:</span> <span class="string">FooBar</span>   <span class="string">//</span> <span class="string">指定返回其他字段的值</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="非简单请求过程"><a href="#非简单请求过程" class="headerlink" title="非简单请求过程"></a>非简单请求过程</h4><p>在正式通信之前进行一次 HTTP 查询请求，称为预检请求</p>
 <h5 id="请求过程-1"><a href="#请求过程-1" class="headerlink" title="请求过程"></a>请求过程</h5><ol>
 <li>使用 <code>OPTIONS</code> 方法向服务端发起预检请求</li>
 </ol>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Access-Control-Request-Method：该字段是必须的，用来列出浏览器的</span> <span class="string">CORS</span> <span class="string">请求会用到哪些</span> <span class="string">HTTP</span> <span class="string">方法。</span></span><br><span class="line"><span class="string">Access-Control-Request-Headers：</span> <span class="string">该字段是一个逗号分隔的字符串，指定浏览器</span> <span class="string">CORS</span> <span class="string">请求会额外发送的头信息字段。</span></span><br></pre></td></tr></table></figure>
+
 <ol start="2">
 <li>服务器在收到浏览器的预检请求之后，会根据头信息的三个字段来进行判断是否允许跨域</li>
 </ol>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Access-Control-Allow-Origin:</span> <span class="string">http://api.baidu.com</span>  <span class="string">//</span> <span class="string">允许跨域的源地址（必须）</span></span><br><span class="line"><span class="attr">Access-Control-Allow-Methods:</span> <span class="string">GET,</span> <span class="string">POST,</span> <span class="string">PUT</span> <span class="string">//</span> <span class="string">服务器支持的所有跨域请求的方法（必须）</span></span><br><span class="line"><span class="attr">Access-Control-Allow-Headers:</span> <span class="string">X-Custom-Header</span>  <span class="string">//</span> <span class="string">服务器支持的所有头信息字段（必须）</span></span><br><span class="line"><span class="attr">Access-Control-Allow-Credentials:</span> <span class="literal">true</span>   <span class="string">//</span> <span class="string">表示是否允许发送Cookie</span></span><br><span class="line"><span class="attr">Access-Control-Max-Age:</span> <span class="number">1728000</span>  <span class="string">//</span> <span class="string">用来指定本次预检请求的有效期，单位为秒</span></span><br></pre></td></tr></table></figure>
+
 <h5 id="Cookie-相关问题"><a href="#Cookie-相关问题" class="headerlink" title="Cookie 相关问题"></a>Cookie 相关问题</h5><ol>
 <li>默认情况下在跨域请求，浏览器是不带 cookie 的。但是我们可以通过设置 withCredentials 来进行传递 cookie.</li>
 <li>Access-Control-Allow-Credentials 设置为 true</li>
 <li>Access-Control-Allow-Origin 设置为非 <code>*</code></li>
 </ol>
 <h3 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h3><p>利用<code>&lt;script&gt;</code> 标签没有跨域限制，通过<code>&lt;script&gt;</code>标签 src 属性，发送带有 callback 参数的 GET 请求，服务端将接口返回数据拼凑到 callback 函数中，返回给浏览器，浏览器解析执行，从而前端拿到 callback 函数返回的数据。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> count = <span class="number">0</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jsonp</span>(<span class="params">src, callback</span>) </span>&#123;</span><br><span class="line">  count++</span><br><span class="line">  <span class="keyword">const</span> functionName = <span class="string">'jsonpCallback'</span> + count</span><br><span class="line">  <span class="comment">// 回调执行函数</span></span><br><span class="line">  <span class="built_in">window</span>[functionName] = <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</span><br><span class="line">    callback &amp;&amp; callback(res)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>)</span><br><span class="line">  script.type = <span class="string">'text/javascript'</span></span><br><span class="line">  <span class="comment">// 传参一个回调函数名给后端，方便后端返回时执行这个在前端定义的回调函数</span></span><br><span class="line">  <span class="keyword">const</span> realSrc = src.includes(<span class="string">'?'</span>)</span><br><span class="line">    ? src + <span class="string">'&amp;callback='</span> + functionName</span><br><span class="line">    : src + <span class="string">'?callback='</span> + functionName</span><br><span class="line">  script.src = realSrc</span><br><span class="line">  <span class="built_in">document</span>.head.appendChild(script)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 服务端实现</span></span><br><span class="line">app.get(<span class="string">'/test'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; callback &#125; = req.query</span><br><span class="line">  res.send(<span class="string">`<span class="subst">$&#123;callback&#125;</span>(&#123; test: "a" &#125;)`</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> count = <span class="number">0</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">jsonp</span>(<span class="params">src, callback</span>) &#123;</span><br><span class="line">  count++</span><br><span class="line">  <span class="keyword">const</span> functionName = <span class="string">&#x27;jsonpCallback&#x27;</span> + count</span><br><span class="line">  <span class="comment">// 回调执行函数</span></span><br><span class="line">  <span class="variable language_">window</span>[functionName] = <span class="keyword">function</span> (<span class="params">res</span>) &#123;</span><br><span class="line">    callback &amp;&amp; <span class="title function_">callback</span>(res)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> script = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;script&#x27;</span>)</span><br><span class="line">  script.<span class="property">type</span> = <span class="string">&#x27;text/javascript&#x27;</span></span><br><span class="line">  <span class="comment">// 传参一个回调函数名给后端，方便后端返回时执行这个在前端定义的回调函数</span></span><br><span class="line">  <span class="keyword">const</span> realSrc = src.<span class="title function_">includes</span>(<span class="string">&#x27;?&#x27;</span>)</span><br><span class="line">    ? src + <span class="string">&#x27;&amp;callback=&#x27;</span> + functionName</span><br><span class="line">    : src + <span class="string">&#x27;?callback=&#x27;</span> + functionName</span><br><span class="line">  script.<span class="property">src</span> = realSrc</span><br><span class="line">  <span class="variable language_">document</span>.<span class="property">head</span>.<span class="title function_">appendChild</span>(script)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 服务端实现</span></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/test&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; callback &#125; = req.<span class="property">query</span></span><br><span class="line">  res.<span class="title function_">send</span>(<span class="string">`<span class="subst">$&#123;callback&#125;</span>(&#123; test: &quot;a&quot; &#125;)`</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
 <p>通过 <code>script</code> 标签的形式获取到的数据会被自动执行，所以通过返回回调函数调用的方式自动执行代码</p>
 <h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
 <li>具有局限性， 仅支持 get 方法</li>
@@ -150,17 +153,17 @@
 <h3 id="window-name-iframe"><a href="#window-name-iframe" class="headerlink" title="window.name + iframe"></a>window.name + iframe</h3><p>window.name 属性的独特之处：name 值在不同的页面（甚至不同域名）加载后依旧存在，并且可以支持非常长的 name 值（2MB）。</p>
 <h3 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h3><p>通过 <code>WebSocket</code> 服务端中转通信</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://juejin.cn/post/6916157109906341902/#heading-55" target="_blank" rel="noopener">如何解决跨越问题</a></li>
-<li><a href="https://developer.mozilla.org/zh-CN/docs/Glossary/CORS" target="_blank" rel="noopener">MDN CORS</a></li>
+<li><a href="https://juejin.cn/post/6916157109906341902/#heading-55">如何解决跨越问题</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Glossary/CORS">MDN CORS</a></li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/06/跨域/" data-id="cltvjhx1z005k1wdze9tf6qcp" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/08/06/%E8%B7%A8%E5%9F%9F/" data-id="cm19b6rzn005lgkdzegid27fs" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
 
     </footer>
   </div>
@@ -168,7 +171,7 @@
     
 <nav id="article-nav">
   
-    <a href="/2021/08/07/简易的express中间件/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/08/07/%E7%AE%80%E6%98%93%E7%9A%84express%E4%B8%AD%E9%97%B4%E4%BB%B6/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
@@ -178,7 +181,7 @@
     </a>
   
   
-    <a href="/2021/07/26/术语/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/07/26/%E6%9C%AF%E8%AF%AD/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">术语</div>
     </a>
@@ -199,7 +202,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/">C/C++语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">62</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeORM/">TypeORM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/antd/">antd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/form/">form</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">other</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/插件/">插件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solution/">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">计算机网络</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/">资源</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/" rel="tag">C&#x2F;C++语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">62</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeORM/" rel="tag">TypeORM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/antd/" rel="tag">antd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/" rel="tag">express</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/form/" rel="tag">form</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/" rel="tag">node</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/" rel="tag">other</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%92%E4%BB%B6/" rel="tag">插件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solution/" rel="tag">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">计算机网络</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/read-book/" rel="tag">读书</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/" rel="tag">资源</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -209,7 +212,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/c-language/" style="font-size: 12.86px;">C/C++语言</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/TypeORM/" style="font-size: 10px;">TypeORM</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/antd/" style="font-size: 10px;">antd</a> <a href="/tags/express/" style="font-size: 11.43px;">express</a> <a href="/tags/form/" style="font-size: 10px;">form</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mysql/" style="font-size: 12.86px;">mysql</a> <a href="/tags/node/" style="font-size: 18.57px;">node</a> <a href="/tags/other/" style="font-size: 15.71px;">other</a> <a href="/tags/react/" style="font-size: 17.14px;">react</a> <a href="/tags/webpack/" style="font-size: 12.86px;">webpack</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/浏览器/" style="font-size: 10px;">浏览器</a> <a href="/tags/solution/" style="font-size: 14.29px;">算法</a> <a href="/tags/network/" style="font-size: 15.71px;">计算机网络</a> <a href="/tags/source/" style="font-size: 11.43px;">资源</a>
+      <a href="/tags/c-language/" style="font-size: 12.5px;">C/C++语言</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/TypeORM/" style="font-size: 10px;">TypeORM</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/antd/" style="font-size: 10px;">antd</a> <a href="/tags/express/" style="font-size: 11.25px;">express</a> <a href="/tags/form/" style="font-size: 10px;">form</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mysql/" style="font-size: 12.5px;">mysql</a> <a href="/tags/node/" style="font-size: 18.75px;">node</a> <a href="/tags/other/" style="font-size: 16.25px;">other</a> <a href="/tags/react/" style="font-size: 17.5px;">react</a> <a href="/tags/webpack/" style="font-size: 12.5px;">webpack</a> <a href="/tags/%E6%8F%92%E4%BB%B6/" style="font-size: 10px;">插件</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/solution/" style="font-size: 13.75px;">算法</a> <a href="/tags/network/" style="font-size: 15px;">计算机网络</a> <a href="/tags/read-book/" style="font-size: 10px;">读书</a> <a href="/tags/source/" style="font-size: 11.25px;">资源</a>
     </div>
   </div>
 
@@ -218,7 +221,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -231,23 +234,23 @@
       <ul>
         
           <li>
-            <a href="/2024/03/17/菜单设计/">菜单设计</a>
+            <a href="/2024/09/20/hexo%E5%8D%87%E7%BA%A7/">hexo升级</a>
           </li>
         
           <li>
-            <a href="/2023/10/15/js打印分页/">js打印分页</a>
+            <a href="/2024/07/08/%E5%A4%8D%E7%9B%98/">复盘</a>
           </li>
         
           <li>
-            <a href="/2022/11/28/高德地图/">高德地图</a>
+            <a href="/2024/03/17/%E8%8F%9C%E5%8D%95%E8%AE%BE%E8%AE%A1/">菜单设计</a>
           </li>
         
           <li>
-            <a href="/2022/11/28/pixi-js/">pixi.js</a>
+            <a href="/2023/10/15/js%E6%89%93%E5%8D%B0%E5%88%86%E9%A1%B5/">js打印分页</a>
           </li>
         
           <li>
-            <a href="/2022/08/21/js获取方位信息/">js获取方位信息</a>
+            <a href="/2022/11/28/%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE/">高德地图</a>
           </li>
         
       </ul>
@@ -280,11 +283,17 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
 
 
 <script src="/js/script.js"></script>
+
 
   </div>
 </body>

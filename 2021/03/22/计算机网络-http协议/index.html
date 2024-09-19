@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <title>计算机网络-http协议 | 奔跑的蜗牛</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="HTTP无状态、无连接的应用层协议 HTTP 1.0浏览器和服务器保持短暂的连接，浏览器的每次请求都需要与服务器建立一个 TCP 连接，服务器处理完成后立即断开 TCP 连接（无连接），服务器不跟踪每个客户端也不记录过去的请求（无状态）。 HTTP 1.1发布于 1999 年，默认使用文本格式传输数据 长链接默认包含 Connection: keep-alive 头，可以让客户端和服务端在一段时间">
-<meta name="keywords" content="计算机网络">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机网络-http协议">
-<meta property="og:url" content="http://yoursite.com/2021/03/22/计算机网络-http协议/index.html">
+<meta property="og:url" content="http://example.com/2021/03/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-http%E5%8D%8F%E8%AE%AE/index.html">
 <meta property="og:site_name" content="奔跑的蜗牛">
 <meta property="og:description" content="HTTP无状态、无连接的应用层协议 HTTP 1.0浏览器和服务器保持短暂的连接，浏览器的每次请求都需要与服务器建立一个 TCP 连接，服务器处理完成后立即断开 TCP 连接（无连接），服务器不跟踪每个客户端也不记录过去的请求（无状态）。 HTTP 1.1发布于 1999 年，默认使用文本格式传输数据 长链接默认包含 Connection: keep-alive 头，可以让客户端和服务端在一段时间">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/images/brower/http_pipe.png">
-<meta property="og:image" content="http://yoursite.com/images/brower/http_bf.jpg">
-<meta property="og:image" content="http://yoursite.com/images/brower/http_stream.jpg">
-<meta property="og:updated_time" content="2021-10-23T12:30:00.060Z">
+<meta property="og:image" content="http://example.com/images/brower/http_pipe.png">
+<meta property="og:image" content="http://example.com/images/brower/http_bf.jpg">
+<meta property="og:image" content="http://example.com/images/brower/http_stream.jpg">
+<meta property="article:published_time" content="2021-03-21T16:41:21.000Z">
+<meta property="article:modified_time" content="2021-10-23T12:30:00.060Z">
+<meta property="article:author" content="奔跑的蜗牛">
+<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="计算机网络-http协议">
-<meta name="twitter:description" content="HTTP无状态、无连接的应用层协议 HTTP 1.0浏览器和服务器保持短暂的连接，浏览器的每次请求都需要与服务器建立一个 TCP 连接，服务器处理完成后立即断开 TCP 连接（无连接），服务器不跟踪每个客户端也不记录过去的请求（无状态）。 HTTP 1.1发布于 1999 年，默认使用文本格式传输数据 长链接默认包含 Connection: keep-alive 头，可以让客户端和服务端在一段时间">
-<meta name="twitter:image" content="http://yoursite.com/images/brower/http_pipe.png">
+<meta name="twitter:image" content="http://example.com/images/brower/http_pipe.png">
   
   
     <link rel="icon" href="0001.jpg#/favicon.png">
@@ -28,11 +28,14 @@
   
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
-  <link rel="stylesheet" href="/css/style.css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
   
 
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="奔跑的蜗牛" type="application/atom+xml">
 </head>
-</html>
+
 <body>
   <div id="container">
     <div id="wrap">
@@ -43,10 +46,6 @@
       <h1 id="logo-wrap">
         <a href="/" id="logo">奔跑的蜗牛</a>
       </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">奔跑的蜗牛</a>
-        </h2>
       
     </div>
     <div id="header-inner" class="inner">
@@ -63,7 +62,7 @@
         
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
       </div>
     </div>
   </div>
@@ -71,7 +70,7 @@
       <div class="outer">
         <section id="main"><article id="post-计算机网络-http协议" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2021/03/22/计算机网络-http协议/" class="article-date">
+    <a href="/2021/03/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-http%E5%8D%8F%E8%AE%AE/" class="article-date">
   <time datetime="2021-03-21T16:41:21.000Z" itemprop="datePublished">2021-03-21</time>
 </a>
     
@@ -99,7 +98,7 @@
 <p><img src="/images/brower/http_pipe.png" alt="HTTP1.1 支持管道化链接图"></p>
 <p>由于“管道化”技术存在各种各样的问题，所以很多浏览器要么根本不支持它，要么就直接默认关闭。</p>
 <h4 id="协议扩展切换"><a href="#协议扩展切换" class="headerlink" title="协议扩展切换"></a>协议扩展切换</h4><p>支持在请求头部域消息中包含 <code>Upgrade</code> 头并让客户端通过头部标识令服务器知道它能够支持其它备用通信协议的一种机制，服务器根据客户端请求的其它协议进行切换，切换后使用备用协议与客户端进行通信</p>
-<h4 id="缓存控制"><a href="#缓存控制" class="headerlink" title="缓存控制"></a>缓存控制</h4><p>新增 <code>Cache-Control</code> 字段，支持 <code>max-age</code> 用来表示相对过期时间；服务器也可以通过 <code>Etag</code> 和 <code>Last-Modified</code> 来判断是否从浏览器中加载文件，此时缓存的控制和判断将决定响应状态码是 200 还是 304。参考<a href="/2020/08/31/浏览器缓存/">浏览器缓存</a>章节</p>
+<h4 id="缓存控制"><a href="#缓存控制" class="headerlink" title="缓存控制"></a>缓存控制</h4><p>新增 <code>Cache-Control</code> 字段，支持 <code>max-age</code> 用来表示相对过期时间；服务器也可以通过 <code>Etag</code> 和 <code>Last-Modified</code> 来判断是否从浏览器中加载文件，此时缓存的控制和判断将决定响应状态码是 200 还是 304。参考<a href="/2020/08/31/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98/">浏览器缓存</a>章节</p>
 <h4 id="部分内容传输优化"><a href="#部分内容传输优化" class="headerlink" title="部分内容传输优化"></a>部分内容传输优化</h4><p>引入了 <code>range</code> 头域支持超文本文件的部分传输。如允许请求一个文件的起始位置和偏移长度来进行文件内容的部分传输</p>
 <h4 id="Host-头处理"><a href="#Host-头处理" class="headerlink" title="Host 头处理"></a>Host 头处理</h4><p>请求消息和响应消息都支持 <code>Host</code> 头域，且请求消息中如果没有 <code>Host</code> 头域会报告一个错误（<code>400 Bad Request</code>）</p>
 <h4 id="错误通知的管理"><a href="#错误通知的管理" class="headerlink" title="错误通知的管理"></a>错误通知的管理</h4><p>新增了 <code>24</code> 个错误状态响应码，如 <code>409（Conflict）</code>表示请求的资源与资源的当前状态发生冲突；<code>410（Gone）</code>表示服务器上的某个资源被永久性的删除。</p>
@@ -119,20 +118,20 @@
 <p><img src="/images/brower/http_stream.jpg" alt="多路复用（连接共享）"></p>
 <p>所有的 HTTP2.0 通信都在一个 TCP 连接上完成，这个连接可以承载任意数量的双向数据流。每个数据流以消息的形式发送，而消息由一或多个帧组成。这些帧可以乱序发送，然后再根据每个帧头部的流标识符（stream id）重新组装。</p>
 <h4 id="头部压缩"><a href="#头部压缩" class="headerlink" title="头部压缩"></a>头部压缩</h4><p>使用 encoder 来减少需要传输的 header 大小，通讯双方各自 cache 一份 header fields 表，既避免了重复 header 的传输，又减小了需要传输的大小。高效的压缩算法可以很大的压缩 header，减少发送包的数量从而降低延迟。</p>
-<p>在头部压缩技术中，客户端和服务器均会维护两份相同的静态字典和动态字典。在静态字典中，包含了常见的头部名称以及头部名称与值的组合。静态字典在首次请求时就可以使用。那么现在头部的字段就可以被简写成静态字典中相应字段对应的 index。而动态字典跟连接的上下文相关，每个 HTTP/2 连接维护的动态字典是不尽相同的。动态字典可以在连接中不听的进行更新。原本完整的 HTTP 报文头部的键值对或字段，由于字典的存在，现在可以转换成索引 index，在相应的端再进行查找还原，也就起到了压缩的作用。</p>
+<p>在头部压缩技术中，客户端和服务器均会维护两份相同的静态字典和动态字典。在静态字典中，包含了常见的头部名称以及头部名称与值的组合。静态字典在首次请求时就可以使用。那么现在头部的字段就可以被简写成静态字典中相应字段对应的 index。而动态字典跟连接的上下文相关，每个 HTTP&#x2F;2 连接维护的动态字典是不尽相同的。动态字典可以在连接中不听的进行更新。原本完整的 HTTP 报文头部的键值对或字段，由于字典的存在，现在可以转换成索引 index，在相应的端再进行查找还原，也就起到了压缩的作用。</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
-<li><a href="https://www.jianshu.com/p/be29d679cbff" target="_blank" rel="noopener">HTTP1.0、HTTP1.1 和 HTTP2.0 的区别</a></li>
-<li><a href="https://segmentfault.com/a/1190000013028798?utm_source=tag-newest" target="_blank" rel="noopener">HTTP1.0 HTTP1.1 HTTP2.0 主要特性对比</a></li>
-<li><a href="https://www.jianshu.com/p/52d86558ca57" target="_blank" rel="noopener">如何优雅的谈论 HTTP／1.0／1.1／2.0</a></li>
+<li><a href="https://www.jianshu.com/p/be29d679cbff">HTTP1.0、HTTP1.1 和 HTTP2.0 的区别</a></li>
+<li><a href="https://segmentfault.com/a/1190000013028798?utm_source=tag-newest">HTTP1.0 HTTP1.1 HTTP2.0 主要特性对比</a></li>
+<li><a href="https://www.jianshu.com/p/52d86558ca57">如何优雅的谈论 HTTP／1.0／1.1／2.0</a></li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/03/22/计算机网络-http协议/" data-id="cltvjhx1w005c1wdz85u8hx57" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/03/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-http%E5%8D%8F%E8%AE%AE/" data-id="cm19b6rzm005fgkdz9h62gbj3" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">计算机网络</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/" rel="tag">计算机网络</a></li></ul>
 
     </footer>
   </div>
@@ -140,7 +139,7 @@
     
 <nav id="article-nav">
   
-    <a href="/2021/03/28/网络安全/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/03/28/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
@@ -171,7 +170,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/">C/C++语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">62</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeORM/">TypeORM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/antd/">antd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/form/">form</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">other</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/插件/">插件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solution/">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">计算机网络</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/">资源</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/" rel="tag">C&#x2F;C++语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">62</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeORM/" rel="tag">TypeORM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/antd/" rel="tag">antd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/" rel="tag">express</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/form/" rel="tag">form</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/" rel="tag">node</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/" rel="tag">other</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%92%E4%BB%B6/" rel="tag">插件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solution/" rel="tag">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">计算机网络</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/read-book/" rel="tag">读书</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/" rel="tag">资源</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -181,7 +180,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/c-language/" style="font-size: 12.86px;">C/C++语言</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/TypeORM/" style="font-size: 10px;">TypeORM</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/antd/" style="font-size: 10px;">antd</a> <a href="/tags/express/" style="font-size: 11.43px;">express</a> <a href="/tags/form/" style="font-size: 10px;">form</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mysql/" style="font-size: 12.86px;">mysql</a> <a href="/tags/node/" style="font-size: 18.57px;">node</a> <a href="/tags/other/" style="font-size: 15.71px;">other</a> <a href="/tags/react/" style="font-size: 17.14px;">react</a> <a href="/tags/webpack/" style="font-size: 12.86px;">webpack</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/浏览器/" style="font-size: 10px;">浏览器</a> <a href="/tags/solution/" style="font-size: 14.29px;">算法</a> <a href="/tags/network/" style="font-size: 15.71px;">计算机网络</a> <a href="/tags/source/" style="font-size: 11.43px;">资源</a>
+      <a href="/tags/c-language/" style="font-size: 12.5px;">C/C++语言</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/TypeORM/" style="font-size: 10px;">TypeORM</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/antd/" style="font-size: 10px;">antd</a> <a href="/tags/express/" style="font-size: 11.25px;">express</a> <a href="/tags/form/" style="font-size: 10px;">form</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mysql/" style="font-size: 12.5px;">mysql</a> <a href="/tags/node/" style="font-size: 18.75px;">node</a> <a href="/tags/other/" style="font-size: 16.25px;">other</a> <a href="/tags/react/" style="font-size: 17.5px;">react</a> <a href="/tags/webpack/" style="font-size: 12.5px;">webpack</a> <a href="/tags/%E6%8F%92%E4%BB%B6/" style="font-size: 10px;">插件</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/solution/" style="font-size: 13.75px;">算法</a> <a href="/tags/network/" style="font-size: 15px;">计算机网络</a> <a href="/tags/read-book/" style="font-size: 10px;">读书</a> <a href="/tags/source/" style="font-size: 11.25px;">资源</a>
     </div>
   </div>
 
@@ -190,7 +189,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -203,23 +202,23 @@
       <ul>
         
           <li>
-            <a href="/2024/03/17/菜单设计/">菜单设计</a>
+            <a href="/2024/09/20/hexo%E5%8D%87%E7%BA%A7/">hexo升级</a>
           </li>
         
           <li>
-            <a href="/2023/10/15/js打印分页/">js打印分页</a>
+            <a href="/2024/07/08/%E5%A4%8D%E7%9B%98/">复盘</a>
           </li>
         
           <li>
-            <a href="/2022/11/28/高德地图/">高德地图</a>
+            <a href="/2024/03/17/%E8%8F%9C%E5%8D%95%E8%AE%BE%E8%AE%A1/">菜单设计</a>
           </li>
         
           <li>
-            <a href="/2022/11/28/pixi-js/">pixi.js</a>
+            <a href="/2023/10/15/js%E6%89%93%E5%8D%B0%E5%88%86%E9%A1%B5/">js打印分页</a>
           </li>
         
           <li>
-            <a href="/2022/08/21/js获取方位信息/">js获取方位信息</a>
+            <a href="/2022/11/28/%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE/">高德地图</a>
           </li>
         
       </ul>
@@ -252,11 +251,17 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
 
 
 <script src="/js/script.js"></script>
+
 
   </div>
 </body>
