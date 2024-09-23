@@ -9,24 +9,33 @@ tags: [other]
 ## Flux 原则
 
 Flux 原则主要围绕“单向数据流”这一核心概念展开，旨在通过清晰的数据流和组件间的解耦来提高应用的可维护性和可扩展性。
-单向数据流
+
+### 单向数据流
 
 - 定义：在 Flux 应用中，数据的变化严格遵循单一方向流动的原则，即数据只能从一个源头流出，经过一系列的处理后，最终更新到视图层进行展示。
 - 作用：单向数据流有助于减少数据流向的复杂性，使得数据的变化更加可预测和易于追踪。
-  核心组成部分
-  Flux 架构通常包括四个核心组成部分：View（视图）、Action（动作）、Dispatcher（分发器）和 Store（存储器）。
+
+### 核心组成部分
+
+Flux 架构通常包括四个核心组成部分：View（视图）、Action（动作）、Dispatcher（分发器）和 Store（存储器）。
+
 - View（视图）：负责渲染 UI 界面，并通过用户交互产生 Action。
 - Action（动作）：是一个包含了类型（type）和数据的对象，用于描述发生了什么。Action 是数据变化的唯一来源。
 - Dispatcher（分发器）：接收 Action，并将其分发给所有已注册的回调函数。Dispatcher 本身不存储任何数据或状态。
 - Store（存储器）：负责存储应用的状态，并根据接收到的 Action 来更新状态。Store 是应用状态的唯一来源。
-  工作流程
+
+### 工作流程
+
+![工作流程](/images/zustand_flux.png)
+
 - 当用户在视图层进行交互时，会产生一个 Action。
 - Action 被发送到 Dispatcher。
 - Dispatcher 将 Action 广播给所有已注册的 Store。
 - Store 根据 Action 的类型和内容来更新自身的状态。
 - Store 更新状态后，会通知视图层进行相应的渲染。
-  暂时无法在飞书文档外展示此内容
-  优点
+
+### 优点
+
 - 预测性：由于数据变化遵循严格的单向流动，因此可以更容易地预测应用的状态变化。
 - 解耦：View、Action、Dispatcher 和 Store 之间相对独立，降低了组件间的耦合度。
 - 可维护性：清晰的数据流和组件间的解耦使得应用更加容易维护和扩展。
@@ -158,6 +167,8 @@ class BearCounter extends React.Component {
 ### 创建 store
 
 利用闭包构建一个 store ，通过发布订阅的方式实现更新的监听
+
+![工作流程](/images/zustand_store.png)
 
 ```typescript
 const createStoreImpl: CreateStoreImpl = (createState) => {
