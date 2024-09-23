@@ -42,8 +42,7 @@ Flux 架构通常包括四个核心组成部分：View（视图）、Action（�
 
 ## Hooks
 
-https://zh-hans.react.dev/reference/react/useSyncExternalStore#
-内部通过 useSyncExternalStore 实现，useSyncExternalStore 一个让你订阅外部 store 的 React Hook
+内部通过 [`useSyncExternalStore`](https://zh-hans.react.dev/reference/react/useSyncExternalStore#) 实现，`useSyncExternalStore` 一个让你订阅外部 `store` 的 `React Hook`
 
 ```javascript
 // todoStore.js
@@ -258,3 +257,4 @@ const reduxImpl = (reducer, initial) => (set, _get, api) => {
 
 - https://juejin.cn/post/7274163003157790720
 - https://github.com/pmndrs/zustand/tree/main
+- https://zh-hans.react.dev/reference/react/useSyncExternalStore#
