@@ -1,9 +1,9 @@
 {
-    "git.ignoreLimitWarning": true,
-    "editor.formatOnSave": true,
-    "i18n-ally.localesPaths": [
-        "themes/landscape/languages",
-        "themes/yilia/languages"
-    ],
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "git.ignoreLimitWarning": true,
+  "editor.formatOnSave": false,
+  "i18n-ally.localesPaths": [
+    "themes/landscape/languages",
+    "themes/yilia/languages"
+  ],
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

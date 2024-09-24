@@ -1,0 +1,5 @@
+<div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    <%= wordcount(post.content) %> 字，约需阅读
+    <%= Number((parseFloat(wordcount(post.content)) * (`${wordcount(post.content)}`.toLowerCase().includes('k') ? 1000 : 1) / 275).toFixed(2)) %>
+    分钟
+</div>
