@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>正则 | 奔跑的蜗牛</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="有限状态机定义有限状态机是一个五元组 (Q, Σ ,δ, q0, F)：  Q 是一个有穷集合，叫 状态集 Σ 是一个有穷集合，叫 字母表 δ : Q × Σ → Q 是 转移函数 q0 ∈ Q 是 起始状态. F ⊆ Q 是 接受状态  执行流程从开始状态，根据不同的输入，自动进行状态转移的过程，直到进入接受状态为止 确定有限状态自动机（DFA）DFA 的每一个状态对于字母表中的每一个符号总是恰">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则">
+<meta property="og:url" content="http://example.com/2024/09/25/%E6%AD%A3%E5%88%99/index.html">
+<meta property="og:site_name" content="奔跑的蜗牛">
+<meta property="og:description" content="有限状态机定义有限状态机是一个五元组 (Q, Σ ,δ, q0, F)：  Q 是一个有穷集合，叫 状态集 Σ 是一个有穷集合，叫 字母表 δ : Q × Σ → Q 是 转移函数 q0 ∈ Q 是 起始状态. F ⊆ Q 是 接受状态  执行流程从开始状态，根据不同的输入，自动进行状态转移的过程，直到进入接受状态为止 确定有限状态自动机（DFA）DFA 的每一个状态对于字母表中的每一个符号总是恰">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-24T18:19:52.000Z">
+<meta property="article:modified_time" content="2024-09-24T10:26:31.611Z">
+<meta property="article:author" content="奔跑的蜗牛">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="0001.jpg#/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="奔跑的蜗牛" type="application/atom+xml">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">奔跑的蜗牛</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">分类</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-正则" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2024/09/25/%E6%AD%A3%E5%88%99/" class="article-date">
+  <time datetime="2024-09-24T18:19:52.000Z" itemprop="datePublished">2024-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      正则
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="有限状态机"><a href="#有限状态机" class="headerlink" title="有限状态机"></a>有限状态机</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>有限状态机是一个五元组 (Q, Σ ,δ, q0, F)：</p>
+<ul>
+<li>Q 是一个有穷集合，叫 状态集</li>
+<li>Σ 是一个有穷集合，叫 字母表</li>
+<li>δ : Q × Σ → Q 是 转移函数</li>
+<li>q0 ∈ Q 是 起始状态.</li>
+<li>F ⊆ Q 是 接受状态</li>
+</ul>
+<h3 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h3><p>从开始状态，根据不同的输入，自动进行状态转移的过程，直到进入接受状态为止</p>
+<h3 id="确定有限状态自动机（DFA）"><a href="#确定有限状态自动机（DFA）" class="headerlink" title="确定有限状态自动机（DFA）"></a>确定有限状态自动机（DFA）</h3><p>DFA 的每一个状态对于字母表中的每一个符号总是恰好有一个转移箭头射出。其确定性在于，在一个状态下，输入一个符号，一定是转移到确定的状态，没有其他的可能性</p>
+<h3 id="非确定有限状态自动机（NFA）"><a href="#非确定有限状态自动机（NFA）" class="headerlink" title="非确定有限状态自动机（NFA）"></a>非确定有限状态自动机（NFA）</h3><p>NFA 中每一个状态对于字母表的每一个符号（如：0&#x2F;1）可能有多个箭头射出。其不确定性在于，在一个状态下，输入一个符号，可能转移到 n 个状态，出现了多种状态转移。另外 NFA 中箭头的标号可以是 ε（空转移，即：未输入任何符号也可转移到另一个状态）</p>
+<h2 id="组成部分"><a href="#组成部分" class="headerlink" title="组成部分"></a>组成部分</h2><ul>
+<li>解析器：负责解析正则表达式字符串，将其转换为内部表示形式，如状态机、有向图等。</li>
+<li>状态机：根据解析器生成的内部表示形式，构建一个有限状态自动机，用于在文本中搜索匹配项。</li>
+<li>匹配器：利用状态机在输入文本中进行匹配，根据正则表达式的模式和规则，找到符合条件的子串。</li>
+<li>捕获器：用于捕获匹配过程中产生的结果，如分组捕获、非捕获组等。</li>
+<li>替换器：用于执行替换操作，根据正则表达式中的替换规则，将匹配的子串替换为新的内容。</li>
+</ul>
+<h2 id="执行流程-1"><a href="#执行流程-1" class="headerlink" title="执行流程"></a>执行流程</h2><p>暂时无法在飞书文档外展示此内容</p>
+<h2 id="代码实现思路"><a href="#代码实现思路" class="headerlink" title="代码实现思路"></a>代码实现思路</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Value</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">value</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">value</span> = value</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  equal = <span class="function">(<span class="params">char</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> char === <span class="variable language_">this</span>.<span class="property">value</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Token</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">value, meta</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">value</span> = <span class="keyword">new</span> <span class="title class_">Value</span>(value)</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">meta</span> = meta</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  matchMeta = <span class="function">(<span class="params">c</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">meta</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">value</span>.<span class="title function_">equal</span>(c)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  matchChar = <span class="function">(<span class="params">c</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> !<span class="variable language_">this</span>.<span class="property">meta</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">value</span>.<span class="title function_">equal</span>(c)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  match = <span class="function">(<span class="params">c</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="title function_">matchMeta</span>(<span class="string">&#x27;.&#x27;</span>)) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">typeof</span> c !== <span class="string">&#x27;undefined&#x27;</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">matchChar</span>(c)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyPattern</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">tokens, matchString</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">tokens</span> = tokens</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">matchString</span> = matchString</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  matchStar = <span class="function">(<span class="params">i, j</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> token = <span class="variable language_">this</span>.<span class="property">tokens</span>[i]</span><br><span class="line">    <span class="keyword">const</span> ch = <span class="variable language_">this</span>.<span class="property">matchString</span>[j]</span><br><span class="line">    <span class="keyword">if</span> (token &amp;&amp; token.<span class="title function_">match</span>(ch) &amp;&amp; <span class="variable language_">this</span>.<span class="title function_">matchStar</span>(i, j + <span class="number">1</span>)) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">matchStr</span>(i + <span class="number">2</span>, j)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  matchStr = <span class="function">(<span class="params">i, j</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> token = <span class="variable language_">this</span>.<span class="property">tokens</span>[i]</span><br><span class="line">    <span class="keyword">const</span> nextToken = <span class="variable language_">this</span>.<span class="property">tokens</span>[i + <span class="number">1</span>]</span><br><span class="line">    <span class="keyword">if</span> (token &amp;&amp; token.<span class="title function_">matchMeta</span>(<span class="string">&#x27;$&#x27;</span>)) &#123;</span><br><span class="line">      <span class="keyword">return</span> j &gt;= <span class="variable language_">this</span>.<span class="property">matchString</span>.<span class="property">length</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (token &amp;&amp; nextToken &amp;&amp; nextToken.<span class="title function_">matchMeta</span>(<span class="string">&#x27;*&#x27;</span>)) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">matchStar</span>(i, j)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (token &amp;&amp; token.<span class="title function_">match</span>(<span class="variable language_">this</span>.<span class="property">matchString</span>[j])) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">matchStr</span>(i + <span class="number">1</span>, j + <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">match</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="title function_">matchStr</span>(<span class="number">1</span>, <span class="number">0</span>)) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyRegexp</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">regexp</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">regexp</span> = regexp</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  compile = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">tokens</span> = []</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="variable language_">this</span>.<span class="property">regexp</span>.<span class="property">length</span>; i++) &#123;</span><br><span class="line">      <span class="keyword">switch</span> (<span class="variable language_">this</span>.<span class="property">regexp</span>[i]) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;*&#x27;</span>: &#123;</span><br><span class="line">          <span class="variable language_">this</span>.<span class="property">tokens</span>.<span class="title function_">push</span>(<span class="keyword">new</span> <span class="title class_">Token</span>(<span class="string">&#x27;*&#x27;</span>, <span class="literal">true</span>))</span><br><span class="line">          <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;^&#x27;</span>: &#123;</span><br><span class="line">          <span class="variable language_">this</span>.<span class="property">tokens</span>.<span class="title function_">push</span>(<span class="keyword">new</span> <span class="title class_">Token</span>(<span class="string">&#x27;^&#x27;</span>, <span class="literal">true</span>))</span><br><span class="line">          <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;$&#x27;</span>: &#123;</span><br><span class="line">          <span class="variable language_">this</span>.<span class="property">tokens</span>.<span class="title function_">push</span>(<span class="keyword">new</span> <span class="title class_">Token</span>(<span class="string">&#x27;$&#x27;</span>, <span class="literal">true</span>))</span><br><span class="line">          <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;.&#x27;</span>: &#123;</span><br><span class="line">          <span class="variable language_">this</span>.<span class="property">tokens</span>.<span class="title function_">push</span>(<span class="keyword">new</span> <span class="title class_">Token</span>(<span class="string">&#x27;.&#x27;</span>, <span class="literal">true</span>))</span><br><span class="line">          <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="attr">default</span>: &#123;</span><br><span class="line">          <span class="variable language_">this</span>.<span class="property">tokens</span>.<span class="title function_">push</span>(<span class="keyword">new</span> <span class="title class_">Token</span>(<span class="variable language_">this</span>.<span class="property">regexp</span>[i], <span class="literal">false</span>))</span><br><span class="line">          <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  match = <span class="function">(<span class="params">str</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="variable language_">this</span>.<span class="property">tokens</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">compile</span>()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MyPattern</span>(<span class="variable language_">this</span>.<span class="property">tokens</span>, str).<span class="title function_">match</span>()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://segmentfault.com/a/1190000021787021">https://segmentfault.com/a/1190000021787021</a></li>
+<li><a href="https://cloud.baidu.com/article/3288942">https://cloud.baidu.com/article/3288942</a></li>
+<li><a href="https://nxtech.gitbook.io/regexp/advanced/dfa-nfa">https://nxtech.gitbook.io/regexp/advanced/dfa-nfa</a></li>
+<li><a href="https://github.com/lizzz0523/language/blob/master/javascript/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8Edfs%E7%AE%97%E6%B3%95%E7%9A%84%E7%AE%80%E5%8D%95%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%BC%95%E6%93%8E.md">实现一个基于 dfs 算法的简单正则表达式引擎</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/09/25/%E6%AD%A3%E5%88%99/" data-id="cm1gal1uk0000ncdz2uni00e6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2024/09/25/AI/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">AI</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/" rel="tag">C&#x2F;C++语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">63</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeORM/" rel="tag">TypeORM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/antd/" rel="tag">antd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/" rel="tag">express</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/form/" rel="tag">form</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/" rel="tag">node</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/" rel="tag">other</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%92%E4%BB%B6/" rel="tag">插件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solution/" rel="tag">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">计算机网络</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/read-book/" rel="tag">读书</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/" rel="tag">资源</a><span class="tag-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/c-language/" style="font-size: 12.5px;">C/C++语言</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/TypeORM/" style="font-size: 10px;">TypeORM</a> <a href="/tags/TypeScript/" style="font-size: 11.25px;">TypeScript</a> <a href="/tags/antd/" style="font-size: 10px;">antd</a> <a href="/tags/express/" style="font-size: 11.25px;">express</a> <a href="/tags/form/" style="font-size: 10px;">form</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mysql/" style="font-size: 12.5px;">mysql</a> <a href="/tags/node/" style="font-size: 18.75px;">node</a> <a href="/tags/other/" style="font-size: 16.25px;">other</a> <a href="/tags/react/" style="font-size: 17.5px;">react</a> <a href="/tags/webpack/" style="font-size: 12.5px;">webpack</a> <a href="/tags/%E6%8F%92%E4%BB%B6/" style="font-size: 10px;">插件</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/solution/" style="font-size: 13.75px;">算法</a> <a href="/tags/network/" style="font-size: 15px;">计算机网络</a> <a href="/tags/read-book/" style="font-size: 10px;">读书</a> <a href="/tags/source/" style="font-size: 12.5px;">资源</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/09/25/%E6%AD%A3%E5%88%99/">正则</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/25/AI/">AI</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/24/zustand/">zustand</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/22/typescript%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%9E%E7%8E%B0/">typescript自定义实现</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/21/%E4%B8%9A%E5%8A%A1-%E5%A4%A7%E7%89%8C%E8%AF%95%E7%94%A8/">业务-大牌试用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 奔跑的蜗牛<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">分类</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  </div>
+</body>
+</html>
