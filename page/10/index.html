@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>奔跑的蜗牛</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前端开发工程师">
+<meta property="og:type" content="website">
+<meta property="og:title" content="奔跑的蜗牛">
+<meta property="og:url" content="http://example.com/page/10/index.html">
+<meta property="og:site_name" content="奔跑的蜗牛">
+<meta property="og:description" content="前端开发工程师">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="奔跑的蜗牛">
+<meta property="article:tag" content="React、node、webpack">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="0001.jpg#/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="奔跑的蜗牛" type="application/atom+xml">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">奔跑的蜗牛</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">分类</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-js基础知识系列（三）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/12/js%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%89%EF%BC%89/" class="article-date">
+  <time datetime="2019-08-11T23:26:15.000Z" itemprop="datePublished">2019-08-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/12/js%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%89%EF%BC%89/">js基础知识系列（三）</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    313 字，约需阅读
+    1.14
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="DOM-中监听节点变化的事件（高级程序设计第-13-4-6-节）"><a href="#DOM-中监听节点变化的事件（高级程序设计第-13-4-6-节）" class="headerlink" title="DOM 中监听节点变化的事件（高级程序设计第 13.4.6 节）"></a>DOM 中监听节点变化的事件（高级程序设计第 13.4.6 节）</h1><p>DOM2 级的変动事件是为 XML 或 html 的 DOM 设计的，不特定于某种语言。</p>
+<h2 id="变动事件的分类有-7-种"><a href="#变动事件的分类有-7-种" class="headerlink" title="变动事件的分类有 7 种"></a>变动事件的分类有 7 种</h2><ol>
+<li><code>DOMSubtreeModified</code>：在 DOM 结构中发生任何变化时触发</li>
+<li><code>DOMNodeInserted</code>：在一个节点作为子节点被插入到另一个节点中时触发</li>
+<li><code>DOMNodeRemoved</code>：在节点从其父节点中被移除时触发</li>
+<li><code>DOMNodeInsertedIntoDocument</code>：在一个节点被直接插入文档中或者通过子树间接插入文档后触发。在 DOMNodeInserted 之后触发</li>
+<li><code>DOMNodeRemovedFromDocument</code>：在一个节点被直接从文档中删除或通过子树间接从文档中移除之前触发。在 DOMNodeRemoved 之后触发</li>
+<li><code>DOMAttrModified</code>：在特性被修改之后触发</li>
+<li><code>DOMCharacterDataModified</code>：在文本节点的值发生变化的时候触发</li>
+</ol>
+<h2 id="常用的浏览器支持的有-3-种"><a href="#常用的浏览器支持的有-3-种" class="headerlink" title="常用的浏览器支持的有 3 种"></a>常用的浏览器支持的有 3 种</h2><ol>
+<li><code>DOMSubtreeModified</code>：在 DOM 结构中发生任何变化时触发</li>
+<li><code>DOMNodeInserted</code>：在一个节点作为子节点被插入到另一个节点中时触发</li>
+<li><code>DOMNodeRemoved</code>：在节点从其父节点中被移除时触发</li>
+</ol>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>页面中嵌套有<code>iframe</code>且需要父页面自适应<code>iframe</code>高度时可以通过监听<code>iframe</code>的<code>DOM</code>变化来实现</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/08/12/js%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%89%EF%BC%89/" data-id="cm1ghkbms001bzodzflu8dfkm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-React学习系列（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/07/React%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89/" class="article-date">
+  <time datetime="2019-08-06T20:08:21.000Z" itemprop="datePublished">2019-08-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/07/React%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89/">React学习系列（二）</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    656 字，约需阅读
+    2.39
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="高阶组件"><a href="#高阶组件" class="headerlink" title="高阶组件"></a>高阶组件</h1><p>高阶组件其实是一个函数，接收一个组件作为参数，返回一个包装组件作为返回值，类似于高阶函数。</p>
+<h2 id="属性代理"><a href="#属性代理" class="headerlink" title="属性代理"></a>属性代理</h2><h3 id="操作props"><a href="#操作props" class="headerlink" title="操作props"></a>操作props</h3><p>可以对原组件的props进行增删改查，通常是查找和增加，删除和修改的话，需要考虑到不能破坏原组件。</p>
+<h3 id="通过refs访问组件实例"><a href="#通过refs访问组件实例" class="headerlink" title="通过refs访问组件实例"></a>通过refs访问组件实例</h3><p>可以通过ref回调函数的形式来访问传入组件的实例，进而调用组件相关方法或其他操作。</p>
+<h3 id="提取state"><a href="#提取state" class="headerlink" title="提取state"></a>提取state</h3><p>通过传入 props 和回调函数把 state 提取出来</p>
+<h3 id="包裹WrappedComponent"><a href="#包裹WrappedComponent" class="headerlink" title="包裹WrappedComponent"></a>包裹WrappedComponent</h3><p>为了封装样式、布局等目的，可以将WrappedComponent用组件或元素包裹起来。</p>
+<h2 id="反向继承"><a href="#反向继承" class="headerlink" title="反向继承"></a>反向继承</h2><p>高阶组件继承于被包裹的React组件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">MyContainer</span> = (<span class="params">WrappedComponent</span>)=&gt;&#123;</span><br><span class="line">  <span class="keyword">class</span> <span class="title class_">extends</span> <span class="title class_">WrappedComponent</span> &#123;</span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>)&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable language_">super</span>.<span class="title function_">render</span>();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="渲染劫持"><a href="#渲染劫持" class="headerlink" title="渲染劫持"></a>渲染劫持</h3><p>渲染劫持就是指的是高阶组件可以控制 WrappedComponent的渲染过程，并渲染各种各样的结果。我们可以在这个过程中在任何React元素输出的结果中读取、增加、修改、删除props，或读取或修改React元素树，或条件显示。又或者用样式包裹元素树</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">hoc</span>(<span class="params">ComponentClass</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">class</span> <span class="title class_">HOC</span> <span class="keyword">extends</span> <span class="title class_ inherited__">ComponentClass</span> &#123;</span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> elementTree = <span class="variable language_">super</span>.<span class="title function_">render</span>();</span><br><span class="line">      elementTree.<span class="property">props</span>.<span class="property">children</span> = elementTree.<span class="property">props</span>.<span class="property">children</span>.<span class="title function_">filter</span>(<span class="function">(<span class="params">z</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> z.<span class="property">type</span> !== <span class="string">&quot;ul&quot;</span> &amp;&amp; z;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">const</span> newTree = <span class="title class_">React</span>.<span class="title function_">cloneElement</span>(elementTree);</span><br><span class="line">      <span class="keyword">return</span> newTree;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@hoc</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">ComponentClass</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> divStyle = &#123;</span><br><span class="line">        <span class="attr">width</span>: <span class="string">&#x27;100px&#x27;</span>,</span><br><span class="line">        <span class="attr">height</span>: <span class="string">&#x27;100px&#x27;</span>,</span><br><span class="line">        <span class="attr">backgroundColor</span>: <span class="string">&#x27;red&#x27;</span></span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&#123;&#123;color:</span> &#x27;<span class="attr">brown</span>&#x27;&#125;&#125;&gt;</span>啦啦啦<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">h1</span>&gt;</span>哈哈哈<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="操作state"><a href="#操作state" class="headerlink" title="操作state"></a>操作state</h3><p>HOC可以读取，编辑和删除WrappedComponent实例的state，可以添加state。不过这个可能会破坏WrappedComponent的state，所以，要限制HOC读取或添加state，添加的state应该放在单独的命名空间里，而不是和WrappedComponent的state混在一起。</p>
+<h3 id="条件渲染"><a href="#条件渲染" class="headerlink" title="条件渲染"></a>条件渲染</h3><p>当 this.props.loggedIn 为 true 时，这个 HOC 会完全渲染 WrappedComponent 的渲染结果。（假设 HOC 接收到了 loggedIn 这个 prop）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">iHOC</span>(<span class="params">WrappedComponent</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">class</span> <span class="title class_">Enhancer</span> <span class="keyword">extends</span> <span class="title class_ inherited__">WrappedComponent</span> &#123;</span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">loggedIn</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">super</span>.<span class="title function_">render</span>()</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解决WrappedComponent名字丢失问题"><a href="#解决WrappedComponent名字丢失问题" class="headerlink" title="解决WrappedComponent名字丢失问题"></a>解决WrappedComponent名字丢失问题</h3><p>用HOC包裹的组件会丢失原先的名字，影响开发和调试。可以通过在WrappedComponent的名字上加一些前缀来作为HOC的名字，以方便调试。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">HOC</span> <span class="keyword">extends</span> ... &#123;</span><br><span class="line">  <span class="keyword">static</span> displayName = <span class="string">`HOC(<span class="subst">$&#123;getDisplayName(WrappedComponent)&#125;</span>)`</span></span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// getDisplayName</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getDisplayName</span>(<span class="params">WrappedComponent</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">WrappedComponent</span>.<span class="property">displayName</span> ||</span><br><span class="line">         <span class="title class_">WrappedComponent</span>.<span class="property">name</span> ||</span><br><span class="line">         <span class="string">&#x27;Component&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/08/07/React%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89/" data-id="cm1ghkbmg0007zodza3rm9y9x" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-React学习系列（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/05/React%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89/" class="article-date">
+  <time datetime="2019-08-04T19:51:35.000Z" itemprop="datePublished">2019-08-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/05/React%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89/">React学习系列（一）</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    305 字，约需阅读
+    1.11
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="react16以前的diff算法"><a href="#react16以前的diff算法" class="headerlink" title="react16以前的diff算法"></a><code>react16</code>以前的diff算法</h1><p>虚拟<code>dom</code>树是一个<code>tree</code>结构，每一个<code>DOM</code>节点是一个对象，存储对应的虚拟<code>DOM</code>信息，更新时通过树的遍历实现<code>DOM</code>树的更新。</p>
+<h2 id="tree比较"><a href="#tree比较" class="headerlink" title="tree比较"></a><code>tree</code>比较</h2><p>通过遍历更新前后树的结构进行比较，若更新前后相同深度的节点结构不同，则删掉更新前的节点并停止当前节点的更深层次比较</p>
+<h2 id="component比较"><a href="#component比较" class="headerlink" title="component比较"></a><code>component</code>比较</h2><p><code>react</code>假设不同的<code>component</code>具有不同的结构，若<code>component</code>不同则删除原节点并停止更深层次的比较，然后创建新的节点。</p>
+<h2 id="数组元素比较"><a href="#数组元素比较" class="headerlink" title="数组元素比较"></a>数组元素比较</h2><p>数组元素默认通过<code>key</code>进行比较，若不存在<code>key</code>则采用<code>index</code>进行比较，为提高性能建议给数组元素<code>key</code>赋值</p>
+<ul>
+<li>插入：直接插入</li>
+<li>删除：直接删除</li>
+<li>移动：当旧列表中的元素所在位置小于在新列表中元素位置时才会移动元素位置，且把上一次在旧列表中查找到元素位置设置为下一次查找的起始位置</li>
+</ul>
+<h2 id="待做"><a href="#待做" class="headerlink" title="待做"></a>待做</h2><ul>
+<li><code>react16</code>之后的版本把虚拟<code>DOM</code>改为链表结构，使用<code>Fiber</code>进行比较，其比较算法实现</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/08/05/React%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89/" data-id="cm1ghkbmh000azodz4non9pqm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-js基础知识系列（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/29/js%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89/" class="article-date">
+  <time datetime="2019-07-28T17:44:02.000Z" itemprop="datePublished">2019-07-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/29/js%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89/">js基础知识系列（二）</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    692 字，约需阅读
+    2.52
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="变量、作用域和内存问题"><a href="#变量、作用域和内存问题" class="headerlink" title="变量、作用域和内存问题"></a>变量、作用域和内存问题</h2><ul>
+<li><p>参数传递按值传递</p>
+<p>参数是引用数据类型时，传入数据是引用数据类型的地址</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">setName</span>(<span class="params">obj</span>) &#123;</span><br><span class="line">  obj.<span class="property">name</span> = <span class="string">&quot;test1&quot;</span>;</span><br><span class="line">  obj = &#123;&#125;;</span><br><span class="line">  obj.<span class="property">name</span> = <span class="string">&quot;test2&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> test = &#123;&#125;;</span><br><span class="line"><span class="title function_">setName</span>(test);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test.<span class="property">name</span>); <span class="comment">// test1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>垃圾收集</p>
+<ul>
+<li>标记清除：进入环境标记，离开环境清除标记</li>
+<li>引用计数：跟踪每个值引用的次数，引用次数为 0 时，回收所占用内存，当相互引用时，由于引用计数永远无法为 0 而导致内存永远无法释放造成内存泄漏</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> tesObj1 = &#123;&#125;; <span class="comment">// tesObj1 引用加1 = 1</span></span><br><span class="line">  <span class="keyword">var</span> tesObj2 = &#123;&#125;; <span class="comment">// tesObj2 引用加1 = 1</span></span><br><span class="line">  tesObj1.<span class="property">test</span> = tesObj2; <span class="comment">// tesObj2 引用加1 = 2</span></span><br><span class="line">  tesObj2.<span class="property">test</span> = tesObj1; <span class="comment">// tesObj1 引用加1 = 2</span></span><br><span class="line">&#125; <span class="comment">// tesObj1 引用减1 = 1， tesObj2 引用减1 = 1，tesObj1和tesObj2引用都不为0内存不释放</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>IE 中的<code>BOM</code>和<code>DOM</code>是<code>C++</code>中<code>COM</code>模型的实现，使用引用计数，在相互引用时请使用手动断开相互应用的方式释放内存</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> ele = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;root&quot;</span>); <span class="comment">// tesObj1 引用加1 = 1</span></span><br><span class="line">  <span class="keyword">var</span> tesObj2 = &#123;&#125;; <span class="comment">// tesObj2 引用加1 = 1</span></span><br><span class="line">  ele.<span class="property">test</span> = tesObj2; <span class="comment">// tesObj2 引用加1 = 2</span></span><br><span class="line">  tesObj2.<span class="property">test</span> = ele; <span class="comment">// ele 引用加1 = 2</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 其它操作</span></span><br><span class="line">  ele.<span class="property">test</span> = <span class="literal">null</span>; <span class="comment">// tesObj2 引用减1 = 1</span></span><br><span class="line">  tesObj2.<span class="property">test</span> = <span class="literal">null</span>; <span class="comment">// ele 引用减1 = 1</span></span><br><span class="line">&#125; <span class="comment">// ele 引用减1 = 0， tesObj2 引用减1 = 0，ele和tesObj2引用都为0内存回收</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>管理内存</p>
+<ul>
+<li>局部变量会在离开执行环境时自动解除引用</li>
+<li>全局变量需要手动解除引用以释放占用内存<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">createObj</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> temp = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">  <span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> test = <span class="title function_">createObjt</span>(); <span class="comment">// 全局变量</span></span><br><span class="line"><span class="comment">// 其它操作</span></span><br><span class="line">test = <span class="literal">null</span>； <span class="comment">// 解除引用，释放内存</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h2><ul>
+<li><code>Oject</code>类型</li>
+<li><code>Array</code>类型<ul>
+<li>数组初始化，默认值为<code>undefined</code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr1 = [<span class="number">2</span>, <span class="number">3</span>]; <span class="comment">// 不推荐，IE8之前三个元素：1、2、undefined，其它为两个元素</span></span><br><span class="line"><span class="keyword">var</span> arr2 = [, , ,]; <span class="comment">// 不推荐，IE8之前4个元素都为undefined，其它为3个元素都为undefined</span></span><br></pre></td></tr></table></figure></li>
+<li>数组长度，最大元素加 1，<code>length</code>可读写</li>
+<li>检测数组<ul>
+<li>一个执行环境可以使用<code>instancof</code>，多个框架中传递数组且各自框架中的构造函数不同时无法检测</li>
+<li><code>ES5</code>使用<code>Array.isArray()</code>判断是否为数组，<code>IE9+</code>及其它</li>
+</ul>
+</li>
+<li>转化方法，默认使用元素加<code>,</code>的方式拼接为字符串，可以使用<code>join</code>的方式拼接元素</li>
+<li>栈方法：<code>push</code>，<code>pop</code></li>
+<li>队列方法：<code>push</code>，<code>shift</code>，通过<code>unshift</code>和<code>pop</code>模拟反向队列</li>
+<li>排序：<code>sort</code>和<code>reverse</code>（反转数组）</li>
+<li>操作方法<ul>
+<li><code>concat</code>：连接两个数组产生新数组</li>
+<li><code>slice</code>：基于当前数组创建新数组</li>
+<li><code>splice</code>：向数组中插入项</li>
+</ul>
+</li>
+<li>位置方法：<code>indexOf</code>和<code>lastIndexOf</code></li>
+<li>迭代方法：<code>every</code>和<code>filter</code>和<code>forEach</code>和<code>some</code>和<code>map</code></li>
+<li>归并方法：<code>reduce</code>和<code>reduceRight</code>，参数<code>function(prev, curr, index, array)&#123;return valur;&#125;</code></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/07/29/js%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89/" data-id="cm1ghkbms001gzodz8r98dyn3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-js基础知识系列（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/21/js%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89/" class="article-date">
+  <time datetime="2019-07-20T17:10:50.000Z" itemprop="datePublished">2019-07-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/js%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89/">js基础知识系列（一）</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    1k 字，约需阅读
+    3.64
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="script标签"><a href="#script标签" class="headerlink" title="script标签"></a><code>script</code>标签</h2><p>可以通过内联和外联的方式引入脚本，当引入外部脚本后，当前标签内联的脚本就不会执行</p>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><ul>
+<li><code>async</code>：立即下载脚本，但不阻塞页面渲染，脚本下载完毕之后立即执行，不能保证脚本按照顺序执行</li>
+<li><code>charset</code>：指定脚本的编码字符集</li>
+<li><code>defer</code>：脚本延迟到页面完全解析后依次执行脚本</li>
+<li><code>language</code>：脚本语言，已废弃</li>
+<li><code>src</code>：脚本<code>url</code></li>
+<li><code>type</code>：脚本语言类型（也称为<code>MIME</code>类型），外联脚本可不填，可以为<code>text/ecmascript</code>和<code>text/javascript</code>，默认为<code>text/javascript</code></li>
+</ul>
+<h2 id="javascript基本语法"><a href="#javascript基本语法" class="headerlink" title="javascript基本语法"></a><code>javascript</code>基本语法</h2><h3 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h3><ul>
+<li>必须以字母、下划线、或美元符号开头</li>
+<li>其它字符可以为字母、下划线、美元符号或数字等字符</li>
+</ul>
+<h3 id="严格模式（ECMAScrpit5引入）"><a href="#严格模式（ECMAScrpit5引入）" class="headerlink" title="严格模式（ECMAScrpit5引入）"></a>严格模式（<code>ECMAScrpit5</code>引入）</h3><ul>
+<li>通过<code>&quot;use strict;&quot;</code>启用严格模式</li>
+<li>本质是一个编译指示，告诉引擎切换到严格模式</li>
+<li>严格模式下，<code>ECMAScrpit3</code>一些不确定行为会抛出异常</li>
+</ul>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p>基本的数据类型（简单数据类型）有 5 种：<code>undefined</code>、<code>null</code>、<code>boolean</code>、<code>number</code>、<code>string</code>，复杂数据类型<code>object</code></p>
+<ul>
+<li><p><code>typeof</code>操作符</p>
+<ul>
+<li><code>null</code>或者对象都返回<code>object</code></li>
+</ul>
+</li>
+<li><p><code>Boolean</code>类型转化</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">数据类型</th>
+<th align="left">转化为<code>true</code>的值</th>
+<th align="left">转化为<code>false</code>的值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">string</td>
+<td align="left">任何非空值</td>
+<td align="left">“”</td>
+</tr>
+<tr>
+<td align="left">number</td>
+<td align="left">任何非 0 数值（包括无穷大）</td>
+<td align="left">0 和 NaN</td>
+</tr>
+<tr>
+<td align="left">object</td>
+<td align="left">任何对象</td>
+<td align="left">null</td>
+</tr>
+<tr>
+<td align="left">undefined</td>
+<td align="left"></td>
+<td align="left">undefined</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p><code>number</code>类型</p>
+<ul>
+<li>八进制用<code>0</code>开头，16 进制用<code>0x</code>开头</li>
+<li>科学计数法<code>3e5</code>表示 300000</li>
+<li>数值转化<ul>
+<li><code>true</code>转化为 1，<code>false</code>转化为 0</li>
+<li><code>undefined</code>转化为<code>NaN</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>string</code>类型</p>
+<ul>
+<li><code>toString</code>方法，参数可选基数 2、8、10、16，默认为 10 进制</li>
+<li><code>String</code>方法<ul>
+<li>若存在<code>toString</code>方法，则调用<code>toString</code>方法转化为 10 进制字符串</li>
+<li>若为<code>null</code>，则返回<code>&quot;null&quot;</code></li>
+<li>若为<code>undefined</code>，则返回<code>&quot;undefined&quot;</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>object</code>对象</p>
+<ul>
+<li><code>constructor</code>：创建对象的函数</li>
+<li><code>hasOwnProperty</code>：属性是否存在于当前对象而不是原型链中</li>
+<li><code>isPropertyOf</code>：检查传入对象是否为当前对象的原型</li>
+<li><code>propertyIsEnumerable</code>：检查属性是否可以用<code>for-in</code>枚举</li>
+<li><code>toLocaleString</code>：返回对象的字符串表示</li>
+<li><code>toString</code>：返回对象的字符串表示</li>
+<li><code>valueOf</code>：返回对象的字符串、数值或布尔值表示，通常于<code>toString</code>相同</li>
+</ul>
+</li>
+</ul>
+<h3 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h3><ul>
+<li><p>位操作符</p>
+<ul>
+<li><code>~</code>按位非</li>
+<li><code>&amp;</code>按位与</li>
+<li><code>|</code>按位或</li>
+<li><code>^</code>按位异或</li>
+<li><code>&gt;&gt;</code>有符号右移</li>
+<li><code>&lt;&lt;</code>有符号左移</li>
+<li><code>&gt;&gt;&gt;</code>无符号右移</li>
+</ul>
+</li>
+<li><p>相等操作符</p>
+<ul>
+<li>相等（&#x3D;&#x3D;）和不相等（!&#x3D;），强制转化数据类型后再比较</li>
+<li>全等（&#x3D;&#x3D;&#x3D;）和全不等（!&#x3D;&#x3D;），不转化数据类型直接比较</li>
+</ul>
+</li>
+<li><p>逗号操作符</p>
+<ul>
+<li>一条语句执行多个操作</li>
+<li>赋值时返回表达式的最后一项</li>
+</ul>
+</li>
+</ul>
+<h3 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h3><ul>
+<li><p><code>for - in</code>语句循环，没有顺序，<code>null</code>和<code>undefined</code>会抛出异常</p>
+</li>
+<li><p><code>label</code>语句，在代码中添加标签，和<code>break</code>及<code>continue</code>配合使用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 存在lable标签</span></span><br><span class="line"><span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">  <span class="attr">outermost</span>: <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; <span class="number">10</span>; j++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> k = <span class="number">0</span>; k &lt; <span class="number">10</span>; k++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (i &gt;= <span class="number">5</span> &amp;&amp; k &gt;= <span class="number">5</span>) &#123;</span><br><span class="line">        <span class="keyword">break</span> outermost;</span><br><span class="line">      &#125;</span><br><span class="line">      count++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(count); <span class="comment">// 525</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 不存在lable标签</span></span><br><span class="line"><span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; <span class="number">10</span>; j++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> k = <span class="number">0</span>; k &lt; <span class="number">10</span>; k++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (i &gt;= <span class="number">5</span> &amp;&amp; k &gt;= <span class="number">5</span>) &#123;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      count++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(count); <span class="comment">// 750</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>with</code>语句</p>
+<ul>
+<li><p>限定作用域在局部对象中，若在局部变量中找不到定义，则在<code>with</code>对象中查找对应的属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">with</span> (location) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(pathname); <span class="comment">// location.pathname</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>); <span class="comment">// window</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>with</code>造成性能下降及调试困难，建议少用</p>
+</li>
+</ul>
+</li>
+<li><p>函数</p>
+<ul>
+<li><p><code>arguments</code>参数</p>
+<ul>
+<li><p>类似数组，可通过下标形式访问参数，通过 length 属性获取传入参数个数</p>
+</li>
+<li><p><code>arguments</code>值与对应参数值同步，但不是共用一块内存，而是值的复制</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">doAdd</span>(<span class="params">num1, num2</span>) &#123;</span><br><span class="line">  <span class="variable language_">arguments</span>[<span class="number">1</span>] = <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="variable language_">arguments</span>[<span class="number">0</span>] + num2;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">doAdd</span>(<span class="number">1</span>, <span class="number">2</span>)); <span class="comment">// 11</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>没有签名，因为参数是由包含 0 个或者多个值的数组实现的</p>
+</li>
+<li><p>没有重载，后定义的函数覆盖之前定义的函数</p>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/07/21/js%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89/" data-id="cm1ghkbmr0018zodz55lq0z9s" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="pm2-日志记录和日志分割" class="article article-type-pm2" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/20/%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E5%92%8C%E6%97%A5%E5%BF%97%E5%88%86%E5%89%B2/" class="article-date">
+  <time datetime="2019-05-19T16:12:12.000Z" itemprop="datePublished">2019-05-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/20/%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E5%92%8C%E6%97%A5%E5%BF%97%E5%88%86%E5%89%B2/">日志记录和日志分割</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    383 字，约需阅读
+    1.39
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="pm2介绍"><a href="#pm2介绍" class="headerlink" title="pm2介绍"></a>pm2介绍</h1><p>生产环境的node管理工具</p>
+<h1 id="pm2日志"><a href="#pm2日志" class="headerlink" title="pm2日志"></a>pm2日志</h1><ul>
+<li><p>pm2默认输出日志路径</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">错误日志：  /home/username/.pm2/logs/</span><br><span class="line">普通日志：  /home/username/.pm2/logs/</span><br></pre></td></tr></table></figure></li>
+<li><p>存在问题</p>
+<ul>
+<li>无法对日志文件进行切割</li>
+<li>清理日志文件需要手动触发</li>
+</ul>
+</li>
+</ul>
+<h1 id="pm2-logrotate日志管理"><a href="#pm2-logrotate日志管理" class="headerlink" title="pm2-logrotate日志管理"></a><code>pm2-logrotate</code>日志管理</h1><h2 id="安装pm2-logrotate"><a href="#安装pm2-logrotate" class="headerlink" title="安装pm2-logrotate"></a>安装<code>pm2-logrotate</code></h2><p><code>pm2 install pm2-logrotate</code></p>
+<h2 id="pm2-logrotate参数配置"><a href="#pm2-logrotate参数配置" class="headerlink" title="pm2-logrotate参数配置"></a><code>pm2-logrotate</code>参数配置</h2><ul>
+<li><p>max_size (Defaults to 10M): 单个日志文件的最大值，例如：10G, 10M, 10K</p>
+</li>
+<li><p>retain (Defaults to 30 file logs): 可以存储的最大日志文件数量, 例如为7时，表示可以保存7个最新的日志文件加当前使用的日志文件</p>
+</li>
+<li><p>compress (Defaults to false): 压缩存储的历史日志文件，不包括当前使用的日志文件</p>
+</li>
+<li><p>dateFormat (Defaults to YYYY-MM-DD_HH-mm-ss) : 日志文件名称格式</p>
+</li>
+<li><p>rotateModule (Defaults to true) : Rotate the log of pm2’s module like other apps</p>
+</li>
+<li><p>workerInterval (Defaults to 30 in secs) : 调用检查日志文件大小任务的定时器时间间隔，默认值为30秒，最小值为1秒</p>
+</li>
+<li><p>rotateInterval (Defaults to 0 0 * * * everyday at midnight): This cron is used to a force rotate when executed. We are using node-schedule to schedule cron, so all valid cron for node-schedule is valid cron for this option. Cron style :</p>
+</li>
+<li><p>TZ (Defaults to system time): This is the standard tz database timezone used to offset the log file saved. For instance, a value of Etc&#x2F;GMT-1, with an hourly log, will save a file at hour 14 GMT with hour 13 GMT-1 in the log name.</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">*    *    *    *    *    *</span><br><span class="line">┬    ┬    ┬    ┬    ┬    ┬</span><br><span class="line">│    │    │    │    │    |</span><br><span class="line">│    │    │    │    │    └ day of week (0 - 7) (0 or 7 is Sun)</span><br><span class="line">│    │    │    │    └───── month (1 - 12)</span><br><span class="line">│    │    │    └────────── day of month (1 - 31)</span><br><span class="line">│    │    └─────────────── hour (0 - 23)</span><br><span class="line">│    └──────────────────── minute (0 - 59)</span><br><span class="line">└───────────────────────── second (0 - 59, OPTIONAL)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://pm2.keymetrics.io/">pm2官方文档</a></li>
+<li><a href="https://github.com/keymetrics/pm2-logrotate">pm2-logrotate官方文档</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/05/20/%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E5%92%8C%E6%97%A5%E5%BF%97%E5%88%86%E5%89%B2/" data-id="cm1ghkbnh004rzodzfsk74p8m" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/" rel="tag">node</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-react-webpack项目中的babel配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/06/react-webpack%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84babel%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time datetime="2018-09-05T21:25:42.000Z" itemprop="datePublished">2018-09-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/06/react-webpack%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84babel%E9%85%8D%E7%BD%AE/">react+webpack项目中的babel配置</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    321 字，约需阅读
+    1.17
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="babel配置位置"><a href="#babel配置位置" class="headerlink" title="babel配置位置"></a>babel配置位置</h2><ul>
+<li><p>项目根目录<code>.babelrc</code>中配置，<code>json</code>格式</p>
+  <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;presets&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;预设条件&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;plugins&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;插件&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在<code>package.json</code>文件中配置</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>: <span class="string">&quot;project&quot;</span>,</span><br><span class="line">    <span class="string">&quot;version&quot;</span>: <span class="string">&quot;0.0.1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;babel&quot;</span>: &#123;</span><br><span class="line">        <span class="comment">// babel配置</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="react中的babel配置"><a href="#react中的babel配置" class="headerlink" title="react中的babel配置"></a><code>react</code>中的<code>babel</code>配置</h2><ul>
+<li><p><code>react</code>解析<code>jsx</code>语法，<code>npm install babel-preset-react</code>安装相关依赖</p>
+</li>
+<li><p><code>es2015</code>解析<code>es6</code>语法，<code>npm install babel-preset-es2015</code>安装相关依赖</p>
+</li>
+<li><p><code>es</code>提案各个阶段的语法支持插件，<code>npm install babel-preset-stage-0 babel-preset-stage-1 babel-preset-stage-2 babel-preset-stage-3</code>安装相关依赖</p>
+  <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;presets&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;react&quot;</span><span class="punctuation">,</span> <span class="string">&quot;es2015&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;plugins&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;插件&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="配置示例"><a href="#配置示例" class="headerlink" title="配置示例"></a>配置示例</h2><ul>
+<li><p>无参数</p>
+  <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;presets&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;react&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;es2015&quot;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;plugins&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;transform-es2015-arrow-functions&quot;</span><span class="punctuation">,</span> <span class="comment">//转译箭头函数</span></span><br><span class="line">        <span class="string">&quot;transform-es2015-classes&quot;</span><span class="punctuation">,</span> <span class="comment">//转译class语法</span></span><br><span class="line">        <span class="string">&quot;transform-es2015-spread&quot;</span><span class="punctuation">,</span> <span class="comment">//转译数组解构</span></span><br><span class="line">        <span class="string">&quot;transform-es2015-for-of&quot;</span> <span class="comment">//转译for-of</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>有参数</p>
+  <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;presets&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;react&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;es2015&quot;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;plugins&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="comment">//改为数组，第二个元素为配置项</span></span><br><span class="line">        <span class="punctuation">[</span><span class="string">&quot;transform-es2015-arrow-functions&quot;</span><span class="punctuation">,</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;spec&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span> <span class="punctuation">&#125;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ul>
+<li>官方推荐<code>babel-preset-env</code>，上面的插件已经不推荐，参考链接<a href="https://www.babeljs.cn/docs/plugins/preset-env/">官方babel-preset-env配置参考</a></li>
+</ul>
+<h2 id="参考资源"><a href="#参考资源" class="headerlink" title="参考资源"></a>参考资源</h2><ul>
+<li><a href="https://babeljs.io/docs/en/plugins/">babel插件列表</a></li>
+<li><a href="https://babeljs.io/docs/en/plugins/#presets">babel预设条件插件列表</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2018/09/06/react-webpack%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84babel%E9%85%8D%E7%BD%AE/" data-id="cm1ghkbn40034zodz19fqbxx5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-js学习（三）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/13/js%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/" class="article-date">
+  <time datetime="2018-08-12T19:13:51.000Z" itemprop="datePublished">2018-08-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/13/js%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/">js学习（三）</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    870 字，约需阅读
+    3.16
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="DOM和事件对象"><a href="#DOM和事件对象" class="headerlink" title="DOM和事件对象"></a>DOM和事件对象</h2><ul>
+<li>事件冒泡：事件由目标元素逐渐向上传递到document</li>
+<li>事件捕获：事件有document逐渐向下传递逐渐追溯到目标元素</li>
+</ul>
+<h3 id="Event事件对象的通用属性"><a href="#Event事件对象的通用属性" class="headerlink" title="Event事件对象的通用属性"></a>Event事件对象的通用属性</h3><table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">说明</th>
+<th align="left">返回值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">type</td>
+<td align="left">事件名称</td>
+<td align="left">字符串（如mouseover）</td>
+</tr>
+<tr>
+<td align="left">target</td>
+<td align="left">事件指向的目标元素</td>
+<td align="left">HTMLElement</td>
+</tr>
+<tr>
+<td align="left">currentTarget</td>
+<td align="left">带有当前被触发事件监听器的元素</td>
+<td align="left">HTMLElement</td>
+</tr>
+<tr>
+<td align="left">eventPhase</td>
+<td align="left">事件生命周期阶段</td>
+<td align="left">数值</td>
+</tr>
+<tr>
+<td align="left">bubbles</td>
+<td align="left">如果事件可以在文档中冒泡返回true，否则返回false</td>
+<td align="left">boolean</td>
+</tr>
+<tr>
+<td align="left">cancelable</td>
+<td align="left">如果事件有可以撤销的默认行为返回true，否则返回false</td>
+<td align="left">boolean</td>
+</tr>
+<tr>
+<td align="left">timeStamp</td>
+<td align="left">事件创建的时间，时间不可用就返回0</td>
+<td align="left">字符串</td>
+</tr>
+<tr>
+<td align="left">stopPropagation()</td>
+<td align="left">在当前事件监听器触发后，阻止其在元素中的流动，包括冒泡和捕获</td>
+<td align="left">void</td>
+</tr>
+<tr>
+<td align="left">stopImmediatePropagation()</td>
+<td align="left">立即终止事件在在元素中的流动，当前元素上未被触发的事件监听器会被忽略</td>
+<td align="left">void</td>
+</tr>
+<tr>
+<td align="left">preventDefault()</td>
+<td align="left">阻止浏览器执行与事件关联的默认操作</td>
+<td align="left">void</td>
+</tr>
+<tr>
+<td align="left">defaultPrevented</td>
+<td align="left">如果调用了preventDefault()返回true</td>
+<td align="left">boolean</td>
+</tr>
+</tbody></table>
+<h5 id="eventPhase值"><a href="#eventPhase值" class="headerlink" title="eventPhase值"></a>eventPhase值</h5><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Event.CAPTURING_PHASE</td>
+<td>捕获阶段</td>
+</tr>
+<tr>
+<td>Event.AT_TARGET</td>
+<td>目标阶段</td>
+</tr>
+<tr>
+<td>Event.BUBBLING_PHASE</td>
+<td>冒泡阶段</td>
+</tr>
+</tbody></table>
+<h3 id="Document对象事件"><a href="#Document对象事件" class="headerlink" title="Document对象事件"></a>Document对象事件</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>readystatechange</td>
+<td>在readystate属性发生变化时触发</td>
+</tr>
+</tbody></table>
+<h3 id="window事件对象"><a href="#window事件对象" class="headerlink" title="window事件对象"></a>window事件对象</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>onabort</td>
+<td>在文档或者资源加载过程被终止时触发</td>
+</tr>
+<tr>
+<td>onbeforeprint</td>
+<td>在用户调用window.print()方法，但尚未给用户提供打印时触发</td>
+</tr>
+<tr>
+<td>onafterprint</td>
+<td>在用户完成打印之后触发</td>
+</tr>
+<tr>
+<td>onerror</td>
+<td>在文档或者资源加载发生错误时触发</td>
+</tr>
+<tr>
+<td>onhashchange</td>
+<td>在锚部分发生变化时触发</td>
+</tr>
+<tr>
+<td>onload</td>
+<td>在文档或者资源加载完成时触发</td>
+</tr>
+<tr>
+<td>onpopstate</td>
+<td>触发后提供一个关联浏览器的状态对象</td>
+</tr>
+<tr>
+<td>onresize</td>
+<td>在窗口缩放时触发</td>
+</tr>
+<tr>
+<td>onunload</td>
+<td>在文档从或者浏览器中卸载时触发</td>
+</tr>
+</tbody></table>
+<h3 id="鼠标事件"><a href="#鼠标事件" class="headerlink" title="鼠标事件"></a>鼠标事件</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>click</td>
+<td>点击鼠标并释放鼠标键时触发</td>
+</tr>
+<tr>
+<td>dblclick</td>
+<td>在两次点击并释放鼠标键时触发</td>
+</tr>
+<tr>
+<td>mousedown</td>
+<td>在鼠标左键按下时触发</td>
+</tr>
+<tr>
+<td>mouseenter</td>
+<td>在光标移入元素或者其后代元素区域时触发</td>
+</tr>
+<tr>
+<td>mouseleave</td>
+<td>在光标移出元素及所有后代元素区域时触发</td>
+</tr>
+<tr>
+<td>mousemove</td>
+<td>在光标在元素上移动时触发</td>
+</tr>
+<tr>
+<td>mouseout</td>
+<td>指针移出元素，或者移到它的子元素上</td>
+</tr>
+<tr>
+<td>mouserover</td>
+<td>指针移到有事件监听的元素或者它的子元素内</td>
+</tr>
+<tr>
+<td>mouseup</td>
+<td>释放鼠标时触发</td>
+</tr>
+</tbody></table>
+<h5 id="事件特有属性"><a href="#事件特有属性" class="headerlink" title="事件特有属性"></a>事件特有属性</h5><table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">说明</th>
+<th align="left">返回值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">button</td>
+<td align="left">点击的键，0左（主）键，1中键，2右（次）键</td>
+<td align="left">数值</td>
+</tr>
+<tr>
+<td align="left">altkey</td>
+<td align="left">是否按下alt&#x2F;option键</td>
+<td align="left">boolean</td>
+</tr>
+<tr>
+<td align="left">clientX</td>
+<td align="left">相对于目标元素的x轴坐标</td>
+<td align="left">number</td>
+</tr>
+<tr>
+<td align="left">clientY</td>
+<td align="left">相对于目标元素的y轴坐标</td>
+<td align="left">number</td>
+</tr>
+<tr>
+<td align="left">screenX</td>
+<td align="left">相对于窗口的x轴坐标</td>
+<td align="left">number</td>
+</tr>
+<tr>
+<td align="left">screenY</td>
+<td align="left">相对于窗口的y轴坐标</td>
+<td align="left">number</td>
+</tr>
+<tr>
+<td align="left">shiftkey</td>
+<td align="left">是否按下shift键</td>
+<td align="left">boolean</td>
+</tr>
+<tr>
+<td align="left">ctrlkey</td>
+<td align="left">是否按下ctrl键</td>
+<td align="left">boolean</td>
+</tr>
+</tbody></table>
+<h3 id="键盘焦点事件"><a href="#键盘焦点事件" class="headerlink" title="键盘焦点事件"></a>键盘焦点事件</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>blur</td>
+<td>失去焦点</td>
+</tr>
+<tr>
+<td>focus</td>
+<td>获得焦点</td>
+</tr>
+<tr>
+<td>focusin</td>
+<td>即将获得焦点</td>
+</tr>
+<tr>
+<td>focusout</td>
+<td>即将失去焦点</td>
+</tr>
+</tbody></table>
+<h3 id="键盘事件"><a href="#键盘事件" class="headerlink" title="键盘事件"></a>键盘事件</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>keydown</td>
+<td>按键被按下时</td>
+</tr>
+<tr>
+<td>keypress</td>
+<td>按键被按下并被释放时</td>
+</tr>
+<tr>
+<td>keyup</td>
+<td>按键被释放时</td>
+</tr>
+</tbody></table>
+<h5 id="事件特有属性-1"><a href="#事件特有属性-1" class="headerlink" title="事件特有属性"></a>事件特有属性</h5><table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">说明</th>
+<th align="left">返回值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">char</td>
+<td align="left">按键代表的字符</td>
+<td align="left">字符串</td>
+</tr>
+<tr>
+<td align="left">key</td>
+<td align="left">所按的键</td>
+<td align="left">字符串</td>
+</tr>
+<tr>
+<td align="left">altkey</td>
+<td align="left">是否按下alt&#x2F;option键</td>
+<td align="left">boolean</td>
+</tr>
+<tr>
+<td align="left">shiftkey</td>
+<td align="left">是否按下shift键</td>
+<td align="left">boolean</td>
+</tr>
+<tr>
+<td align="left">ctrlkey</td>
+<td align="left">是否按下ctrl键</td>
+<td align="left">boolean</td>
+</tr>
+<tr>
+<td align="left">repeat</td>
+<td align="left">该建是否一直处于被按下的状态</td>
+<td align="left">boolean</td>
+</tr>
+</tbody></table>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/Events">事件参考</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2018/08/13/js%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/" data-id="cm1ghkbmw001xzodz9w2n9f89" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-设计模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="article-date">
+  <time datetime="2018-08-08T09:31:17.000Z" itemprop="datePublished">2018-08-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    1.3k 字，约需阅读
+    4.73
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="设计模式的六大原则"><a href="#设计模式的六大原则" class="headerlink" title="设计模式的六大原则"></a>设计模式的六大原则</h2><ol>
+<li>开闭原则（Open Close Principle）</li>
+</ol>
+<p>  开闭原则的意思是：对扩展开放，对修改关闭。在程序需要进行拓展的时候，不能去修改原有的代码，实现一个热插拔的效果。简言之，是为了使程序的扩展性好，易于维护和升级。想要达到这样的效果，我们需要使用接口和抽象类，后面的具体设计中我们会提到这点。</p>
+<ol start="2">
+<li>里氏代换原则（Liskov Substitution Principle）</li>
+</ol>
+<p>  里氏代换原则是面向对象设计的基本原则之一。 里氏代换原则中说，任何基类可以出现的地方，子类一定可以出现。LSP 是继承复用的基石，只有当派生类可以替换掉基类，且软件单位的功能不受到影响时，基类才能真正被复用，而派生类也能够在基类的基础上增加新的行为。里氏代换原则是对开闭原则的补充。实现开闭原则的关键步骤就是抽象化，而基类与子类的继承关系就是抽象化的具体实现，所以里氏代换原则是对实现抽象化的具体步骤的规范。</p>
+<ol start="3">
+<li>依赖倒转原则（Dependence Inversion Principle）</li>
+</ol>
+<p>  这个原则是开闭原则的基础，具体内容：针对接口编程，依赖于抽象而不依赖于具体。</p>
+<ol start="4">
+<li>接口隔离原则（Interface Segregation Principle）</li>
+</ol>
+<p>  这个原则的意思是：使用多个隔离的接口，比使用单个接口要好。它还有另外一个意思是：降低类之间的耦合度。由此可见，其实设计模式就是从大型软件架构出发、便于升级和维护的软件设计思想，它强调降低依赖，降低耦合。</p>
+<ol start="5">
+<li>迪米特法则，又称最少知道原则（Demeter Principle）</li>
+</ol>
+<p>  最少知道原则是指：一个实体应当尽量少地与其他实体之间发生相互作用，使得系统功能模块相对独立。</p>
+<ol start="6">
+<li>合成复用原则（Composite Reuse Principle）</li>
+</ol>
+<p>  合成复用原则是指：尽量使用合成&#x2F;聚合的方式，而不是使用继承。</p>
+<h2 id="控制反转"><a href="#控制反转" class="headerlink" title="控制反转"></a>控制反转</h2><p>控制反转（Inversion of Control，缩写为IoC），是面向对象编程中的一种设计原则，可以用来减低计算机代码之间的耦合度。其中最常见的方式叫做依赖注入（Dependency Injection，简称DI），还有一种方式叫“依赖查找”（Dependency Lookup）。通过控制反转，对象在被创建的时候，由一个调控系统内所有对象的外界实体，将其所依赖的对象的引用传递给它。</p>
+<p>Class A中用到了Class B的对象b，一般情况下，需要在A的代码中显示的new一个B的对象。</p>
+<p>采用依赖注入技术之后，A的代码只需要定义一个私有的B对象，不需要直接new来获得这个对象，而是通过相关的容器控制程序来将B对象在外部new出来并注入到A类里的引用中。而具体获取的方法、对象被获取时的状态由配置文件（如XML）来指定。</p>
+<ul>
+<li><p>依赖倒置原则：实体必须依靠抽象而不是具体实现。它表示高层次的模块不应该依赖于低层次的模块，它们都应该依赖于抽象。在传统软件设计中，我们一般都是上层代码依赖下层代码，当下层代码变动时，我们上层代码要跟着变动，维护成本比较高。这时我们可以上层定义接口，下层来实现这个接口，从而使得下层依赖于上层，降低耦合度。</p>
+</li>
+<li><p>依赖注入：核心思想是把类中所依赖单元的实例化过程放到类外面中去实现，然后把依赖注入进来。常用的依赖注入方式有属性注入和构造函数注入。</p>
+<ul>
+<li>基于接口。实现特定接口以供外部容器注入所依赖类型的对象。</li>
+<li>基于 set 方法。实现特定属性的public set方法，来让外部容器调用传入所依赖类型的对象。</li>
+<li>基于构造函数。实现特定参数的构造函数，在新建对象时传入所依赖类型的对象。</li>
+<li>基于注解。基于Java的注解功能，在私有变量前加“@Autowired”等注解，不需要显式的定义以上三种代码，便可以让外部容器传入对应的对象。该方案相当于定义了public的set方法，但是因为没有真正的set方法，从而不会为了实现依赖注入导致暴露了不该暴露的接口（因为set方法只想让容器访问来注入而并不希望其他依赖此类的对象访问）。</li>
+</ul>
+</li>
+<li><p>依赖查找: 依赖查找更加主动，在需要的时候通过调用框架提供的方法来获取对象，获取时需要提供相关的配置文件路径、key等信息来确定获取对象的状态</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2018/08/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="cm1ghkbnp005zzodz4wekf8f0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/other/" rel="tag">other</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/9/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/11/">下一页 &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/" rel="tag">C&#x2F;C++语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">63</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeORM/" rel="tag">TypeORM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/antd/" rel="tag">antd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/" rel="tag">express</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/form/" rel="tag">form</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/" rel="tag">node</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/" rel="tag">other</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%92%E4%BB%B6/" rel="tag">插件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solution/" rel="tag">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">计算机网络</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/read-book/" rel="tag">读书</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/" rel="tag">资源</a><span class="tag-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/c-language/" style="font-size: 12.5px;">C/C++语言</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/TypeORM/" style="font-size: 10px;">TypeORM</a> <a href="/tags/TypeScript/" style="font-size: 11.25px;">TypeScript</a> <a href="/tags/antd/" style="font-size: 10px;">antd</a> <a href="/tags/express/" style="font-size: 11.25px;">express</a> <a href="/tags/form/" style="font-size: 10px;">form</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mysql/" style="font-size: 12.5px;">mysql</a> <a href="/tags/node/" style="font-size: 18.75px;">node</a> <a href="/tags/other/" style="font-size: 16.25px;">other</a> <a href="/tags/react/" style="font-size: 17.5px;">react</a> <a href="/tags/webpack/" style="font-size: 12.5px;">webpack</a> <a href="/tags/%E6%8F%92%E4%BB%B6/" style="font-size: 10px;">插件</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/solution/" style="font-size: 13.75px;">算法</a> <a href="/tags/network/" style="font-size: 15px;">计算机网络</a> <a href="/tags/read-book/" style="font-size: 10px;">读书</a> <a href="/tags/source/" style="font-size: 12.5px;">资源</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/11/24/%E8%AE%B0%E4%B8%80%E6%AC%A1safari%E7%99%BD%E5%B1%8F%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/">记一次safari白屏问题排查</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/25/%E6%AD%A3%E5%88%99/">正则</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/25/AI/">AI</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/24/zustand/">zustand</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/22/typescript%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%9E%E7%8E%B0/">typescript自定义实现</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 奔跑的蜗牛<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">分类</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>奔跑的蜗牛</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前端开发工程师">
+<meta property="og:type" content="website">
+<meta property="og:title" content="奔跑的蜗牛">
+<meta property="og:url" content="http://example.com/page/8/index.html">
+<meta property="og:site_name" content="奔跑的蜗牛">
+<meta property="og:description" content="前端开发工程师">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="奔跑的蜗牛">
+<meta property="article:tag" content="React、node、webpack">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="0001.jpg#/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="奔跑的蜗牛" type="application/atom+xml">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">奔跑的蜗牛</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">分类</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-react16中生命周期hooks" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/03/react16%E4%B8%AD%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9Fhooks/" class="article-date">
+  <time datetime="2020-08-02T22:14:27.000Z" itemprop="datePublished">2020-08-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/03/react16%E4%B8%AD%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9Fhooks/">react16中生命周期hooks</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    325 字，约需阅读
+    1.18
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>react hooks 推出有段时间了，函数式组件越来越多，当函数式组件中需要使用声明周期钩子时就需要自己封装出一些生命周期函数</p>
+<h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>在函数式组件中如类组件中一样使用生命周期钩子</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-effect.html">Effect Hook</a> 在组件挂载、更新、卸载时都会执行的生命周期钩子</li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-reference.html#useref">useRef</a> 返回一个在组件的整个生命周期内保持不变的 ref 对象</li>
+</ul>
+<h4 id="didMount"><a href="#didMount" class="headerlink" title="didMount"></a>didMount</h4><p>利用 <code>Effect Hook</code> 依赖不变不会再次执行的特性，依赖传入空数组即可实现挂载时执行一次的特性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">useMount</span> = (<span class="params">cb</span>) =&gt; &#123;</span><br><span class="line">  <span class="title function_">useEffect</span>(cb, [])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="update"><a href="#update" class="headerlink" title="update"></a>update</h4><p>利用 <code>useRef</code> 对象在组件的整个生命周期内保持不变的特性，在组件初始化时初始化 ref 对象，判断 ref 对象的状态决定是否执行回调</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">useUpdate</span> = (<span class="params">cb, deps</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> ref = <span class="title function_">useRef</span>(<span class="number">0</span>)</span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (ref.<span class="property">current</span>) &#123;</span><br><span class="line">      <span class="title function_">cb</span>()</span><br><span class="line">    &#125;</span><br><span class="line">    ref.<span class="property">current</span> = ref.<span class="property">current</span> + <span class="number">1</span></span><br><span class="line">  &#125;, deps)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Unmout"><a href="#Unmout" class="headerlink" title="Unmout"></a>Unmout</h4><p>利用 <code>Effect Hook</code> 返回值在组件卸载时执行的特性，在组件初始化时把回调作为其返回值，即可实现卸载执行的特性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">useUnmout</span> = (<span class="params">cb</span>) =&gt; &#123;</span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> cb</span><br><span class="line">  &#125;, [])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://github.com/JackXuyi/web-exercise/blob/master/react/src/page/hooks.js">生命周期 hooks 源码参考</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-intro.html">react hooks</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/08/03/react16%E4%B8%AD%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9Fhooks/" data-id="cm1ghkbn40032zodz6xfshr7f" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-排列" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/27/%E6%8E%92%E5%88%97/" class="article-date">
+  <time datetime="2020-07-26T21:50:29.000Z" itemprop="datePublished">2020-07-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/27/%E6%8E%92%E5%88%97/">排列</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    288 字，约需阅读
+    1.05
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>排列，一般地，从 n 个不同元素中取出 m（m≤n）个元素，按照一定的顺序排成一列，叫做从 n 个元素中取出 m 个元素的一个排列(permutation)。特别地，当 m&#x3D;n 时，这个排列被称作全排列(all permutation)。</p>
+<h3 id="算法实现思路"><a href="#算法实现思路" class="headerlink" title="算法实现思路"></a>算法实现思路</h3><p>此问题可以简化为每次从数组中提取出一个元素，再从剩余元素提取所需的 n-1 个元素</p>
+<h3 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 排列问题可以简化为每次从数组中提取出一个元素</span></span><br><span class="line"><span class="comment"> * 边界处理</span></span><br><span class="line"><span class="comment"> *  1. 当只需要一个元素时返回这个元素的二维数组</span></span><br><span class="line"><span class="comment"> *  2. 其它每次提取一个元素放到数组中即可</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getData</span>(<span class="params">arr, restLen</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (arr.<span class="property">length</span> &lt; restLen) &#123;</span><br><span class="line">    <span class="keyword">return</span> []</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> result = []</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> tempArr = arr.<span class="title function_">filter</span>(<span class="function">(<span class="params">ele, index</span>) =&gt;</span> i !== index)</span><br><span class="line">    <span class="keyword">let</span> list = []</span><br><span class="line">    <span class="keyword">if</span> (restLen &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">      list = [[arr[i]]]</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      list = <span class="title function_">getData</span>(tempArr, restLen - <span class="number">1</span>).<span class="title function_">map</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> [arr[i], ...item])</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    result = [...result, ...list]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"><span class="keyword">let</span> list = []</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= arr.<span class="property">length</span>; i++) &#123;</span><br><span class="line">  list = [...list, ...<span class="title function_">getData</span>(arr, i)]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;list&#x27;</span>, list, list.<span class="property">length</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://github.com/JackXuyi/web-exercise/blob/master/algorithm/rank.js">源代码</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/27/%E6%8E%92%E5%88%97/" data-id="cm1ghkbnh004tzodz70myaegf" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solution/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-项目脚手架" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/25/%E9%A1%B9%E7%9B%AE%E8%84%9A%E6%89%8B%E6%9E%B6/" class="article-date">
+  <time datetime="2020-07-25T15:30:03.000Z" itemprop="datePublished">2020-07-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/25/%E9%A1%B9%E7%9B%AE%E8%84%9A%E6%89%8B%E6%9E%B6/">项目脚手架</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    549 字，约需阅读
+    2
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="构建流程"><a href="#构建流程" class="headerlink" title="构建流程"></a>构建流程</h3><ul>
+<li>检查目录文件</li>
+<li>获取初始化参数（包括项目名称、版本等信息）</li>
+<li>获取项目模板（包括本地模板和 github 模板）</li>
+<li>项目中填充参数生成项目</li>
+</ul>
+<h4 id="检查目录"><a href="#检查目录" class="headerlink" title="检查目录"></a>检查目录</h4><p>递归获取对应文件夹下的文件列表</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">traverseDirectory</span>(<span class="params">pathname</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> realPath = <span class="title function_">resolveRootPath</span>(pathname)</span><br><span class="line">  <span class="keyword">if</span> (<span class="title function_">isDirectory</span>(realPath)) &#123;</span><br><span class="line">    <span class="keyword">const</span> result = []</span><br><span class="line">    <span class="keyword">const</span> list = fs.<span class="title function_">readdirSync</span>(realPath)</span><br><span class="line">    <span class="keyword">const</span> len = list.<span class="property">length</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">      <span class="keyword">const</span> tempPath = path.<span class="title function_">resolve</span>(pathname, list[i])</span><br><span class="line">      <span class="keyword">if</span> (<span class="title function_">isDirectory</span>(list[i])) &#123;</span><br><span class="line">        <span class="keyword">const</span> tempArr = <span class="title function_">traverseDirectory</span>(tempPath)</span><br><span class="line">        result.<span class="title function_">push</span>(...tempArr)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        result.<span class="title function_">push</span>(tempPath)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> []</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="初始化参数"><a href="#初始化参数" class="headerlink" title="初始化参数"></a>初始化参数</h4><p>使用 <code>inquirer</code> 通过提问的方式获取对应的参数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">getProjectConfig</span>(<span class="params">pathname</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> defaultProjectName = (pathname || process.<span class="title function_">cwd</span>())</span><br><span class="line">    .<span class="title function_">split</span>(<span class="regexp">/(\/|\\)/</span>)</span><br><span class="line">    .<span class="title function_">reverse</span>()</span><br><span class="line">    .<span class="title function_">filter</span>(<span class="title class_">Boolean</span>)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> answers = <span class="keyword">await</span> inquirer.<span class="title function_">prompt</span>([</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&#x27;name&#x27;</span>,</span><br><span class="line">      <span class="attr">message</span>: <span class="string">&#x27;请输入项目名称&#x27;</span>,</span><br><span class="line">      <span class="attr">default</span>: defaultProjectName,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&#x27;version&#x27;</span>,</span><br><span class="line">      <span class="attr">message</span>: <span class="string">&#x27;请输入版本&#x27;</span>,</span><br><span class="line">      <span class="attr">default</span>: <span class="string">&#x27;1.0.0&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&#x27;author&#x27;</span>,</span><br><span class="line">      <span class="attr">message</span>: <span class="string">&#x27;请输入创建人&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&#x27;template&#x27;</span>,</span><br><span class="line">      <span class="attr">message</span>: <span class="string">&#x27;请选择模板&#x27;</span>,</span><br><span class="line">      <span class="attr">type</span>: <span class="string">&#x27;list&#x27;</span>,</span><br><span class="line">      <span class="attr">choices</span>: <span class="title class_">Object</span>.<span class="title function_">keys</span>(templateMap).<span class="title function_">map</span>(<span class="function">(<span class="params">key</span>) =&gt;</span> (&#123;</span><br><span class="line">        key,</span><br><span class="line">        <span class="attr">value</span>: key,</span><br><span class="line">        <span class="attr">name</span>: templateMap[key].<span class="property">label</span>,</span><br><span class="line">      &#125;)),</span><br><span class="line">    &#125;,</span><br><span class="line">  ])</span><br><span class="line">  <span class="keyword">return</span> answers</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="获取项目模板"><a href="#获取项目模板" class="headerlink" title="获取项目模板"></a>获取项目模板</h4><p>通过初始化参数判断使用的模板类型，若为本地模板则返回文件路径，若为 git 仓库模板则先下载保存在临时文件夹下，返回文件路径</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">getTemplate</span>(<span class="params">key</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> temp = templateMap[key]</span><br><span class="line">  <span class="keyword">if</span> (temp &amp;&amp; temp.<span class="property">isGit</span>) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="title function_">rm</span>(downloadTempRootPath)</span><br><span class="line">      <span class="keyword">const</span> target = <span class="keyword">await</span> <span class="title function_">downloadTemplate</span>(temp.<span class="property">path</span>, downloadTempRootPath, &#123;</span><br><span class="line">        <span class="attr">clone</span>: <span class="literal">true</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">return</span> target</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      <span class="title function_">error</span>(<span class="string">&#x27;\ngit 拉取模板失败，失败原因：&#x27;</span>, e)</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> temp.<span class="property">path</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="项目中填充参数生成项目"><a href="#项目中填充参数生成项目" class="headerlink" title="项目中填充参数生成项目"></a>项目中填充参数生成项目</h4><p>读取模板文件填充模板</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">generateProject</span>(<span class="params">source, destination, config</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">metalsmith</span>(process.<span class="title function_">cwd</span>())</span><br><span class="line">      .<span class="title function_">metadata</span>(config)</span><br><span class="line">      .<span class="title function_">clean</span>(<span class="literal">false</span>)</span><br><span class="line">      .<span class="title function_">source</span>(source)</span><br><span class="line">      .<span class="title function_">destination</span>(destination)</span><br><span class="line">      .<span class="title function_">use</span>(<span class="function">(<span class="params">files, metalsmith, done</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> meta = metalsmith.<span class="title function_">metadata</span>()</span><br><span class="line">        <span class="title class_">Object</span>.<span class="title function_">keys</span>(files).<span class="title function_">forEach</span>(<span class="function">(<span class="params">fileName</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">const</span> t = files[fileName].<span class="property">contents</span>.<span class="title function_">toString</span>()</span><br><span class="line">          files[fileName].<span class="property">contents</span> = <span class="title class_">Buffer</span>.<span class="title function_">from</span>(<span class="title class_">Handlebars</span>.<span class="title function_">compile</span>(t)(meta))</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="title function_">done</span>()</span><br><span class="line">      &#125;)</span><br><span class="line">      .<span class="title function_">build</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="title function_">rm</span>(process.<span class="title function_">cwd</span>())</span><br><span class="line">        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">          <span class="title function_">reject</span>(err)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="title function_">resolve</span>()</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="相关库"><a href="#相关库" class="headerlink" title="相关库"></a>相关库</h3><ul>
+<li><a href="https://github.com/SBoudrias/Inquirer.js#readme">获取用户输入 inquirer</a></li>
+<li><a href="https://gitlab.com/flippidippi/download-git-repo/-/tree/master">下载 git 仓库 download-git-repo</a></li>
+<li><a href="https://github.com/sindresorhus/ora">优化加载过程 ora</a></li>
+<li><a href="https://github.com/segmentio/metalsmith">metalsmith</a></li>
+<li><a href="https://github.com/handlebars-lang/handlebars.js">模板文件处理</a></li>
+<li><a href="https://gitee.com/xuyi-emb/node-excel/tree/master/template">源码参考</a></li>
+</ul>
+<h3 id="todo"><a href="#todo" class="headerlink" title="todo"></a>todo</h3><ul>
+<li>更多模板</li>
+<li>优化模板功能</li>
+<li>package.json 字段详解</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/25/%E9%A1%B9%E7%9B%AE%E8%84%9A%E6%89%8B%E6%9E%B6/" data-id="cm1ghkbnr0069zodz5wz37zgi" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/" rel="tag">node</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-滚动加载更多" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/25/%E6%BB%9A%E5%8A%A8%E5%8A%A0%E8%BD%BD%E6%9B%B4%E5%A4%9A/" class="article-date">
+  <time datetime="2020-07-25T15:29:30.000Z" itemprop="datePublished">2020-07-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/25/%E6%BB%9A%E5%8A%A8%E5%8A%A0%E8%BD%BD%E6%9B%B4%E5%A4%9A/">滚动加载更多</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    1.2k 字，约需阅读
+    4.36
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当页面数据过多为了优化页面加载速度和避免页面的卡顿时使用滚动加载的方式实现数据的分页加载功能</p>
+<h3 id="加载更多方案"><a href="#加载更多方案" class="headerlink" title="加载更多方案"></a>加载更多方案</h3><h4 id="利用-scroll-事件实现"><a href="#利用-scroll-事件实现" class="headerlink" title="利用 scroll 事件实现"></a>利用 scroll 事件实现</h4><p>通过监听对应元素的滚动，不断计算元素相对窗口的位置判断元素是否滚动到底部，若滚动到底部就加载更多</p>
+<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5><ul>
+<li><code>scroll</code> 事件不断触发需要做节流操作实现</li>
+<li>每次触发事件时都要计算元素的位置性能不好</li>
+</ul>
+<h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h5><ul>
+<li>兼容性好</li>
+<li>易于实现</li>
+</ul>
+<h4 id="利用-IntersectionObserver-实现"><a href="#利用-IntersectionObserver-实现" class="headerlink" title="利用 IntersectionObserver 实现"></a>利用 <code>IntersectionObserver</code> 实现</h4><p><code>IntersectionObserver</code>接口 (从属于<code>Intersection Observer API</code>) 提供了一种异步观察目标元素与其祖先元素或顶级文档视窗(<code>viewport</code>)交叉状态的方法。</p>
+<h5 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h5><ul>
+<li><code>IntersectionObserver</code> 是浏览器内部实现的方法，性能较高</li>
+<li>可以自定义视窗重叠的阈值</li>
+</ul>
+<h5 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h5><ul>
+<li>兼容性较差</li>
+</ul>
+<h3 id="使用-IntersectionObserver-的一般流程"><a href="#使用-IntersectionObserver-的一般流程" class="headerlink" title="使用 IntersectionObserver 的一般流程"></a>使用 <code>IntersectionObserver</code> 的一般流程</h3><h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h4><p>初始化 <code>IntersectionObserver</code>，构建 <code>IntersectionObserver</code> 实例，确定视窗窗口和触发阈值及回调函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ob = <span class="keyword">new</span> <span class="title class_">IntersectionObserver</span>(callback, options)</span><br></pre></td></tr></table></figure>
+
+<h5 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h5><h6 id="callback"><a href="#callback" class="headerlink" title="callback"></a>callback</h6><p>当元素可见比例超过指定阈值后，会调用一个回调函数，此回调函数接受两个参数</p>
+<ul>
+<li>entries: 一个 IntersectionObserverEntry 对象的数组，每个被触发的阈值，都或多或少与指定阈值有偏差。</li>
+<li>observer: 被调用的 IntersectionObserver 实例。</li>
+</ul>
+<h6 id="options-可选"><a href="#options-可选" class="headerlink" title="options(可选)"></a>options(可选)</h6><p>一个可以用来配置 observer 实例的对象。如果 options 未指定，observer 实例默认使用文档视口作为 root，并且没有 margin，阈值为 0%（意味着即使一像素的改变都会触发回调函数）。你可以指定以下配置：</p>
+<ul>
+<li>root: 监听元素的祖先元素 Element 对象，其边界盒将被视作视口。目标在根的可见区域的的任何不可见部分都会被视为不可见。</li>
+<li>rootMargin: 一个在计算交叉值时添加至根的边界盒(bounding_box)中的一组偏移量，类型为字符串(string) ，可以有效的缩小或扩大根的判定范围从而满足计算需要。语法大致和 CSS 中的 margin 属性等同; 可以参考 The root element and root margin in Intersection Observer API 来深入了解 margin 的工作原理及其语法。默认值是”0px 0px 0px 0px”。</li>
+<li>threshold: 规定了一个监听目标与边界盒交叉区域的比例值，可以是一个具体的数值或是一组 0.0 到 1.0 之间的数组。若指定值为 0.0，则意味着监听元素即使与根有 1 像素交叉，此元素也会被视为可见. 若指定值为 1.0，则意味着整个元素都是可见的。阈值的默认值为 0.0。</li>
+</ul>
+<h4 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h4><p>调用 <code>observe</code> 观测元素，<code>targetElement</code> 即为观测的元素</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ob.<span class="title function_">observe</span>(targetElement)</span><br></pre></td></tr></table></figure>
+
+<h4 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h4><p>调用 <code>unobserve</code> 取消对元素的观测，<code>target</code> 即为取消观测的对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ob.<span class="title function_">unobserve</span>(target)</span><br></pre></td></tr></table></figure>
+
+<h4 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h4><p>调用 <code>disconnect</code> 终止对所有目标元素可见性变化的观察</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ob.<span class="title function_">disconnect</span>()</span><br></pre></td></tr></table></figure>
+
+<h3 id="在-React-中的实现"><a href="#在-React-中的实现" class="headerlink" title="在 React 中的实现"></a>在 <code>React</code> 中的实现</h3><ul>
+<li>初始化 <code>IntersectionObserver</code>，确定视窗窗口和触发阈值及回调函数</li>
+<li>通过 <code>children</code> 属性获取子组件中的最后一个元素</li>
+<li>监听列表中的最后一个组件，当最后的组件触发事件时加载更多</li>
+<li>引入 <code>intersection-observer</code> 组件做兼容性处理</li>
+</ul>
+<h4 id="完整代码参考"><a href="#完整代码参考" class="headerlink" title="完整代码参考"></a>完整代码参考</h4><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;intersection-observer&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">IProps</span> <span class="keyword">extends</span> <span class="title class_">React</span>.<span class="title class_">DOMAttributes</span>&lt;<span class="title class_">HTMLDivElement</span>&gt; &#123;</span><br><span class="line">  <span class="attr">children</span>: <span class="built_in">any</span></span><br><span class="line">  getRootElement?: <span class="function">(<span class="params"><span class="attr">parent</span>: <span class="title class_">Element</span></span>) =&gt;</span> <span class="title class_">Element</span></span><br><span class="line">  rootMargin?: <span class="built_in">string</span></span><br><span class="line">  observerCallback?: <span class="title class_">IntersectionObserverCallback</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LoadMore</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.PureComponent</span>&lt;<span class="title class_">IProps</span>&gt; &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="attr">ele</span>: <span class="title class_">Element</span> | <span class="literal">null</span> = <span class="literal">null</span></span><br><span class="line">  <span class="keyword">private</span> <span class="attr">observer</span>: <span class="title class_">IntersectionObserver</span> | <span class="literal">undefined</span></span><br><span class="line">  <span class="keyword">private</span> <span class="attr">observerElement</span>: <span class="title class_">Element</span> | <span class="literal">null</span> = <span class="literal">null</span></span><br><span class="line">  <span class="keyword">private</span> <span class="attr">lastThreshold</span>: <span class="built_in">number</span> = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">componentDidMount</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; rootMargin &#125; = <span class="variable language_">this</span>.<span class="property">props</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">observer</span> = <span class="keyword">new</span> <span class="title class_">IntersectionObserver</span>(<span class="variable language_">this</span>.<span class="property">observerCallback</span>, &#123;</span><br><span class="line">      <span class="attr">root</span>: <span class="variable language_">this</span>.<span class="title function_">getRootElement</span>(),</span><br><span class="line">      rootMargin,</span><br><span class="line">      <span class="attr">threshold</span>: [<span class="number">0</span>, <span class="number">0.01</span>],</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">listenLastDom</span>()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">componentDidUpdate</span>(<span class="params"><span class="attr">prevProps</span>: <span class="title class_">IProps</span></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; <span class="attr">children</span>: oldChildren &#125; = prevProps</span><br><span class="line">    <span class="keyword">const</span> &#123; children &#125; = <span class="variable language_">this</span>.<span class="property">props</span></span><br><span class="line">    <span class="keyword">const</span> len = <span class="title class_">React</span>.<span class="property">Children</span>.<span class="title function_">toArray</span>(children).<span class="property">length</span></span><br><span class="line">    <span class="keyword">if</span> (len !== <span class="title class_">React</span>.<span class="property">Children</span>.<span class="title function_">toArray</span>(oldChildren).<span class="property">length</span> &amp;&amp; len) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">listenLastDom</span>()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">componentWillUnmount</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">unobserve</span>()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;</span><br><span class="line">      children,</span><br><span class="line">      getRootElement,</span><br><span class="line">      observerCallback,</span><br><span class="line">      rootMargin,</span><br><span class="line">      ...otherProps</span><br><span class="line">    &#125; = <span class="variable language_">this</span>.<span class="property">props</span></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ref</span>=<span class="string">&#123;this.getElement&#125;</span> &#123;<span class="attr">...otherProps</span>&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;children&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> getRootElement = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; getRootElement &#125; = <span class="variable language_">this</span>.<span class="property">props</span></span><br><span class="line">    <span class="keyword">const</span> ele = <span class="variable language_">this</span>.<span class="property">ele</span> <span class="keyword">as</span> <span class="title class_">Element</span></span><br><span class="line">    <span class="keyword">let</span> parent = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">if</span> (getRootElement) &#123;</span><br><span class="line">      parent = <span class="title function_">getRootElement</span>(</span><br><span class="line">        ele &amp;&amp; ele.<span class="property">parentElement</span></span><br><span class="line">          ? ele.<span class="property">parentElement</span></span><br><span class="line">          : (<span class="variable language_">document</span>.<span class="property">body</span> <span class="keyword">as</span> <span class="title class_">Element</span>),</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!parent &amp;&amp; ele &amp;&amp; ele.<span class="property">parentElement</span>) &#123;</span><br><span class="line">      parent = ele.<span class="property">parentElement</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> parent</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> getElement = <span class="function">(<span class="params"><span class="attr">ele</span>: <span class="title class_">Element</span> | <span class="literal">null</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">ele</span> = ele</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 监听回调</span></span><br><span class="line">  <span class="keyword">private</span> observerCallback = <span class="function">(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="attr">entries</span>: <span class="title class_">IntersectionObserverEntry</span>[],</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="attr">observer</span>: <span class="title class_">IntersectionObserver</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">  </span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> [&#123; intersectionRatio = <span class="number">0</span> &#125;] = entries</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> &#123; observerCallback &#125; = <span class="variable language_">this</span>.<span class="property">props</span></span><br><span class="line">    <span class="keyword">if</span> (intersectionRatio &gt; <span class="variable language_">this</span>.<span class="property">lastThreshold</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (observerCallback) &#123;</span><br><span class="line">        <span class="title function_">observerCallback</span>(entries, observer)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">lastThreshold</span> = intersectionRatio</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 停止监听元素</span></span><br><span class="line">  <span class="keyword">private</span> unobserve = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">observerElement</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">observer</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">observer</span>.<span class="title function_">unobserve</span>(<span class="variable language_">this</span>.<span class="property">observerElement</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 监听元素</span></span><br><span class="line">  <span class="keyword">private</span> listenLastDom = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">ele</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">ele</span>.<span class="property">lastChild</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> <span class="attr">dom</span>: <span class="title class_">Element</span> = <span class="variable language_">this</span>.<span class="property">ele</span>.<span class="property">lastChild</span> <span class="keyword">as</span> <span class="title class_">Element</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">lastThreshold</span> = <span class="number">0</span></span><br><span class="line">      <span class="keyword">const</span> observer = <span class="variable language_">this</span>.<span class="property">observer</span> <span class="keyword">as</span> <span class="title class_">IntersectionObserver</span></span><br><span class="line">      <span class="keyword">if</span> (dom &amp;&amp; observer) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">unobserve</span>()</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">observerElement</span> = dom</span><br><span class="line">        observer.<span class="title function_">observe</span>(<span class="variable language_">this</span>.<span class="property">observerElement</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">LoadMore</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/IntersectionObserver">IntersectionObserver MDN 参考</a></li>
+<li><a href="https://www.npmjs.com/package/intersection-observer">intersection-observer polyfill</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/25/%E6%BB%9A%E5%8A%A8%E5%8A%A0%E8%BD%BD%E6%9B%B4%E5%A4%9A/" data-id="cm1ghkbnl005bzodz4b3vbfwz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mac下查询端口占用并杀掉node进程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/13/mac%E4%B8%8B%E6%9F%A5%E8%AF%A2%E7%AB%AF%E5%8F%A3%E5%8D%A0%E7%94%A8%E5%B9%B6%E6%9D%80%E6%8E%89node%E8%BF%9B%E7%A8%8B/" class="article-date">
+  <time datetime="2020-07-12T20:55:18.000Z" itemprop="datePublished">2020-07-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/13/mac%E4%B8%8B%E6%9F%A5%E8%AF%A2%E7%AB%AF%E5%8F%A3%E5%8D%A0%E7%94%A8%E5%B9%B6%E6%9D%80%E6%8E%89node%E8%BF%9B%E7%A8%8B/">mac 下查询端口占用情况并杀掉对应 node 进程</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    522 字，约需阅读
+    1.9
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="命令行下查询端口占用情况"><a href="#命令行下查询端口占用情况" class="headerlink" title="命令行下查询端口占用情况"></a>命令行下查询端口占用情况</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -i tcp:8080</span><br></pre></td></tr></table></figure>
+
+<p>返回结果如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">COMMAND     PID USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME</span><br><span class="line">node      45971 xxxx   21u  IPv6 0xxxxxxxxxxxxxxxxx      0t0  TCP *:http-alt (LISTEN)</span><br></pre></td></tr></table></figure>
+
+<h3 id="mac-下杀掉进程的命令"><a href="#mac-下杀掉进程的命令" class="headerlink" title="mac 下杀掉进程的命令"></a>mac 下杀掉进程的命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill pid</span><br></pre></td></tr></table></figure>
+
+<h3 id="node-下执行命令"><a href="#node-下执行命令" class="headerlink" title="node 下执行命令"></a>node 下执行命令</h3><ul>
+<li>异步执行命令</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>).<span class="title function_">exec</span>(<span class="string">&quot;cmd&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>promise 包裹后通过 async await 的方式来执行</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; stdout, stderr &#125; = <span class="built_in">require</span>(<span class="string">&quot;util&quot;</span>).<span class="title function_">promisify</span>(</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>).<span class="property">exec</span></span><br><span class="line">)(<span class="string">&quot;cmd&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><h3 id="提取对应占用对应端口的-node-pid"><a href="#提取对应占用对应端口的-node-pid" class="headerlink" title="提取对应占用对应端口的 node pid"></a>提取对应占用对应端口的 node pid</h3><ul>
+<li>通过命令行获取对应的端口占用情况</li>
+<li>获取到的字符串统一转为小写</li>
+<li>通过正则表达式匹配出想要筛选的 node 进程</li>
+<li>通过正则提取对应进程的 pid</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; stdout, stderr &#125; = <span class="keyword">await</span> <span class="built_in">require</span>(<span class="string">&quot;util&quot;</span>).<span class="title function_">promisify</span>(</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>).<span class="property">exec</span></span><br><span class="line">)(<span class="string">`lsof -i tcp:8080`</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> list = stdout</span><br><span class="line">  .<span class="title function_">toLowerCase</span>()</span><br><span class="line">  .<span class="title function_">split</span>(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">  .<span class="title function_">filter</span>(<span class="title class_">Boolean</span>)</span><br><span class="line">  .<span class="title function_">filter</span>(<span class="function">(<span class="params">str</span>) =&gt;</span> <span class="regexp">/^node/</span>.<span class="title function_">test</span>(str))</span><br><span class="line">  .<span class="title function_">map</span>(<span class="function">(<span class="params">str</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> reg = <span class="regexp">/^node\s+(\w+)\s+/</span>.<span class="title function_">exec</span>(str);</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Number</span>(reg[<span class="number">1</span>]);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="执行-kill-命令杀掉对应的-node-进程"><a href="#执行-kill-命令杀掉对应的-node-进程" class="headerlink" title="执行 kill 命令杀掉对应的 node 进程"></a>执行 kill 命令杀掉对应的 node 进程</h3><ul>
+<li>遍历进程数组执行命令杀掉对应进程</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; stdout, stderr &#125; = <span class="keyword">await</span> <span class="built_in">require</span>(<span class="string">&quot;util&quot;</span>).<span class="title function_">promisify</span>(</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>).<span class="property">exec</span></span><br><span class="line">)(<span class="string">`kill 45971`</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><ul>
+<li>可以通过构建 node cli 实现端口查杀对应占用进程的功能</li>
+</ul>
+<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><p>注：<code>utils</code> 文件主要是通过 <code>console</code> 实现的打印功能</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; exec &#125; = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> util = <span class="built_in">require</span>(<span class="string">&quot;util&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; log, error, info &#125; = <span class="built_in">require</span>(<span class="string">&quot;./utils&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> pExec = util.<span class="title function_">promisify</span>(exec);</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">getPid</span>(<span class="params">port</span>) &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; stdout, stderr &#125; = <span class="keyword">await</span> <span class="title function_">pExec</span>(<span class="string">`lsof -i tcp:<span class="subst">$&#123;port&#125;</span>`</span>);</span><br><span class="line">    <span class="keyword">if</span> (stderr) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(stderr);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> list = stdout</span><br><span class="line">        .<span class="title function_">toLowerCase</span>()</span><br><span class="line">        .<span class="title function_">split</span>(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">        .<span class="title function_">filter</span>(<span class="title class_">Boolean</span>)</span><br><span class="line">        .<span class="title function_">filter</span>(<span class="function">(<span class="params">str</span>) =&gt;</span> <span class="regexp">/^node/</span>.<span class="title function_">test</span>(str))</span><br><span class="line">        .<span class="title function_">map</span>(<span class="function">(<span class="params">str</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="title function_">log</span>(str);</span><br><span class="line">          <span class="keyword">const</span> reg = <span class="regexp">/^node\s+(\w+)\s+/</span>.<span class="title function_">exec</span>(str);</span><br><span class="line">          <span class="keyword">return</span> <span class="title class_">Number</span>(reg[<span class="number">1</span>]);</span><br><span class="line">        &#125;);</span><br><span class="line">      <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="title function_">error</span>(e);</span><br><span class="line">    <span class="keyword">return</span> [];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">kill</span>(<span class="params">pid</span>) &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; stdout, stderr &#125; = <span class="keyword">await</span> <span class="title function_">pExec</span>(<span class="string">`kill <span class="subst">$&#123;pid&#125;</span>`</span>);</span><br><span class="line">    <span class="keyword">if</span> (stderr) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(stderr);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (stdout) &#123;</span><br><span class="line">        <span class="title function_">log</span>(stdout);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="title function_">info</span>(<span class="string">`kill pid <span class="subst">$&#123;pid&#125;</span> success`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="title function_">error</span>(e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">init</span>(<span class="params">port</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> pids = <span class="keyword">await</span> <span class="title function_">getPid</span>(port);</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">all</span>(pids.<span class="title function_">map</span>(<span class="function">(<span class="params">pid</span>) =&gt;</span> <span class="title function_">kill</span>(pid)));</span><br><span class="line">    process.<span class="title function_">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="title function_">error</span>(e);</span><br><span class="line">    process.<span class="title function_">exit</span>(<span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">init</span>(<span class="number">8080</span>);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/13/mac%E4%B8%8B%E6%9F%A5%E8%AF%A2%E7%AB%AF%E5%8F%A3%E5%8D%A0%E7%94%A8%E5%B9%B6%E6%9D%80%E6%8E%89node%E8%BF%9B%E7%A8%8B/" data-id="cm1ghkbn1002lzodz8ph67xoz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/" rel="tag">node</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-用ts搭建express项目" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/05/%E7%94%A8ts%E6%90%AD%E5%BB%BAexpress%E9%A1%B9%E7%9B%AE/" class="article-date">
+  <time datetime="2020-07-05T15:19:01.000Z" itemprop="datePublished">2020-07-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/05/%E7%94%A8ts%E6%90%AD%E5%BB%BAexpress%E9%A1%B9%E7%9B%AE/">用ts搭建express项目</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    1.4k 字，约需阅读
+    5.09
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h3><p>进入项目文件夹，执行 <code>npm init</code> 命令，一路回车，最后输入 <code>yes</code> 即可创建项目，生成项目的 <code>package.json</code> 文件，文件内容如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;express-ts&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;main&quot;</span><span class="punctuation">:</span> <span class="string">&quot;index.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;test&quot;</span><span class="punctuation">:</span> <span class="string">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;license&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ISC&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="安装相关依赖"><a href="#安装相关依赖" class="headerlink" title="安装相关依赖"></a>安装相关依赖</h3><ul>
+<li>用 <code>npm install express</code> 安装 <code>express</code></li>
+<li>用 <code>npm install typescript @types/node @types/express -D</code> 安装相关 <code>ts</code> 相关依赖</li>
+<li>用 <code>npm install @babel/cli @babel/core babel-plugin-module-resolver hjson -D</code> 安装相关 <code>babel</code> 相关依赖</li>
+<li>用 <code>npm install ts-node nodemon tsconfig-paths -D</code> 安装开发环境相关依赖</li>
+<li>用 <code>npm install hjson rimraf -D</code> 安装其它依赖</li>
+</ul>
+<h3 id="配置项目"><a href="#配置项目" class="headerlink" title="配置项目"></a>配置项目</h3><ul>
+<li>在根目录下创建 <code>tsconfig.json</code>，配置 <code>ts</code></li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;module&quot;</span><span class="punctuation">:</span> <span class="string">&quot;commonjs&quot;</span><span class="punctuation">,</span> <span class="comment">//指定生成哪个模块系统代码</span></span><br><span class="line">    <span class="attr">&quot;allowJs&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> <span class="comment">// 允许编译javascript文件</span></span><br><span class="line">    <span class="attr">&quot;target&quot;</span><span class="punctuation">:</span> <span class="string">&quot;es5&quot;</span><span class="punctuation">,</span> <span class="comment">//目标代码类型</span></span><br><span class="line">    <span class="attr">&quot;noImplicitAny&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span> <span class="comment">//在表达式和声明上有隐含的&#x27;any&#x27;类型时报错。</span></span><br><span class="line">    <span class="attr">&quot;sourceMap&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span> <span class="comment">//用于debug</span></span><br><span class="line">    <span class="attr">&quot;baseUrl&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./&quot;</span><span class="punctuation">,</span> <span class="comment">// 解析非相对模块名的基准目录</span></span><br><span class="line">    <span class="attr">&quot;rootDir&quot;</span><span class="punctuation">:</span> <span class="string">&quot;src&quot;</span><span class="punctuation">,</span> <span class="comment">//仅用来控制输出的目录结构--outDir。</span></span><br><span class="line">    <span class="attr">&quot;listFiles&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span> <span class="comment">// 编译过程中打印文件名</span></span><br><span class="line">    <span class="attr">&quot;locale&quot;</span><span class="punctuation">:</span> <span class="string">&quot;zh&quot;</span><span class="punctuation">,</span> <span class="comment">// 显示错误信息时使用的语言</span></span><br><span class="line">    <span class="attr">&quot;outDir&quot;</span><span class="punctuation">:</span> <span class="string">&quot;dist&quot;</span><span class="punctuation">,</span> <span class="comment">//重定向输出目录。</span></span><br><span class="line">    <span class="attr">&quot;skipDefaultLibCheck&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> <span class="comment">// 忽略库的默认声明文件的类型检查</span></span><br><span class="line">    <span class="attr">&quot;types&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;node&quot;</span><span class="punctuation">,</span> <span class="string">&quot;express&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;paths&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="comment">// 模块名到基于 baseUrl的路径映射的列表</span></span><br><span class="line">      <span class="attr">&quot;@utils/*&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;src/utils/*&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;include&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;./src/&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;exclude&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;node_modules&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在根目录下创建 <code>babel.config.js</code> 文件配置 <code>babel</code>，本项目中只用到了 <code>babel</code> 编译路径别名的功能</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hjson = <span class="built_in">require</span>(<span class="string">&quot;hjson&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&quot;fs&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> text = fs.<span class="title function_">readFileSync</span>(<span class="string">&quot;./tsconfig.json&quot;</span>, &#123; <span class="attr">encoding</span>: <span class="string">&quot;utf8&quot;</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> tsConfig = hjson.<span class="title function_">parse</span>(text);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> pathMap = tsConfig.<span class="property">compilerOptions</span>.<span class="property">paths</span> || &#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> pathAlias = <span class="title class_">Object</span>.<span class="title function_">keys</span>(pathMap).<span class="title function_">reduce</span>(<span class="function">(<span class="params">prev, curr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> realKey = <span class="string">`<span class="subst">$&#123;curr&#125;</span>`</span>.<span class="title function_">replace</span>(<span class="regexp">/\/\*$/</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> realPath = <span class="string">`/<span class="subst">$&#123;(pathMap[curr] || [])[<span class="number">0</span>]&#125;</span>`</span></span><br><span class="line">    .<span class="title function_">replace</span>(<span class="regexp">/\/\*$/</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">    .<span class="title function_">replace</span>(<span class="regexp">/^\S*src/</span>, <span class="string">&quot;./dist&quot;</span>);</span><br><span class="line">  prev[realKey] = realPath;</span><br><span class="line">  <span class="keyword">return</span> prev;</span><br><span class="line">&#125;, &#123;&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="keyword">function</span> (<span class="params">api</span>) &#123;</span><br><span class="line">  api.<span class="title function_">cache</span>(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> plugins = [</span><br><span class="line">    [</span><br><span class="line">      <span class="string">&quot;module-resolver&quot;</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">root</span>: [<span class="string">&quot;dist/&quot;</span>],</span><br><span class="line">        <span class="attr">alias</span>: pathAlias,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  ];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    plugins,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在根目录下创建 <code>nodemon.json</code>，配置开发环境</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;restartable&quot;</span><span class="punctuation">:</span> <span class="string">&quot;rs&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;ignore&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;node_modules/**/node_modules&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;verbose&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;execMap&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ts&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ts-node -r  tsconfig-paths/register src/index.ts --files&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;watch&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;./src&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;env&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;NODE_ENV&quot;</span><span class="punctuation">:</span> <span class="string">&quot;development&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;ext&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ts&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="编写测试代码"><a href="#编写测试代码" class="headerlink" title="编写测试代码"></a>编写测试代码</h3><ul>
+<li>创建 <code>scr/index.ts</code> 文件</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> express <span class="keyword">from</span> <span class="string">&quot;express&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; log &#125; <span class="keyword">from</span> <span class="string">&quot;@utils/log&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"><span class="keyword">const</span> port = <span class="number">8000</span>;</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&quot;/&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  res.<span class="title function_">send</span>(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(port, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">log</span>(<span class="string">`Server is listening on http://localhost:<span class="subst">$&#123;port&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建 <code>scr/utils/log.ts</code> 文件</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; isDev &#125; <span class="keyword">from</span> <span class="string">&quot;./env&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">log</span> = (<span class="params">...args</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (isDev) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(...args);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建 <code>scr/utils/env.ts</code> 文件</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> isDev = process.<span class="property">env</span>.<span class="property">NODE_ENV</span> !== <span class="string">&quot;production&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置相关脚本"><a href="#配置相关脚本" class="headerlink" title="配置相关脚本"></a>配置相关脚本</h3><ul>
+<li><code>nodemon</code> 开发环境编译命令：<code>&quot;dev:server&quot;: &quot;nodemon&quot;</code></li>
+<li><code>ts-node</code> 开发环境编译命令: <code>&quot;dev:ts:server&quot;: &quot;ts-node -r tsconfig-paths/register src/index.ts --files&quot;</code></li>
+<li>生产环境编译命令: <code>&quot;build:server&quot;: &quot;rimraf ./dist &amp;&amp; tsc --build ./tsconfig.json &amp;&amp; babel ./dist/index.js --out-dir ./dist&quot;</code></li>
+<li>生产环境启动服务命令: <code>node ./dist/index.js</code></li>
+</ul>
+<h4 id="最终-package-json"><a href="#最终-package-json" class="headerlink" title="最终 package.json"></a>最终 <code>package.json</code></h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;express-ts&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;main&quot;</span><span class="punctuation">:</span> <span class="string">&quot;index.ts&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;test&quot;</span><span class="punctuation">:</span> <span class="string">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;start:server&quot;</span><span class="punctuation">:</span> <span class="string">&quot;node ./dist/index.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dev:server&quot;</span><span class="punctuation">:</span> <span class="string">&quot;nodemon&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dev:ts:server&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ts-node -r  tsconfig-paths/register src/index.ts --files&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build:server&quot;</span><span class="punctuation">:</span> <span class="string">&quot;rimraf ./dist &amp;&amp; tsc --build ./tsconfig.json &amp;&amp; babel ./dist/index.js --out-dir ./dist&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;license&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ISC&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;express&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.17.1&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;devDependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;@babel/cli&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^7.10.4&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;@babel/core&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^7.10.4&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;@types/express&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.17.6&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;@types/node&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^14.0.14&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;babel-plugin-module-resolver&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hjson&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^3.2.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;nodemon&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.0.4&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;rimraf&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^3.0.2&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;ts-node&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^8.10.2&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;tsconfig-paths&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^3.9.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;typescript&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^3.9.6&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h4><p>在根目录执行 <code>npm run dev:server</code> 或者执行 <code>npm run dev:ts:server</code> 就可以启动服务，访问 <code>http://localhost:8000</code>，即可在浏览器中看到 <code>hello world</code>，注意 <code>npm run dev:ts:server</code> 文件有更改后不会自动重启服务</p>
+<h4 id="生产环境"><a href="#生产环境" class="headerlink" title="生产环境"></a>生产环境</h4><p>在根目录执行 <code>npm run build:server</code>，然后再执行 <code>npm run start:server</code>就可以启动服务，访问 <code>http://localhost:8000</code>，即可在浏览器中看到 <code>hello world</code></p>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">src <span class="comment">// 源码目录</span></span><br><span class="line">|--- utils <span class="comment">// 工具文件目录</span></span><br><span class="line">|   |--- log.<span class="property">ts</span> <span class="comment">// 输出日志文件</span></span><br><span class="line">|   |--- env.<span class="property">ts</span> <span class="comment">// 环境参数相关</span></span><br><span class="line">|--- index.<span class="property">ts</span> <span class="comment">// 项目入口文件</span></span><br><span class="line">|--- babel.<span class="property">config</span>.<span class="property">js</span> <span class="comment">// babel 相关配置</span></span><br><span class="line">|--- nodemon.<span class="property">json</span> <span class="comment">// nodemon 相关配置</span></span><br><span class="line">|--- package.<span class="property">json</span> <span class="comment">// 项目配置</span></span><br><span class="line">|--- tsconfig.<span class="property">json</span> <span class="comment">// ts 相关配置</span></span><br></pre></td></tr></table></figure>
+
+<p><a href="https://github.com/JackXuyi/web-exercise/tree/master/express-ts">完整项目参考链接</a></p>
+<h3 id="相关知识"><a href="#相关知识" class="headerlink" title="相关知识"></a>相关知识</h3><ul>
+<li><a href="https://expressjs.com/zh-cn/">高度包容、快速而极简的 Node.js Web 框架 express</a></li>
+<li><a href="https://www.tslang.cn/docs/home.html">typescript</a></li>
+<li><a href="https://github.com/remy/nodemon#nodemon">nodemon 用来监视 node.js 应用程序中的任何更改并自动重启服务</a></li>
+<li><a href="https://github.com/TypeStrong/ts-node">可以直接的运行 ts 代码的工具 ts-node</a></li>
+<li><a href="https://www.babeljs.cn/docs/">一个 JavaScript 编译器 babel</a></li>
+<li><a href="https://github.com/hjson/hjson-js">一个可以去除注释的 json 格式化工具 hjson</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/05/%E7%94%A8ts%E6%90%AD%E5%BB%BAexpress%E9%A1%B9%E7%9B%AE/" data-id="cm1ghkbnl005dzodzbdo25mh0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/" rel="tag">node</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-js基础知识系列（九）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/29/js%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%B3%BB%E5%88%97%EF%BC%88%E4%B9%9D%EF%BC%89/" class="article-date">
+  <time datetime="2020-06-28T20:15:05.000Z" itemprop="datePublished">2020-06-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/29/js%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%B3%BB%E5%88%97%EF%BC%88%E4%B9%9D%EF%BC%89/">js基础知识系列（九）</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    980 字，约需阅读
+    3.56
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><h3 id="事件流"><a href="#事件流" class="headerlink" title="事件流"></a>事件流</h3><p>页面接收事件的顺序</p>
+<h4 id="事件冒泡"><a href="#事件冒泡" class="headerlink" title="事件冒泡"></a>事件冒泡</h4><p>事件开始时由具体的元素接收，然后逐级上传到较为不具体的节点</p>
+<h4 id="事件捕获"><a href="#事件捕获" class="headerlink" title="事件捕获"></a>事件捕获</h4><p>不太具体的节点较先捕获到事件，具体的节点最后捕获到事件</p>
+<h4 id="DOM-事件流"><a href="#DOM-事件流" class="headerlink" title="DOM 事件流"></a>DOM 事件流</h4><ul>
+<li>事件捕获阶段</li>
+<li>目标阶段</li>
+<li>事件冒泡阶段</li>
+</ul>
+<h3 id="事件处理程序"><a href="#事件处理程序" class="headerlink" title="事件处理程序"></a>事件处理程序</h3><p>响应某个事件的程序</p>
+<h4 id="DOM0-级事件处理程序"><a href="#DOM0-级事件处理程序" class="headerlink" title="DOM0 级事件处理程序"></a>DOM0 级事件处理程序</h4><p>将事件赋值给一个事件处理程序属性</p>
+<h4 id="DOM2-级事件处理程序"><a href="#DOM2-级事件处理程序" class="headerlink" title="DOM2 级事件处理程序"></a>DOM2 级事件处理程序</h4><ul>
+<li><code>addEventListener</code> 添加事件处理程序</li>
+<li><code>removeEventListener</code> 删除事件处理程序</li>
+</ul>
+<h4 id="IE-事件处理程序-IE8-之前版本"><a href="#IE-事件处理程序-IE8-之前版本" class="headerlink" title="IE 事件处理程序(IE8 之前版本)"></a>IE 事件处理程序(IE8 之前版本)</h4><ul>
+<li><code>attachEvent</code> 添加事件处理程序</li>
+<li><code>detachEvent</code> 删除事件处理程序</li>
+</ul>
+<h3 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a>事件对象</h3><h4 id="DOM-中的事件对象"><a href="#DOM-中的事件对象" class="headerlink" title="DOM 中的事件对象"></a>DOM 中的事件对象</h4><table>
+<thead>
+<tr>
+<th align="left">属性 &#x2F; 方法</th>
+<th align="left">类型</th>
+<th align="left">读 &#x2F; 写</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">bubbles</td>
+<td align="left">Boolean</td>
+<td align="left">只读</td>
+<td align="left">表明事件是否冒泡</td>
+</tr>
+<tr>
+<td align="left">cancelable</td>
+<td align="left">Boolean</td>
+<td align="left">只读</td>
+<td align="left">表明是否可以取消默认事件</td>
+</tr>
+<tr>
+<td align="left">currentTarget</td>
+<td align="left">Element</td>
+<td align="left">只读</td>
+<td align="left">表明是否可以取消事件的默认行为</td>
+</tr>
+<tr>
+<td align="left">defaultPrevented</td>
+<td align="left">Boolean</td>
+<td align="left">只读</td>
+<td align="left">为 true 表明已经调用了 preventDefault</td>
+</tr>
+<tr>
+<td align="left">detail</td>
+<td align="left">Integer</td>
+<td align="left">只读</td>
+<td align="left">与事件相关的细节信息</td>
+</tr>
+<tr>
+<td align="left">eventPhase</td>
+<td align="left">Integer</td>
+<td align="left">只读</td>
+<td align="left">调用事件处理程序的阶段：1 表示捕获阶段，2 表示处于目标阶段，3 表示冒泡阶段</td>
+</tr>
+<tr>
+<td align="left">preventDefault</td>
+<td align="left">Function</td>
+<td align="left">只读</td>
+<td align="left">取消事件的默认行为，如果 cancelable 为 true 可以调用这个方法</td>
+</tr>
+<tr>
+<td align="left">stopImmediatePropagation</td>
+<td align="left">Function</td>
+<td align="left">只读</td>
+<td align="left">取消事件的进一步捕获或冒泡，同时组织任何事件处理程序调用（DOM3 级事件中新增）</td>
+</tr>
+<tr>
+<td align="left">stopPropagation</td>
+<td align="left">Function</td>
+<td align="left">只读</td>
+<td align="left">取消事件的进一步捕获或冒泡，，如果 bubbles 为 true 可以调用这个方法</td>
+</tr>
+<tr>
+<td align="left">target</td>
+<td align="left">Element</td>
+<td align="left">只读</td>
+<td align="left">事件目标</td>
+</tr>
+<tr>
+<td align="left">trusted</td>
+<td align="left">Boolean</td>
+<td align="left">只读</td>
+<td align="left">为 true 表示事件是浏览器生成的，为 false 表示事件是由开发人员通过 js 创建的（DOM1 中新增）</td>
+</tr>
+<tr>
+<td align="left">type</td>
+<td align="left">String</td>
+<td align="left">只读</td>
+<td align="left">被触发的事件类型</td>
+</tr>
+<tr>
+<td align="left">view</td>
+<td align="left">AbstratView</td>
+<td align="left">只读</td>
+<td align="left">与事件关联的抽象视图，等同于发生事件的 window 对象</td>
+</tr>
+</tbody></table>
+<h4 id="IE-中的事件对象"><a href="#IE-中的事件对象" class="headerlink" title="IE 中的事件对象"></a>IE 中的事件对象</h4><p>通过 <code>window.event</code> 对象访问事件对象，包含如下属性</p>
+<table>
+<thead>
+<tr>
+<th align="left">属性 &#x2F; 方法</th>
+<th align="left">类型</th>
+<th align="left">读 &#x2F; 写</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">cancelable</td>
+<td align="left">Boolean</td>
+<td align="left">读 &#x2F; 写</td>
+<td align="left">默认为 false ，但将其设置为 true 就可以取消事件冒泡（与 stopPropagation 方法作用相同）</td>
+</tr>
+<tr>
+<td align="left">returnValue</td>
+<td align="left">Boolean</td>
+<td align="left">读 &#x2F; 写</td>
+<td align="left">默认为 true ，但将其设置为 false 就可以取消事件默认行为（与 preventDefault 方法作用相同）</td>
+</tr>
+<tr>
+<td align="left">target</td>
+<td align="left">Element</td>
+<td align="left">只读</td>
+<td align="left">事件目标（与 target 作用相同）</td>
+</tr>
+<tr>
+<td align="left">type</td>
+<td align="left">String</td>
+<td align="left">只读</td>
+<td align="left">被触发的事件类型</td>
+</tr>
+</tbody></table>
+<h3 id="事件类型"><a href="#事件类型" class="headerlink" title="事件类型"></a>事件类型</h3><ul>
+<li>UI 事件，当用户与页面上元素交互时触发</li>
+<li>焦点事件，当元素失去或获得焦点时触发</li>
+<li>鼠标事件，当用户通过鼠标在页面上执行操作时触发</li>
+<li>滚轮事件，当使用鼠标滚轮时触发</li>
+<li>文本事件，当在文档中输入文本时触发</li>
+<li>键盘事件，当用户通过键盘在页面上执行操作时触发</li>
+<li>合成事件，当为 IME（Input Method Editor，输入法编辑器） 输入字符时触发</li>
+<li>变动事件，当底层 DOM 结构发生变化时触发</li>
+</ul>
+<h4 id="HTML5-事件"><a href="#HTML5-事件" class="headerlink" title="HTML5 事件"></a>HTML5 事件</h4><ul>
+<li>contextmenu 事件，上下文菜单</li>
+<li>beforeunload 事件</li>
+<li>DOMContentLoaded 事件</li>
+<li>readstatechange 事件</li>
+<li>pageshow 和 pagehide 事件</li>
+<li>hashchange 事件</li>
+</ul>
+<h4 id="设备事件"><a href="#设备事件" class="headerlink" title="设备事件"></a>设备事件</h4><ul>
+<li>orientationchange 事件，通过 window.orientation 访问旋转角度</li>
+<li>deviceorientation 事件，设备静止状态下的设备变化信息</li>
+<li>devicemotion 事件，设备移动信息</li>
+</ul>
+<h4 id="触摸与手势事件"><a href="#触摸与手势事件" class="headerlink" title="触摸与手势事件"></a>触摸与手势事件</h4><ul>
+<li>触摸事件</li>
+<li>手势事件</li>
+</ul>
+<h3 id="内存和性能"><a href="#内存和性能" class="headerlink" title="内存和性能"></a>内存和性能</h3><h4 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h4><p>解决事件处理程序过多的问题</p>
+<h4 id="移除事件处理程序"><a href="#移除事件处理程序" class="headerlink" title="移除事件处理程序"></a>移除事件处理程序</h4><p>每个事件处理程序都会建立一个浏览器代码与页面交互的 JavaScript 代码链接</p>
+<h3 id="模拟事件"><a href="#模拟事件" class="headerlink" title="模拟事件"></a>模拟事件</h3><h4 id="DOM-中的模拟事件"><a href="#DOM-中的模拟事件" class="headerlink" title="DOM 中的模拟事件"></a>DOM 中的模拟事件</h4><p>可以通过 document 对象上的 createEvent 方法创建 event 对象</p>
+<ul>
+<li>模拟鼠标事件</li>
+<li>模拟键盘事件</li>
+<li>自定义 DOM 事件</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/06/29/js%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%B3%BB%E5%88%97%EF%BC%88%E4%B9%9D%EF%BC%89/" data-id="cm1ghkbmt001izodzcuifcqga" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-js基础知识系列（八）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/08/js%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%B3%BB%E5%88%97%EF%BC%88%E5%85%AB%EF%BC%89/" class="article-date">
+  <time datetime="2020-06-07T22:04:11.000Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/08/js%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%B3%BB%E5%88%97%EF%BC%88%E5%85%AB%EF%BC%89/">js基础知识系列（八）</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    710 字，约需阅读
+    2.58
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="BOM（浏览器对象模型）"><a href="#BOM（浏览器对象模型）" class="headerlink" title="BOM（浏览器对象模型）"></a>BOM（浏览器对象模型）</h2><h3 id="window-对象"><a href="#window-对象" class="headerlink" title="window 对象"></a>window 对象</h3><p>浏览器的一个实例。javaScript 对象访问浏览器的接口，ECMAScript 中的 Global 对象</p>
+<h4 id="全局作用域"><a href="#全局作用域" class="headerlink" title="全局作用域"></a>全局作用域</h4><h4 id="窗口关系"><a href="#窗口关系" class="headerlink" title="窗口关系"></a>窗口关系</h4><ul>
+<li>top ： 始终指向最外层的框架</li>
+<li>parent：当前框架的直接上层框架</li>
+<li>self：当前框架的 window 对象</li>
+</ul>
+<h5 id="注意：不同框架的-Object-对象不同，不能用-instanceof-检测跨框架的对象"><a href="#注意：不同框架的-Object-对象不同，不能用-instanceof-检测跨框架的对象" class="headerlink" title="注意：不同框架的 Object 对象不同，不能用 instanceof 检测跨框架的对象"></a>注意：不同框架的 Object 对象不同，不能用 instanceof 检测跨框架的对象</h5><h4 id="窗口位置"><a href="#窗口位置" class="headerlink" title="窗口位置"></a>窗口位置</h4><ul>
+<li>screenLeft 和 screenTop 表示窗口距离屏幕左上角的距离信息（IE、Safari、Chrome）</li>
+<li>screenX 和 screenY 表示窗口距离屏幕左上角的距离信息（火狐）</li>
+<li>moveTo(x,y) 窗口移动到屏幕的（x，y）坐标位置</li>
+<li>moveBy(x,y) 窗口在水平和垂直方向分别移动 x 和 y 的距离</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="variable language_">window</span>.<span class="property">screenLeft</span> || <span class="variable language_">window</span>.<span class="property">screenX</span>;</span><br><span class="line"><span class="keyword">const</span> y = <span class="variable language_">window</span>.<span class="property">screenTop</span> || <span class="variable language_">window</span>.<span class="property">screenY</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="窗口大小"><a href="#窗口大小" class="headerlink" title="窗口大小"></a>窗口大小</h4><ul>
+<li>innerHeight 和 innerWidth 页面视图区大小（IE9+、火狐、opera、chrome、safari）</li>
+<li>document.documentElement.clientWidth 和 document.documentElement.clientHeight 在 CSS1Compat 模式下表示视图大小</li>
+<li>document.body.clientWidth 和 document.body.clientHeight 在非 CSS1Compat 模式下表示视图大小</li>
+<li>resizeTo(width, height) 页面重置到 width 和 height 大小</li>
+<li>resizeBy(width, height) 页面分别缩小 width 和 height</li>
+</ul>
+<h4 id="弹出窗口"><a href="#弹出窗口" class="headerlink" title="弹出窗口"></a>弹出窗口</h4><p>window.open(url, 窗口名称, 参数) 返回打开窗口的句柄，可以对打开的窗口进行关闭操作，返回的句柄中 opener 默认指向当前的页面对象</p>
+<h4 id="间歇调用或超时调用"><a href="#间歇调用或超时调用" class="headerlink" title="间歇调用或超时调用"></a>间歇调用或超时调用</h4><ul>
+<li>setTimeout 和 clearTimeout 调用一次</li>
+<li>setInterval 和 clearInterval 多次调用</li>
+</ul>
+<h5 id="第-3-个参数及后面的参数都是第一个函数参数调用时的参数"><a href="#第-3-个参数及后面的参数都是第一个函数参数调用时的参数" class="headerlink" title="第 3 个参数及后面的参数都是第一个函数参数调用时的参数"></a>第 3 个参数及后面的参数都是第一个函数参数调用时的参数</h5><h4 id="系统对话框"><a href="#系统对话框" class="headerlink" title="系统对话框"></a>系统对话框</h4><ul>
+<li>alert 提示框</li>
+<li>confirm 确认框</li>
+<li>prompt 输入框</li>
+</ul>
+<h5 id="同步代码，在代码未执行就无法继续执行后面的代码"><a href="#同步代码，在代码未执行就无法继续执行后面的代码" class="headerlink" title="同步代码，在代码未执行就无法继续执行后面的代码"></a>同步代码，在代码未执行就无法继续执行后面的代码</h5><h3 id="location-对象"><a href="#location-对象" class="headerlink" title="location 对象"></a>location 对象</h3><p>获取当前窗口加载的文档信息</p>
+<table>
+<thead>
+<tr>
+<th align="left">属性名称</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">hash</td>
+<td align="left">url 中的 hash 值，即 url 中 # 后的字符串，若不存在就为空子符串</td>
+</tr>
+<tr>
+<td align="left">host</td>
+<td align="left">域名加端口的字符串</td>
+</tr>
+<tr>
+<td align="left">hsotname</td>
+<td align="left">域名</td>
+</tr>
+<tr>
+<td align="left">href</td>
+<td align="left">完整的 url</td>
+</tr>
+<tr>
+<td align="left">pathname</td>
+<td align="left">url 中的路径，即包含在以 &#x2F; 开始 ? 结尾，之间的内容</td>
+</tr>
+<tr>
+<td align="left">port</td>
+<td align="left">端口</td>
+</tr>
+<tr>
+<td align="left">protcol</td>
+<td align="left">协议</td>
+</tr>
+<tr>
+<td align="left">search</td>
+<td align="left">查询字符串，即 ? 后 # 前的内容</td>
+</tr>
+</tbody></table>
+<ul>
+<li>location.assign 打开新的 url ，并生成一个历史记录</li>
+<li>location.replace 当前页面打开 url，并替换当前页面的历史纪录</li>
+<li>location.reload 重新加载页面，值为 true 时，强制从服务器刷新页面</li>
+</ul>
+<h3 id="navigator-对象"><a href="#navigator-对象" class="headerlink" title="navigator 对象"></a>navigator 对象</h3><h4 id="检测插件"><a href="#检测插件" class="headerlink" title="检测插件"></a>检测插件</h4><p>navigator.plugins 可以在非 IE 浏览器中获取安装的插件数组，数组的每个元素包含如下属性</p>
+<ul>
+<li>name：插件名称</li>
+<li>description：插件描述</li>
+<li>filename：插件的文件名称</li>
+<li>length：插件处理的 MIME 类型数量</li>
+</ul>
+<h4 id="注册处理程序"><a href="#注册处理程序" class="headerlink" title="注册处理程序"></a>注册处理程序</h4><ul>
+<li>navigator.registerProtocolHandler</li>
+</ul>
+<h3 id="screen-对象"><a href="#screen-对象" class="headerlink" title="screen 对象"></a>screen 对象</h3><p>浏览器窗口外部显示器信息</p>
+<h3 id="history-对象"><a href="#history-对象" class="headerlink" title="history 对象"></a>history 对象</h3><ul>
+<li>history.go 跳转到指定的页面</li>
+<li>history.back 返回页面</li>
+<li>history.forward 前进</li>
+<li>history.length 历史记录的数量</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/06/08/js%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%B3%BB%E5%88%97%EF%BC%88%E5%85%AB%EF%BC%89/" data-id="cm1ghkbmt001lzodz2pb83c6p" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-js基础知识系列（七）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/01/js%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%83%EF%BC%89/" class="article-date">
+  <time datetime="2020-05-31T22:06:17.000Z" itemprop="datePublished">2020-05-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/01/js%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%83%EF%BC%89/">js基础知识系列（七）</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    837 字，约需阅读
+    3.04
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="定义函数的方式"><a href="#定义函数的方式" class="headerlink" title="定义函数的方式"></a>定义函数的方式</h3><p>火狐、谷歌、safari、opera 存在属性 name 可以访问当前函数的 name</p>
+<h4 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h4><p>函数声明提升，即执行代码前会先读取函数声明</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数声明</span></span><br><span class="line"><span class="title function_">func</span>(); <span class="comment">// 函数声明提升，输出结果 func</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">func</span>(<span class="params">...args</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(func.<span class="property">name</span>); <span class="comment">// func</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="函数表达式"><a href="#函数表达式" class="headerlink" title="函数表达式"></a>函数表达式</h4><p>又称匿名函数或拉姆达函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数表达式</span></span><br><span class="line"><span class="title function_">func</span>(); <span class="comment">//  无提升，抛出异常 TypeError: func is not a function</span></span><br><span class="line"><span class="keyword">var</span> func = <span class="keyword">function</span> (<span class="params">...args</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(func.<span class="property">name</span>); <span class="comment">// func</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="递归调用"><a href="#递归调用" class="headerlink" title="递归调用"></a>递归调用</h3><p><code>arguments.callee</code> 指向正在执行的函数指针</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">func</span>(<span class="params">...args</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">arguments</span>.<span class="property">callee</span>.<span class="property">name</span>); <span class="comment">// func</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>有权访问另一个函数作用域中变量的函数</p>
+<h4 id="执行环境和作用域"><a href="#执行环境和作用域" class="headerlink" title="执行环境和作用域"></a>执行环境和作用域</h4><ul>
+<li>执行环境：定义变量或函数有权访问的其它数据</li>
+<li>变量对象：与执行环境相关联的对象，环境中定义的所有变量或函数都保存在这个对象中</li>
+<li>函数环境：将活动对象作为变量对象，活动对象最开始只包含一个对象，即 arguments 对象</li>
+</ul>
+<h4 id="闭包与变量"><a href="#闭包与变量" class="headerlink" title="闭包与变量"></a>闭包与变量</h4><p>闭包中保存的是整个变量对象，闭包中引用的变量都是指向这个环境变量对象的对应属性地址，而不是具体的值，在这个环境变量中定义的任何变量若不手动销毁都会一直存在一个引用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [];</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">    arr[i] = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(i);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">test</span>();</span><br><span class="line">arr[<span class="number">2</span>](); <span class="comment">// 4</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 立即执行函数强制进行值传递</span></span><br><span class="line"><span class="keyword">var</span> arr = [];</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">    arr[i] = (<span class="keyword">function</span> (<span class="params">j</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(j);</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;)(i);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">test</span>();</span><br><span class="line">arr[<span class="number">2</span>](); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="this-对象"><a href="#this-对象" class="headerlink" title="this 对象"></a>this 对象</h4><p>匿名函数执行环境具有全局性。函数在调用时会自动获取 this 和 arguments 这两个对象，内部函数在搜索这两个变量时，只会搜索到活动对象为止</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;window&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> test = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;test&quot;</span>,</span><br><span class="line">  <span class="attr">getName</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 存在活动对象，搜索到这里为止</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      <span class="comment">// 匿名函数执行环境具有全局性</span></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>); <span class="comment">// window</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">test.<span class="title function_">getName</span>()();</span><br></pre></td></tr></table></figure>
+
+<h4 id="模仿块级作用域"><a href="#模仿块级作用域" class="headerlink" title="模仿块级作用域"></a>模仿块级作用域</h4><p>通过立即执行函数的方法模仿块级作用域</p>
+<h3 id="私有变量"><a href="#私有变量" class="headerlink" title="私有变量"></a>私有变量</h3><p>通过闭包的方式在外层创建局部变量的方式实现私有变量，在内部函数中定义的可以操作外部私有属性的方法叫做特权方法</p>
+<h4 id="静态私有变量"><a href="#静态私有变量" class="headerlink" title="静态私有变量"></a>静态私有变量</h4><p>通过在原型中利用闭包的方式定义一个局部变量，然后在原型上定义一些特权方法实现对该变量的操作，实现所有实例共享同一个变量的方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> test = name; <span class="comment">// 静态私有变量</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span> <span class="title function_">Sup</span>(<span class="params">name</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getName</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> test;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">setName</span> = <span class="keyword">function</span> (<span class="params">temp</span>) &#123;</span><br><span class="line">      test = temp;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<h4 id="模块模式"><a href="#模块模式" class="headerlink" title="模块模式"></a>模块模式</h4><ul>
+<li>单例：只有一个实例的对象</li>
+<li>模块模式：通过对单例添加私有变量和特权方法增强单例</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> app = (<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> arr = [];</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">getCount</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> arr.<span class="property">length</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">addComp</span>: <span class="keyword">function</span> (<span class="params">comp</span>) &#123;</span><br><span class="line">      arr.<span class="title function_">push</span>(comp);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<h4 id="增强的模块模式"><a href="#增强的模块模式" class="headerlink" title="增强的模块模式"></a>增强的模块模式</h4><p>通过实例对象，注入更多的属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> app = (<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> obj = <span class="keyword">new</span> <span class="title class_">Object</span>(); <span class="comment">// 实例对象</span></span><br><span class="line">  <span class="keyword">let</span> len = <span class="number">10</span>;</span><br><span class="line">  obj.<span class="property">getCount</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> len;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> obj;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/06/01/js%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%83%EF%BC%89/" data-id="cm1ghkbms001dzodz3r36657v" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/7/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/9/">下一页 &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/" rel="tag">C&#x2F;C++语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">63</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeORM/" rel="tag">TypeORM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/antd/" rel="tag">antd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/" rel="tag">express</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/form/" rel="tag">form</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/" rel="tag">node</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/" rel="tag">other</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%92%E4%BB%B6/" rel="tag">插件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solution/" rel="tag">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">计算机网络</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/read-book/" rel="tag">读书</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/" rel="tag">资源</a><span class="tag-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/c-language/" style="font-size: 12.5px;">C/C++语言</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/TypeORM/" style="font-size: 10px;">TypeORM</a> <a href="/tags/TypeScript/" style="font-size: 11.25px;">TypeScript</a> <a href="/tags/antd/" style="font-size: 10px;">antd</a> <a href="/tags/express/" style="font-size: 11.25px;">express</a> <a href="/tags/form/" style="font-size: 10px;">form</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mysql/" style="font-size: 12.5px;">mysql</a> <a href="/tags/node/" style="font-size: 18.75px;">node</a> <a href="/tags/other/" style="font-size: 16.25px;">other</a> <a href="/tags/react/" style="font-size: 17.5px;">react</a> <a href="/tags/webpack/" style="font-size: 12.5px;">webpack</a> <a href="/tags/%E6%8F%92%E4%BB%B6/" style="font-size: 10px;">插件</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/solution/" style="font-size: 13.75px;">算法</a> <a href="/tags/network/" style="font-size: 15px;">计算机网络</a> <a href="/tags/read-book/" style="font-size: 10px;">读书</a> <a href="/tags/source/" style="font-size: 12.5px;">资源</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/11/24/%E8%AE%B0%E4%B8%80%E6%AC%A1safari%E7%99%BD%E5%B1%8F%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/">记一次safari白屏问题排查</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/25/%E6%AD%A3%E5%88%99/">正则</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/25/AI/">AI</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/24/zustand/">zustand</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/22/typescript%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%9E%E7%8E%B0/">typescript自定义实现</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 奔跑的蜗牛<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">分类</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  </div>
+</body>
+</html>

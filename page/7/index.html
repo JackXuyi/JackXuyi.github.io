@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>奔跑的蜗牛</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前端开发工程师">
+<meta property="og:type" content="website">
+<meta property="og:title" content="奔跑的蜗牛">
+<meta property="og:url" content="http://example.com/page/7/index.html">
+<meta property="og:site_name" content="奔跑的蜗牛">
+<meta property="og:description" content="前端开发工程师">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="奔跑的蜗牛">
+<meta property="article:tag" content="React、node、webpack">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="0001.jpg#/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="奔跑的蜗牛" type="application/atom+xml">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">奔跑的蜗牛</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">分类</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-三数之和" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/23/%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" class="article-date">
+  <time datetime="2020-09-22T20:52:19.000Z" itemprop="datePublished">2020-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/23/%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/">三数之和</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    334 字，约需阅读
+    1.21
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://leetcode-cn.com/problems/3sum/">leetcode 算法题</a></p>
+<h3 id="暴力求解"><a href="#暴力求解" class="headerlink" title="暴力求解"></a>暴力求解</h3><p>三层循环遍历数组把符合条件的数据放入数组之中，然后再去重，时间复杂度 n<em>n</em>n 再加去重时间</p>
+<h3 id="优化暴力求解"><a href="#优化暴力求解" class="headerlink" title="优化暴力求解"></a>优化暴力求解</h3><p>数组排序，然后遍历数组，把数据放入对象中去重，避免最后的去重操作，时间复杂度 n<em>n</em>n</p>
+<h3 id="双指针方法"><a href="#双指针方法" class="headerlink" title="双指针方法"></a>双指针方法</h3><p>数组进行排序，然后外层循环固定一个数，内层使用两个指针分别指向数组的左右两边，如果三数之和小于 0 则把左边指针右移，若果三数之和大于 0 则把右边指针左移，等于 0 时判断数组是否已经存在结果数组中，若存在则跳过，不存在放入数组并在 map 中标记</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> threeSum = <span class="keyword">function</span> (<span class="params">nums</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> sortNums = nums.<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b)</span><br><span class="line">  <span class="keyword">const</span> len = sortNums.<span class="property">length</span></span><br><span class="line">  <span class="keyword">const</span> result = []</span><br><span class="line">  <span class="keyword">const</span> obj = &#123;&#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len - <span class="number">2</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> left = i + <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> right = len - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">      <span class="keyword">if</span> (sortNums[i] + sortNums[left] + sortNums[right] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        right = right - <span class="number">1</span></span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sortNums[i] + sortNums[left] + sortNums[right] &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        left = left + <span class="number">1</span></span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sortNums[i] + sortNums[left] + sortNums[right] === <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!obj[<span class="string">`<span class="subst">$&#123;sortNums[i]&#125;</span>,<span class="subst">$&#123;sortNums[left]&#125;</span>,<span class="subst">$&#123;sortNums[right]&#125;</span>`</span>]) &#123;</span><br><span class="line">          result.<span class="title function_">push</span>([sortNums[i], sortNums[left], sortNums[right]])</span><br><span class="line">          obj[<span class="string">`<span class="subst">$&#123;sortNums[i]&#125;</span>,<span class="subst">$&#123;sortNums[left]&#125;</span>,<span class="subst">$&#123;sortNums[right]&#125;</span>`</span>] = <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        left = left + <span class="number">1</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/09/23/%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" data-id="cm1ghkbnd0049zodzgldkbtw1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solution/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-antd中遇到的问题（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/21/antd%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/" class="article-date">
+  <time datetime="2020-09-20T22:42:42.000Z" itemprop="datePublished">2020-09-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/21/antd%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">antd中遇到的问题（一）</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    231 字，约需阅读
+    0.84
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="antd-v4-版本中-Form-Item-子组件-value-不生效问题"><a href="#antd-v4-版本中-Form-Item-子组件-value-不生效问题" class="headerlink" title="antd v4 版本中 Form.Item 子组件 value 不生效问题"></a>antd v4 版本中 Form.Item 子组件 value 不生效问题</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>在 <code>Form.Item</code> 中使用 <code>Input</code> 输入框设置 <code>value</code> 时发现其不生效，查看使用文档也没有发现问题</p>
+<h4 id="猜测"><a href="#猜测" class="headerlink" title="猜测"></a>猜测</h4><p><code>Form.Item</code> 对子组件的 <code>value</code> 属性做了劫持，导致手动设置的 <code>value</code> 被覆盖</p>
+<h4 id="代码验证"><a href="#代码验证" class="headerlink" title="代码验证"></a>代码验证</h4><ol>
+<li>通过查找 <code>return</code> 语句，发现执行了 <code>renderLayout</code> 这个方法</li>
+<li>查看 <code>renderLayout</code> 的具体实现子组件实际渲染的是方法的实际参数 <code>baseChildren</code></li>
+<li>查看 <code>renderLayout</code> 的调用发现在 <code>!hasName &amp;&amp; !isRenderProps &amp;&amp; !dependencies</code> 才会直接渲染子组件，其它情况会注入 <code>value</code> 等属性</li>
+</ol>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 先执行</span></span><br><span class="line"><span class="keyword">if</span> (!hasName &amp;&amp; !isRenderProps &amp;&amp; !dependencies) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">renderLayout</span>(children)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 再执行</span></span><br><span class="line"><span class="keyword">if</span> (<span class="title class_">React</span>.<span class="title function_">isValidElement</span>(children)) &#123;</span><br><span class="line">  childNode = (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">MemoInput</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      <span class="attr">value</span>=<span class="string">&#123;mergedControl[props.valuePropName</span> || &#x27;<span class="attr">value</span>&#x27;]&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      <span class="attr">update</span>=<span class="string">&#123;updateRef.current&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    &gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;React.cloneElement(children, childProps)&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">MemoInput</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h4><p>去除 <code>Form.Item</code> 中的 <code>name</code> 属性，验证 <code>value</code> 属性生效</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/09/21/antd%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/" data-id="cm1ghkbmj000fzodzbc4ofite" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mysql数据库操作（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/14/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C%EF%BC%88%E4%BA%8C%EF%BC%89/" class="article-date">
+  <time datetime="2020-09-13T22:50:06.000Z" itemprop="datePublished">2020-09-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/14/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C%EF%BC%88%E4%BA%8C%EF%BC%89/">mysql数据库操作（二）</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    157 字，约需阅读
+    0.57
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="express-中使用-TypeORM-连接-mysql-数据库"><a href="#express-中使用-TypeORM-连接-mysql-数据库" class="headerlink" title="express 中使用 TypeORM 连接 mysql 数据库"></a>express 中使用 TypeORM 连接 mysql 数据库</h3><h4 id="TypeORM-介绍"><a href="#TypeORM-介绍" class="headerlink" title="TypeORM 介绍"></a>TypeORM 介绍</h4><p>TypeORM 是一个采用 TypeScript 编写的用于 Node.js 的优秀 ORM 框架，支持使用 TypeScript 或 Javascript(ES5, ES6, ES7)开发。</p>
+<ul>
+<li><a href="https://cloud.tencent.com/developer/article/1012625">Nodejs 最好的 ORM - TypeORM</a></li>
+<li><a href="https://github.com/typeorm/typeorm">github 链接</a></li>
+</ul>
+<h4 id="express-中使用"><a href="#express-中使用" class="headerlink" title="express 中使用"></a>express 中使用</h4><h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p><code>yarn add typeorm mysql</code></p>
+<h5 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h5><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> express, &#123; <span class="title class_">Request</span>, <span class="title class_">Response</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;express&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; createConnection &#125; <span class="keyword">from</span> <span class="string">&#x27;typeorm&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">createConnection</span>(config.<span class="property">db</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> app = <span class="title function_">express</span>()</span><br><span class="line">    app.<span class="title function_">listen</span>(port, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="title function_">info</span>(</span><br><span class="line">        <span class="string">`the server is start at port <span class="subst">$&#123;port&#125;</span>, listening on http://localhost:<span class="subst">$&#123;port&#125;</span>`</span></span><br><span class="line">      )</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;connection mysql error: &#x27;</span>, e.<span class="property">message</span>)</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; getRepository &#125; <span class="keyword">from</span> <span class="string">&#x27;typeorm&#x27;</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">getList</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [list, total] = <span class="keyword">await</span> <span class="title function_">getRepository</span>(<span class="title class_">Entity</span>).<span class="title function_">findAndCount</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/09/14/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C%EF%BC%88%E4%BA%8C%EF%BC%89/" data-id="cm1ghkbn2002pzodza6n3bej0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TypeORM/" rel="tag">TypeORM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/express/" rel="tag">express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/" rel="tag">node</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mysql数据库操作（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/14/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C%EF%BC%88%E4%B8%80%EF%BC%89/" class="article-date">
+  <time datetime="2020-09-13T22:21:24.000Z" itemprop="datePublished">2020-09-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/14/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C%EF%BC%88%E4%B8%80%EF%BC%89/">mysql数据库操作</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    167 字，约需阅读
+    0.61
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h3><p><code>CREATE USER &#39;username&#39;@&#39;host&#39; IDENTIFIED BY &#39;password&#39;;</code></p>
+<ul>
+<li><code>host</code> 代表可以登录地址，<code>%</code> 表示任意地址</li>
+<li>可选选项 <code>WITH mysql_native_password</code> 语句表示密码的存储方式</li>
+</ul>
+<h3 id="修改用户密码"><a href="#修改用户密码" class="headerlink" title="修改用户密码"></a>修改用户密码</h3><p><code>ALTER USER &#39;username&#39;@&#39;host&#39; IDENTIFIED WITH mysql_native_password BY &#39;password&#39;;</code></p>
+<h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><p><code>grant 权限 privileges on dbName.数据表 to &#39;tools&#39;;</code></p>
+<ul>
+<li>权限包括增删查改，<code>all</code> 代表所有权限</li>
+<li>数据库和数据表可以用 <code>*</code> 表示通配</li>
+</ul>
+<h3 id="刷新权限"><a href="#刷新权限" class="headerlink" title="刷新权限"></a>刷新权限</h3><p><code>FLUSH PRIVILEGES;</code></p>
+<ul>
+<li>数据权限并不会自动更新，需要手动执行命令才会刷新</li>
+</ul>
+<h3 id="查看列表数据库"><a href="#查看列表数据库" class="headerlink" title="查看列表数据库"></a>查看列表数据库</h3><p><code>show databases;</code></p>
+<h3 id="查看数据表的结构"><a href="#查看数据表的结构" class="headerlink" title="查看数据表的结构"></a>查看数据表的结构</h3><p><code>desc 数据库.数据表;</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/09/14/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C%EF%BC%88%E4%B8%80%EF%BC%89/" data-id="cm1ghkbn1002nzodz6hkp34ux" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/express/" rel="tag">express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/" rel="tag">node</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-浏览器缓存" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/31/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98/" class="article-date">
+  <time datetime="2020-08-30T21:35:19.000Z" itemprop="datePublished">2020-08-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/31/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98/">浏览器缓存</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    1.8k 字，约需阅读
+    6.55
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缓存分类"><a href="#缓存分类" class="headerlink" title="缓存分类"></a>缓存分类</h3><ul>
+<li>共享缓存：存储的响应能够被多个用户使用。</li>
+<li>私有缓存：只能用于单独用户。</li>
+</ul>
+<h3 id="缓存方式"><a href="#缓存方式" class="headerlink" title="缓存方式"></a>缓存方式</h3><ul>
+<li>浏览器与代理缓存</li>
+<li>网关缓存</li>
+<li>CDN</li>
+<li>反向代理缓存和负载均衡器</li>
+</ul>
+<h3 id="操作的目标"><a href="#操作的目标" class="headerlink" title="操作的目标"></a>操作的目标</h3><p>常见的 HTTP 缓存只能存储 GET 响应，对于其他类型的响应则无能为力。缓存的关键主要包括 request method 和目标 URI（一般只有 GET 请求才会被缓存）。</p>
+<h3 id="缓存控制"><a href="#缓存控制" class="headerlink" title="缓存控制"></a>缓存控制</h3><h4 id="没有缓存"><a href="#没有缓存" class="headerlink" title="没有缓存"></a>没有缓存</h4><p>缓存中不得存储任何关于客户端请求和服务端响应的内容。每次由客户端发起的请求都会下载完整的响应内容。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Cache-Control:</span> <span class="literal">no</span><span class="string">-store</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="缓存但重新验证"><a href="#缓存但重新验证" class="headerlink" title="缓存但重新验证"></a>缓存但重新验证</h4><p>每次有请求发出时，缓存会将此请求发到服务器，服务器端会验证请求中所描述的缓存是否过期，若未过期，则缓存才使用本地缓存副本。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Cache-Control:</span> <span class="literal">no</span><span class="string">-cache</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="私有和公共缓存"><a href="#私有和公共缓存" class="headerlink" title="私有和公共缓存"></a>私有和公共缓存</h4><ul>
+<li>“public” 指令表示该响应可以被任何中间人（译者注：比如中间代理、CDN 等）缓存。</li>
+<li>“private” 则表示该响应是专用于某单个用户的，中间人不能缓存此响应，该响应只能应用于浏览器私有缓存中。</li>
+</ul>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Cache-Control:</span> <span class="string">private</span></span><br><span class="line"><span class="attr">Cache-Control:</span> <span class="string">public</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="过期"><a href="#过期" class="headerlink" title="过期"></a>过期</h4><p>过期机制中，最重要的指令是 <code>&quot;max-age=&lt;seconds&gt;&quot;</code>，表示资源能够被缓存（保持新鲜）的最大时间。相对 <code>Expires</code> 而言，<code>max-age</code> 是距离请求发起的时间的秒数。针对应用中那些不会改变的文件，通常可以手动设置一定的时长以保证缓存有效，例如图片、<code>css</code>、<code>js</code> 等静态资源。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Cache-Control:</span> <span class="string">max-age=31536000</span></span><br></pre></td></tr></table></figure>
+
+<p><code>s-maxage</code>仅适用于共享缓存(<code>CDN</code>)，优先级高于 <code>max-age</code> 和 <code>Expires</code></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Cache-Control:</span> <span class="string">s-maxage=3600</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="验证方式"><a href="#验证方式" class="headerlink" title="验证方式"></a>验证方式</h4><p>当使用了 “must-revalidate” 指令，那就意味着缓存在考虑使用一个陈旧的资源时，必须先验证它的状态，已过期的缓存将不被使用。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Cache-Control:</span> <span class="string">must-revalidate</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Pragma-头"><a href="#Pragma-头" class="headerlink" title="Pragma 头"></a>Pragma 头</h3><p>Pragma 是 HTTP&#x2F;1.0 标准中定义的一个 header 属性，请求中包含 Pragma 的效果跟在头信息中定义 Cache-Control: no-cache 相同，但是 HTTP 的响应头没有明确定义这个属性，所以它不能拿来完全替代 HTTP&#x2F;1.1 中定义的 Cache-control 头。通常定义 Pragma 以向后兼容基于 HTTP&#x2F;1.0 的客户端。</p>
+<h3 id="新鲜度"><a href="#新鲜度" class="headerlink" title="新鲜度"></a>新鲜度</h3><p>理论上来讲，当一个资源被缓存存储后，该资源应该可以被永久存储在缓存中。</p>
+<h4 id="缓存驱逐"><a href="#缓存驱逐" class="headerlink" title="缓存驱逐"></a>缓存驱逐</h4><p>由于缓存只有有限的空间用于存储资源副本，所以缓存会定期地将一些副本删除。当服务器上面的资源进行了更新，那么缓存中的对应资源也应该被更新，由于 HTTP 是 C&#x2F;S 模式的协议，服务器更新一个资源时，不可能直接通知客户端更新缓存，所以双方必须为该资源约定一个过期时间，在该过期时间之前，该资源（缓存副本）就是新鲜的，当过了过期时间后，该资源（缓存副本）则变为陈旧的。驱逐算法用于将陈旧的资源（缓存副本）替换为新鲜的，注意，一个陈旧的资源（缓存副本）是不会直接被清除或忽略的，当客户端发起一个请求时，缓存检索到已有一个对应的陈旧资源（缓存副本），则缓存会先将此请求附加一个 If-None-Match 头，然后发给目标服务器，以此来检查该资源副本是否是依然还是算新鲜的，若服务器返回了 304 (Not Modified)（该响应不会有带有实体信息），则表示此资源副本是新鲜的，这样一来，可以节省一些带宽。若服务器通过 If-None-Match 或 If-Modified-Since 判断后发现已过期，那么会带有该资源的实体内容返回。<br><img src="/images/js/cache.png" alt="缓存驱逐过程"></p>
+<h5 id="缓存的先后顺序"><a href="#缓存的先后顺序" class="headerlink" title="缓存的先后顺序"></a>缓存的先后顺序</h5><p>对于含有特定头信息的请求，会去计算缓存寿命。</p>
+<ul>
+<li>max-age：Cache-control: max-age&#x3D;N 的头，相应的缓存的寿命就是 N。</li>
+<li>expires：通过比较 Expires 的值和头里面 Date 属性的值来判断是否缓存还有效。</li>
+<li>Last-Modified： 缓存的寿命就等于头里面 Date 的值减去 Last-Modified 的值除以 10（注：根据 rfc2626 其实也就是乘以 10%）</li>
+</ul>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">expirationTime</span> <span class="string">=</span> <span class="string">responseTime</span> <span class="string">+</span> <span class="string">freshnessLifetime</span> <span class="bullet">-</span> <span class="string">currentAge</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="注：responseTime-表示浏览器接收到此响应的那个时间点。"><a href="#注：responseTime-表示浏览器接收到此响应的那个时间点。" class="headerlink" title="注：responseTime 表示浏览器接收到此响应的那个时间点。"></a>注：responseTime 表示浏览器接收到此响应的那个时间点。</h6><h3 id="缓存验证"><a href="#缓存验证" class="headerlink" title="缓存验证"></a>缓存验证</h3><p>用户点击刷新按钮时会开始缓存验证。</p>
+<ul>
+<li>如果缓存的响应头信息里含有”Cache-control: must-revalidate”的定义，在浏览的过程中也会触发缓存验证。</li>
+<li>在浏览器偏好设置里设置 Advanced-&gt;Cache 为强制验证缓存也能达到相同的效果。</li>
+</ul>
+<p>当缓存的文档过期后，需要进行缓存验证或者重新获取资源。只有在服务器返回强校验器或者弱校验器时才会进行验证。</p>
+<h4 id="ETags"><a href="#ETags" class="headerlink" title="ETags"></a>ETags</h4><ul>
+<li>作为缓存的一种强校验器，ETag 响应头是一个对用户代理(User Agent, 下面简称 UA)不透明（译者注：UA 无需理解，只需要按规定使用即可）的值。对于像浏览器这样的 HTTP UA，不知道 ETag 代表什么，不能预测它的值是多少。如果资源请求的响应头里含有 ETag, 客户端可以在后续的请求的头中带上 If-None-Match 头来验证缓存。</li>
+<li>Last-Modified 响应头可以作为一种弱校验器。说它弱是因为它只能精确到一秒。如果响应头里含有这个信息，客户端可以在后续的请求中带上 If-Modified-Since 来验证缓存。</li>
+</ul>
+<p>当向服务端发起缓存校验的请求时，服务端会返回 200 ok 表示返回正常的结果或者 304 Not Modified(不返回 body)表示浏览器可以使用本地缓存文件。304 的响应头也可以同时更新缓存文档的过期时间。</p>
+<h3 id="浏览器刷新"><a href="#浏览器刷新" class="headerlink" title="浏览器刷新"></a>浏览器刷新</h3><ul>
+<li>地址栏输入地址回车：走正常的缓存流程</li>
+<li>刷新页面：让强缓存过期，走协商缓存逻辑</li>
+<li>强制刷新页面： 让强缓存和协商缓存都过期，不走缓存逻辑</li>
+</ul>
+<h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a><code>CDN</code></h3><p>内容分发网络，分为推和拉模式。</p>
+<ul>
+<li>推模式：有更新时会强制推送到网络的各个节点</li>
+<li>拉模式：有请求时会判断当前节点是否有数据且数据是否过期，然后再向源站请求资源</li>
+</ul>
+<h4 id="时间计算"><a href="#时间计算" class="headerlink" title="时间计算"></a>时间计算</h4><p>拉模式下，所有节点的缓存都设置 5 分钟，浏览器可能拉到前 10 分钟到当前时间的资源（假设当前节点到源节点之间没有中间节点），原因如下</p>
+<ul>
+<li>浏览器到当前节点数据缓存 5 分钟</li>
+<li>当前节点到源数据可能缓存 5 分钟</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/08/31/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98/" data-id="cm1ghkbnk0057zodz03xe95t0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-babel编译过程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/30/babel%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/" class="article-date">
+  <time datetime="2020-08-30T15:23:25.000Z" itemprop="datePublished">2020-08-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/30/babel%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/">babel编译过程</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    476 字，约需阅读
+    1.73
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="编译步骤"><a href="#编译步骤" class="headerlink" title="编译步骤"></a>编译步骤</h3><p>Babel 编译文件的主要处理步骤依次是：解析（parse）、转换（transform）、生成（generate）。</p>
+<ul>
+<li>解析：解析步骤主要是接受源代码并输出抽象语法树（AST）。此步骤主要由@babel&#x2F;parser（原 Babylon）负责解析和理解 js 代码，输出对应的 AST。</li>
+<li>转换：转换步骤主要是接受 AST，并对其进行遍历，在此过程中会进行分析和修改 AST，这也是 Babel 插件主要工作的地方。此步骤主要用到@babel&#x2F;traverse 和@babel&#x2F;types 两个包。</li>
+<li>生成：生成步骤主要是将（经过一系列转换之后的）AST 再转换为正常的字符串代码。此步骤主要由@babel&#x2F;generator 深度优先遍历整个 AST，然后构建可以表示转换后代码的字符串。</li>
+</ul>
+<h5 id="注：AST-其实是一个每个节点包含特定属性的对象树"><a href="#注：AST-其实是一个每个节点包含特定属性的对象树" class="headerlink" title="注：AST 其实是一个每个节点包含特定属性的对象树"></a>注：AST 其实是一个每个节点包含特定属性的对象树</h5><h3 id="实现-babel-的编译过程"><a href="#实现-babel-的编译过程" class="headerlink" title="实现 babel 的编译过程"></a>实现 babel 的编译过程</h3><ul>
+<li>使用 <code>@babel/parser</code> 把代码格式化为 <code>AST</code> 树</li>
+<li>使用 <code>@babel/traverse</code> 和 <code>@babel/types</code> 实现 <code>AST</code> 树的遍历及对树的特定节点的操作</li>
+<li>使用 <code>@babel/generator</code> 生成目标代码</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> parser = <span class="built_in">require</span>(<span class="string">&#x27;@babel/parser&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> traverse = <span class="built_in">require</span>(<span class="string">&#x27;@babel/traverse&#x27;</span>).<span class="property">default</span></span><br><span class="line"><span class="keyword">const</span> type = <span class="built_in">require</span>(<span class="string">&#x27;@babel/types&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> generate = <span class="built_in">require</span>(<span class="string">&#x27;@babel/generator&#x27;</span>).<span class="property">default</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> code = <span class="string">`</span></span><br><span class="line"><span class="string">function test(n)&#123;</span></span><br><span class="line"><span class="string">    return n + 1</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"><span class="keyword">const</span> ast = parser.<span class="title function_">parse</span>(code, &#123; <span class="attr">sourceType</span>: <span class="string">&#x27;module&#x27;</span> &#125;) <span class="comment">// 把代码格式化为 AST 树</span></span><br><span class="line"></span><br><span class="line"><span class="title function_">traverse</span>(ast, &#123;</span><br><span class="line">  <span class="comment">// 遍历 AST 树并进行操作</span></span><br><span class="line">  <span class="title function_">enter</span>(<span class="params">path</span>) &#123;</span><br><span class="line">    <span class="comment">// 从根节点到叶子节点遍历过程中</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;enter&#x27;</span>, path.<span class="property">node</span>.<span class="property">name</span>)</span><br><span class="line">    <span class="keyword">if</span> (type.<span class="title function_">isIdentifier</span>(path.<span class="property">node</span>, &#123; <span class="attr">name</span>: <span class="string">&#x27;n&#x27;</span> &#125;)) &#123;</span><br><span class="line">      <span class="comment">// 把参数 n 转化成 x</span></span><br><span class="line">      path.<span class="title function_">replaceWith</span>(type.<span class="title function_">identifier</span>(<span class="string">&#x27;x&#x27;</span>))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">exit</span>(<span class="params">path</span>) &#123;</span><br><span class="line">    <span class="comment">// 从叶子节点到根节点遍历过程中</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;exit&#x27;</span>, path.<span class="property">node</span>.<span class="property">name</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> target = <span class="title function_">generate</span>(ast) <span class="comment">// 生成代码</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(target.<span class="property">code</span>)</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">function test(x) &#123;</span></span><br><span class="line"><span class="comment">  return x + 1;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://github.com/jamiebuilds/babel-handbook/blob/master/translations/zh-Hans/plugin-handbook.md#toc-writing-your-first-babel-plugin">Babel 插件手册</a></li>
+<li><a href="https://github.com/Liaoct/blog/issues/14">Babel 7 插件开发指南</a></li>
+<li><a href="https://github.com/JackXuyi/web-exercise/blob/master/babel/test.js">示例代码</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/08/30/babel%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/" data-id="cm1ghkbmk000hzodz058r3fc7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ES6模块与CommonJS模块" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/27/ES6%E6%A8%A1%E5%9D%97%E4%B8%8ECommonJS%E6%A8%A1%E5%9D%97/" class="article-date">
+  <time datetime="2020-08-26T21:09:40.000Z" itemprop="datePublished">2020-08-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/27/ES6%E6%A8%A1%E5%9D%97%E4%B8%8ECommonJS%E6%A8%A1%E5%9D%97/">ES6模块与CommonJS模块</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    562 字，约需阅读
+    2.04
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="ES6-模块与-CommonJS-模块的区别"><a href="#ES6-模块与-CommonJS-模块的区别" class="headerlink" title="ES6 模块与 CommonJS 模块的区别"></a>ES6 模块与 CommonJS 模块的区别</h3><ul>
+<li>CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。</li>
+<li>CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。（因为 CommonJS 加载的是一个对象（即 module.exports 属性），该对象只有在脚本运行完才会生成。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。）</li>
+<li>CommonJS 模块的 require()是同步加载模块，ES6 模块的 import 命令是异步加载，有一个独立模块依赖的解析阶段。</li>
+</ul>
+<h4 id="ES6-模块输出的是值的引用"><a href="#ES6-模块输出的是值的引用" class="headerlink" title="ES6 模块输出的是值的引用"></a>ES6 模块输出的是值的引用</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// lib.mjs</span></span><br><span class="line"><span class="keyword">let</span> count = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  count = count + <span class="number">1</span></span><br><span class="line">&#125;, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123; count &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.mjs</span></span><br><span class="line"><span class="keyword">import</span> &#123; count &#125; <span class="keyword">from</span> <span class="string">&#x27;./lib.mjs&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;count&#x27;</span>, count) <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;timeout count&#x27;</span>, count) <span class="comment">// 2</span></span><br><span class="line">&#125;, <span class="number">1100</span>)</span><br><span class="line"></span><br><span class="line">count = <span class="number">1000</span> <span class="comment">// TypeError: Assignment to constant variable.</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="CommonJS-模块输出的是一个值的拷贝"><a href="#CommonJS-模块输出的是一个值的拷贝" class="headerlink" title="CommonJS 模块输出的是一个值的拷贝"></a>CommonJS 模块输出的是一个值的拷贝</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// lib.cjs</span></span><br><span class="line"><span class="keyword">let</span> count = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  count = count + <span class="number">1</span></span><br><span class="line">&#125;, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123; count &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.cjs</span></span><br><span class="line"><span class="keyword">let</span> &#123; count &#125; = <span class="built_in">require</span>(<span class="string">&#x27;./lib.cjs&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;count&#x27;</span>, count) <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;timeout count&#x27;</span>, count) <span class="comment">// 1000</span></span><br><span class="line">&#125;, <span class="number">1100</span>)</span><br><span class="line"></span><br><span class="line">count = <span class="number">1000</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="注"><a href="#注" class="headerlink" title="注"></a>注</h5><ul>
+<li>从 Node.js v13.2 版本开始，Node.js 已经默认打开了 ES6 模块支持</li>
+<li>Node.js 要求 ES6 模块采用.mjs 后缀文件名</li>
+<li>commonjs 模块采用.cjs 后缀文件名</li>
+</ul>
+<h3 id="循环引用"><a href="#循环引用" class="headerlink" title="循环引用"></a>循环引用</h3><p>“循环加载”（circular dependency）指的是，a 脚本的执行依赖 b 脚本，而 b 脚本的执行又依赖 a 脚本。</p>
+<h4 id="CommonJS-模块的循环加载"><a href="#CommonJS-模块的循环加载" class="headerlink" title="CommonJS 模块的循环加载"></a>CommonJS 模块的循环加载</h4><p>CommonJS 模块的脚本代码在 require 的时候，就会全部执行，一旦出现某个模块被”循环加载”，就只输出已经执行的部分，还未执行的部分不会输出。</p>
+<h4 id="ES6-模块的循环加载"><a href="#ES6-模块的循环加载" class="headerlink" title="ES6 模块的循环加载"></a>ES6 模块的循环加载</h4><p>ES6 模块遇到模块加载命令 import 时，不会去执行模块，而是只生成一个引用。等到真的需要用到时，再到模块里面去取值，不存在缓存值的问题，而且模块里面的变量，绑定其所在的模块。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://es6.ruanyifeng.com/#docs/module-loader#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8A%A0%E8%BD%BD">ES6 模块与 CommonJS 模块的差异</a></li>
+<li><a href="https://juejin.cn/post/6844903747290660878">CommonJS 和 ES6 模块循环加载处理的区别</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2015/11/circular-dependency.html">JavaScript 模块的循环加载</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/322529692">JavaScript 模块加载与循环引用</a></li>
+<li><a href="https://github.com/JackXuyi/web-exercise/tree/master/verification">测试代码链接</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/08/27/ES6%E6%A8%A1%E5%9D%97%E4%B8%8ECommonJS%E6%A8%A1%E5%9D%97/" data-id="cm1ghkbmd0003zodz3tbt3axj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-除自身以外数组的乘积" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/17/%E9%99%A4%E8%87%AA%E8%BA%AB%E4%BB%A5%E5%A4%96%E6%95%B0%E7%BB%84%E7%9A%84%E4%B9%98%E7%A7%AF/" class="article-date">
+  <time datetime="2020-08-16T22:02:53.000Z" itemprop="datePublished">2020-08-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/17/%E9%99%A4%E8%87%AA%E8%BA%AB%E4%BB%A5%E5%A4%96%E6%95%B0%E7%BB%84%E7%9A%84%E4%B9%98%E7%A7%AF/">除自身以外数组的乘积</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    164 字，约需阅读
+    0.6
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://leetcode-cn.com/problems/product-of-array-except-self/">leetcode 算法题</a></p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
+<li>不要用除法：只能使用乘法</li>
+<li>复杂度为 n ：只能遍历一次或者有限次</li>
+<li>结果：分为左右两部分，可以通过左边的积与右边的积相乘的方式得到结果</li>
+</ul>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">number[]</span>&#125; <span class="variable">nums</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">number[]</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> productExceptSelf = <span class="keyword">function</span> (<span class="params">nums</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> len = nums.<span class="property">length</span></span><br><span class="line">  <span class="keyword">const</span> result = <span class="keyword">new</span> <span class="title class_">Array</span>(len).<span class="title function_">fill</span>(<span class="number">1</span>) <span class="comment">// 初始化结果数组</span></span><br><span class="line">  <span class="keyword">let</span> left = <span class="number">1</span></span><br><span class="line">  <span class="keyword">let</span> right = <span class="number">1</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    result[i] *= left <span class="comment">// 除当前元素的左积</span></span><br><span class="line">    left *= nums[i] <span class="comment">// 当前元素的左积</span></span><br><span class="line"></span><br><span class="line">    result[len - <span class="number">1</span> - i] *= right <span class="comment">// 除当前元素的右积</span></span><br><span class="line">    right *= nums[len - i - <span class="number">1</span>] <span class="comment">// 当前元素的右积</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/08/17/%E9%99%A4%E8%87%AA%E8%BA%AB%E4%BB%A5%E5%A4%96%E6%95%B0%E7%BB%84%E7%9A%84%E4%B9%98%E7%A7%AF/" data-id="cm1ghkbnt007mzodz0pu58rsm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solution/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-检测项目中的包版本变化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/05/%E6%A3%80%E6%B5%8B%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E5%8C%85%E7%89%88%E6%9C%AC%E5%8F%98%E5%8C%96/" class="article-date">
+  <time datetime="2020-08-04T21:07:56.000Z" itemprop="datePublished">2020-08-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/05/%E6%A3%80%E6%B5%8B%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E5%8C%85%E7%89%88%E6%9C%AC%E5%8F%98%E5%8C%96/">检测项目中的包版本变化</a>
+    </h1>
+  
+
+
+        <div style="color: #999; margin-top: 0.3rem" class="post-meta-item"> 共计
+    959 字，约需阅读
+    3.49
+    分钟
+</div>
+      </header>
+    
+    
+   
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>由于项目中的某个依赖版本意外的升级导致项目中的部分功能不可使用</p>
+<h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>每次 <code>package.json</code> 有更新时检测依赖版本是否有更新，小版本更新提示，大版本更新直接警告，避免依赖包的意外升级</p>
+<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul>
+<li>git 检测指定文件的内容变更</li>
+<li>正则等方式分割变更内容，提取出对应的信息</li>
+<li>在 node 脚本中运行上述命令</li>
+<li>在 commit 之前检测变更并提示</li>
+</ul>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><h4 id="提取内容变更"><a href="#提取内容变更" class="headerlink" title="提取内容变更"></a>提取内容变更</h4><ul>
+<li><code>git diff</code> 查看尚未暂存的文件更新了哪些部分</li>
+<li><code>git diff filename</code> 查看尚未暂存的某个文件更新了哪些</li>
+<li><code>git diff –cached</code> 查看已经暂存起来的文件和上次提交的版本之间的差异</li>
+<li><code>git diff –cached filename</code> 查看已经暂存起来的某个文件和上次提交的版本之间的差异</li>
+<li><code>git diff commitHash commitHash</code> 查看某两个版本之间的差异</li>
+<li><code>git diff commitHash:filename commitHash:filename</code> 查看某两个版本的某个文件之间的差异</li>
+</ul>
+<h4 id="node-脚本中运行命令"><a href="#node-脚本中运行命令" class="headerlink" title="node 脚本中运行命令"></a>node 脚本中运行命令</h4><ul>
+<li><a href="http://nodejs.cn/api/child_process.html#child_process_child_process_exec_command_options_callback">child_process.exec</a>异步执行命令</li>
+<li><a href="http://nodejs.cn/api/child_process.html#child_process_child_process_execsync_command_options">child_process.execSync</a>同步执行命令</li>
+</ul>
+<h4 id="输出内容"><a href="#输出内容" class="headerlink" title="输出内容"></a>输出内容</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">+  <span class="string">&quot;packageA&quot;</span>: <span class="string">&quot;~x.y.z&quot;</span>,</span><br><span class="line">-  <span class="string">&quot;packageB&quot;</span>: <span class="string">&quot;^x.y.z&quot;</span>,</span><br></pre></td></tr></table></figure>
+
+<p>观察得出变化内容以 <code>+</code> 或 <code>-</code> 开头，依赖包的格式固定，每行变更内容以换行符分割，所以先用换行符分割内容，再检查 <code>+</code> 和 <code>-</code> 筛选出变化内容，最后用正则等方法分离出依赖包的名称和版本，最后通过前后版本的比较获取变化的包及包版本</p>
+<h4 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /usr/bin/env node</span></span><br><span class="line"><span class="keyword">const</span> childProcess = <span class="built_in">require</span>(<span class="string">&#x27;child_process&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; logger, warn, info &#125; = <span class="built_in">require</span>(<span class="string">&#x27;./logger&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">resolveRootPath</span>(<span class="params">...args</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> path.<span class="title function_">resolve</span>(process.<span class="title function_">cwd</span>(), ...args)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取变化</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getDiff</span>(<span class="params">isCached = <span class="literal">false</span></span>) &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> result = childProcess.<span class="title function_">execSync</span>(</span><br><span class="line">      <span class="string">`git diff <span class="subst">$&#123;isCached ? <span class="string">&#x27;--cached&#x27;</span> : <span class="string">&#x27;&#x27;</span>&#125;</span> <span class="subst">$&#123;resolveRootPath(</span></span></span><br><span class="line"><span class="subst"><span class="string">        <span class="string">&#x27;./package.json&#x27;</span></span></span></span><br><span class="line"><span class="subst"><span class="string">      )&#125;</span>`</span>,</span><br><span class="line">      &#123; <span class="attr">encoding</span>: <span class="string">&#x27;utf8&#x27;</span> &#125;</span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 序列化版本为对象</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">serializeDiff</span>(<span class="params">diffStr</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="variable constant_">VERSION_REG</span> = <span class="regexp">/\&quot;\S+\&quot;\s*:\s*\&quot;(~|\-|\^)?(\d+)\.(\d+)\.(\d+)/</span></span><br><span class="line">  <span class="keyword">const</span> arr = <span class="string">`<span class="subst">$&#123;diffStr || <span class="string">&#x27;&#x27;</span>&#125;</span>`</span></span><br><span class="line">    .<span class="title function_">split</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    .<span class="title function_">filter</span>(<span class="function">(<span class="params">str</span>) =&gt;</span> <span class="regexp">/^(\-|\+)\s+/</span>.<span class="title function_">test</span>(str))</span><br><span class="line">    .<span class="title function_">filter</span>(<span class="function">(<span class="params">str</span>) =&gt;</span> <span class="variable constant_">VERSION_REG</span>.<span class="title function_">test</span>(str))</span><br><span class="line">  <span class="keyword">const</span> beforeArr = arr</span><br><span class="line">    .<span class="title function_">filter</span>(<span class="function">(<span class="params">str</span>) =&gt;</span> <span class="regexp">/^\-\s+/</span>.<span class="title function_">test</span>(str))</span><br><span class="line">    .<span class="title function_">map</span>(<span class="function">(<span class="params">str</span>) =&gt;</span> str.<span class="title function_">replace</span>(<span class="regexp">/^\-\s+/</span>, <span class="string">&#x27;&#x27;</span>))</span><br><span class="line">    .<span class="title function_">map</span>(<span class="function">(<span class="params">str</span>) =&gt;</span> str.<span class="title function_">replace</span>(<span class="regexp">/\,$/</span>, <span class="string">&#x27;&#x27;</span>))</span><br><span class="line">  <span class="keyword">const</span> afterArr = arr</span><br><span class="line">    .<span class="title function_">filter</span>(<span class="function">(<span class="params">str</span>) =&gt;</span> <span class="regexp">/^\+\s+/</span>.<span class="title function_">test</span>(str))</span><br><span class="line">    .<span class="title function_">map</span>(<span class="function">(<span class="params">str</span>) =&gt;</span> str.<span class="title function_">replace</span>(<span class="regexp">/^\+\s+/</span>, <span class="string">&#x27;&#x27;</span>))</span><br><span class="line">    .<span class="title function_">map</span>(<span class="function">(<span class="params">str</span>) =&gt;</span> str.<span class="title function_">replace</span>(<span class="regexp">/\,$/</span>, <span class="string">&#x27;&#x27;</span>))</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> beforeObj = beforeArr.<span class="title function_">reduce</span>(<span class="function">(<span class="params">prev, curr</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> [key, value] = curr.<span class="title function_">replace</span>(<span class="regexp">/&quot;/g</span>, <span class="string">&#x27;&#x27;</span>).<span class="title function_">split</span>(<span class="regexp">/\s*:\s*/</span>)</span><br><span class="line">    prev[key] = value</span><br><span class="line">    <span class="keyword">return</span> prev</span><br><span class="line">  &#125;, &#123;&#125;)</span><br><span class="line">  <span class="keyword">const</span> afterObj = afterArr.<span class="title function_">reduce</span>(<span class="function">(<span class="params">prev, curr</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> [key, value] = curr.<span class="title function_">replace</span>(<span class="regexp">/&quot;/g</span>, <span class="string">&#x27;&#x27;</span>).<span class="title function_">split</span>(<span class="regexp">/\s*:\s*/</span>)</span><br><span class="line">    prev[key] = value</span><br><span class="line">    <span class="keyword">return</span> prev</span><br><span class="line">  &#125;, &#123;&#125;)</span><br><span class="line">  <span class="keyword">return</span> [beforeObj, afterObj]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getChange</span>(<span class="params">before, after</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> beforeKeys = <span class="title class_">Object</span>.<span class="title function_">keys</span>(before)</span><br><span class="line">  <span class="keyword">const</span> afterKeys = <span class="title class_">Object</span>.<span class="title function_">keys</span>(after)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> deletePackage = beforeKeys</span><br><span class="line">    .<span class="title function_">filter</span>(<span class="function">(<span class="params">key</span>) =&gt;</span> !after[key])</span><br><span class="line">    .<span class="title function_">map</span>(<span class="function">(<span class="params">key</span>) =&gt;</span> <span class="string">`<span class="subst">$&#123;key&#125;</span>: <span class="subst">$&#123;after[key]&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">const</span> addPackage = afterKeys</span><br><span class="line">    .<span class="title function_">filter</span>(<span class="function">(<span class="params">key</span>) =&gt;</span> !before[key])</span><br><span class="line">    .<span class="title function_">map</span>(<span class="function">(<span class="params">key</span>) =&gt;</span> <span class="string">`<span class="subst">$&#123;key&#125;</span>: <span class="subst">$&#123;after[key]&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">const</span> updatePackage = beforeKeys</span><br><span class="line">    .<span class="title function_">filter</span>(<span class="function">(<span class="params">key</span>) =&gt;</span> after[key])</span><br><span class="line">    .<span class="title function_">map</span>(<span class="function">(<span class="params">key</span>) =&gt;</span> <span class="string">`<span class="subst">$&#123;key&#125;</span>: <span class="subst">$&#123;before[key]&#125;</span> ===&gt; <span class="subst">$&#123;after[key]&#125;</span>`</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> waringUpdatePackage = beforeKeys</span><br><span class="line">    .<span class="title function_">filter</span>(<span class="function">(<span class="params">key</span>) =&gt;</span> after[key])</span><br><span class="line">    .<span class="title function_">filter</span>(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> beforeVision = <span class="title class_">Number</span>(<span class="regexp">/(~|\-|\^)?(\d+)\./</span>.<span class="title function_">exec</span>(before[key])[<span class="number">2</span>])</span><br><span class="line">      <span class="keyword">const</span> afterVision = <span class="title class_">Number</span>(<span class="regexp">/(~|\-|\^)?(\d+)\./</span>.<span class="title function_">exec</span>(after[key])[<span class="number">2</span>])</span><br><span class="line">      <span class="keyword">return</span> beforeVision !== afterVision</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">map</span>(<span class="function">(<span class="params">key</span>) =&gt;</span> <span class="string">`<span class="subst">$&#123;key&#125;</span>: <span class="subst">$&#123;before[key]&#125;</span> ===&gt; <span class="subst">$&#123;after[key]&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">const</span> outList = [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">label</span>: <span class="string">`此次删除的依赖包有: \n <span class="subst">$&#123;deletePackage.join(<span class="string">&#x27;\n&#x27;</span>)&#125;</span>`</span>,</span><br><span class="line">      <span class="attr">show</span>: !!deletePackage.<span class="property">length</span>,</span><br><span class="line">      <span class="attr">log</span>: warn,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">label</span>: <span class="string">`此次新增的依赖包有: \n <span class="subst">$&#123;addPackage.join(<span class="string">&#x27;\n&#x27;</span>)&#125;</span>`</span>,</span><br><span class="line">      <span class="attr">show</span>: !!addPackage.<span class="property">length</span>,</span><br><span class="line">      <span class="attr">log</span>: info,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">label</span>: <span class="string">`此次更新的依赖包有: \n <span class="subst">$&#123;updatePackage.join(<span class="string">&#x27;\n&#x27;</span>)&#125;</span>`</span>,</span><br><span class="line">      <span class="attr">show</span>: !!updatePackage.<span class="property">length</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">label</span>: <span class="string">`此次大版本更新的依赖包有: \n <span class="subst">$&#123;waringUpdatePackage.join(<span class="string">&#x27;\n&#x27;</span>)&#125;</span>`</span>,</span><br><span class="line">      <span class="attr">show</span>: !!waringUpdatePackage.<span class="property">length</span>,</span><br><span class="line">      <span class="attr">log</span>: warn,</span><br><span class="line">    &#125;,</span><br><span class="line">  ].<span class="title function_">filter</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> item.<span class="property">show</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (outList.<span class="property">length</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    outList.<span class="title function_">forEach</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; log = logger, label &#125; = item</span><br><span class="line">      <span class="title function_">log</span>(label)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> diffStr = <span class="title function_">getDiff</span>(<span class="literal">true</span>)</span><br><span class="line"><span class="keyword">const</span> [before, after] = <span class="title function_">serializeDiff</span>(diffStr)</span><br><span class="line"><span class="title function_">getChange</span>(before, after)</span><br></pre></td></tr></table></figure>
+
+<h4 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h4><ul>
+<li>放入 <code>package.json</code> 中每次提交确认变化</li>
+<li>配置提示方式和确认方法等</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/08/05/%E6%A3%80%E6%B5%8B%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E5%8C%85%E7%89%88%E6%9C%AC%E5%8F%98%E5%8C%96/" data-id="cm1ghkbni004zzodz5ken3xie" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/" rel="tag">node</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/6/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/8/">下一页 &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-language/" rel="tag">C&#x2F;C++语言</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">63</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeORM/" rel="tag">TypeORM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/antd/" rel="tag">antd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/" rel="tag">express</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/form/" rel="tag">form</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/" rel="tag">node</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/" rel="tag">other</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%92%E4%BB%B6/" rel="tag">插件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solution/" rel="tag">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">计算机网络</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/read-book/" rel="tag">读书</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source/" rel="tag">资源</a><span class="tag-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/c-language/" style="font-size: 12.5px;">C/C++语言</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/TypeORM/" style="font-size: 10px;">TypeORM</a> <a href="/tags/TypeScript/" style="font-size: 11.25px;">TypeScript</a> <a href="/tags/antd/" style="font-size: 10px;">antd</a> <a href="/tags/express/" style="font-size: 11.25px;">express</a> <a href="/tags/form/" style="font-size: 10px;">form</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mysql/" style="font-size: 12.5px;">mysql</a> <a href="/tags/node/" style="font-size: 18.75px;">node</a> <a href="/tags/other/" style="font-size: 16.25px;">other</a> <a href="/tags/react/" style="font-size: 17.5px;">react</a> <a href="/tags/webpack/" style="font-size: 12.5px;">webpack</a> <a href="/tags/%E6%8F%92%E4%BB%B6/" style="font-size: 10px;">插件</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/solution/" style="font-size: 13.75px;">算法</a> <a href="/tags/network/" style="font-size: 15px;">计算机网络</a> <a href="/tags/read-book/" style="font-size: 10px;">读书</a> <a href="/tags/source/" style="font-size: 12.5px;">资源</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/11/24/%E8%AE%B0%E4%B8%80%E6%AC%A1safari%E7%99%BD%E5%B1%8F%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/">记一次safari白屏问题排查</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/25/%E6%AD%A3%E5%88%99/">正则</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/25/AI/">AI</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/24/zustand/">zustand</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/22/typescript%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%9E%E7%8E%B0/">typescript自定义实现</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 奔跑的蜗牛<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">分类</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  </div>
+</body>
+</html>
