@@ -1,7 +1,7 @@
 ---
 title: 记一次safari白屏问题排查
 date: 2024-11-24 12:21:36
-tags:
+tags: [react, JavaScript]
 ---
 
 ## 背景
